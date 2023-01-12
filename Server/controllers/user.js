@@ -1,19 +1,19 @@
 import { UserModel } from "../models/users.js";
+import { createToken } from "../utils/jwt.js";
 
 export const getAllUsers = async (req, res) => {
   const users = await UserModel.findAll();
   return res.send({ users });
 };
 
-export const getUsersById = async (req, res) => {
+export const getUserid = async (req, res) => {
   const idUser = req.params.idUser;
   const user = await UserModel.findByPk(idUser);
   if (user === null) {
-    res.send("Não existe User com Id: " + idUser);
+    res.send("Não existe User com id: " + idUser);
   }
-  res.send({ user });
+  res.send(user);
 };
-
 export const newUser = async (req, res) => {
   const newUser = {
     username: req.body.username,
@@ -39,7 +39,7 @@ export const updateUser = async (req, res) => {
   const user = await UserModel.findByPk(idUser);
   if (user !== null) {
     user.update(userUpdated);
-    return res.redirect(); //----------POR REDIRECT----------
+    return res.send(userUpdated); //----------POR REDIRECT----------
   } else {
     return res.send("Não existe User com id: " + idUser);
   }

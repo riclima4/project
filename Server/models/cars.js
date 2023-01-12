@@ -30,5 +30,5 @@ const CarsModel = dbInstance.define("cars", {
     allowNull: false,
   },
 });
-CarsModel.belongsTo(UserModel, { foreignKey: "idUser" });
+UserModel.hasMany(CarsModel, { foreignKey: "idUser" });
 export { CarsModel };
