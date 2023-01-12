@@ -9,31 +9,33 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding modalContent">
-  <form>
+  <form (ngSubmit)="newCar(1)">
     <ion-list lines="full">
       <ion-item>
         <ion-label position="floating">Nome</ion-label>
-        <ion-input placeholder="Enter text"></ion-input>
+        <ion-input
+          [(ngModel)]="nomeInput"
+          name="nome"
+          placeholder="Enter text"
+        ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Descrição</ion-label>
-        <ion-input placeholder="Enter text"></ion-input>
+        <ion-label position="floating">Marca/modelo</ion-label>
+        <ion-input
+          [(ngModel)]="marcaInput"
+          name="marca"
+          placeholder="Enter text"
+        >
+        </ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Carro</ion-label>
-        <ion-select interface="popover">
-          <ion-select-option value="apples">Carro1</ion-select-option>
-          <ion-select-option value="oranges">Carro2</ion-select-option>
-          <ion-select-option value="bananas">Carro3</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-item class="ion-margin-bottom">
-        <ion-label position="floating">Tipo de Intervenção</ion-label>
-        <ion-select interface="popover">
-          <ion-select-option value="apples">intervenção1</ion-select-option>
-          <ion-select-option value="oranges">intervenção2</ion-select-option>
-          <ion-select-option value="bananas">intervenção3</ion-select-option>
-        </ion-select>
+        <ion-label position="floating">Kilometragem</ion-label>
+        <ion-input
+          [(ngModel)]="kilometragemInput"
+          name="kilometragem"
+          placeholder="Enter text"
+        >
+        </ion-input>
       </ion-item>
 
       <ion-button type="submit" expand="block" color="success">

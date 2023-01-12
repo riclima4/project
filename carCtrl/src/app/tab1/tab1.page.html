@@ -19,10 +19,10 @@
   <!-- Inervenções -->
 
   <ion-list>
-    <ion-item-sliding>
+    <ion-item-sliding *ngFor="let item of intervencoes">
       <ion-item lines="full">
         <ion-label>
-          <h1>Nome Intervenção</h1>
+          <h1>{{item.nome}}</h1>
           <p>descrição da intervenção</p>
         </ion-label>
 
@@ -38,44 +38,7 @@
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-    <ion-item-sliding>
-      <ion-item lines="full">
-        <ion-label>
-          <h1>Nome Intervenção</h1>
-          <p>descrição da intervenção</p>
-        </ion-label>
 
-        <ion-icon name="caret-back-outline" slot="end"></ion-icon>
-      </ion-item>
-
-      <ion-item-options>
-        <ion-item-option>
-          <ion-icon slot="icon-only" name="create"></ion-icon>
-        </ion-item-option>
-        <ion-item-option color="danger">
-          <ion-icon slot="icon-only" name="trash"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
-    <ion-item-sliding>
-      <ion-item lines="full">
-        <ion-label>
-          <h1>Nome Intervenção</h1>
-          <p>descrição da intervenção</p>
-        </ion-label>
-
-        <ion-icon name="caret-back-outline" slot="end"></ion-icon>
-      </ion-item>
-
-      <ion-item-options>
-        <ion-item-option>
-          <ion-icon slot="icon-only" name="create"></ion-icon>
-        </ion-item-option>
-        <ion-item-option color="danger">
-          <ion-icon slot="icon-only" name="trash"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-    </ion-item-sliding>
     <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
       <ion-infinite-scroll-content></ion-infinite-scroll-content>
     </ion-infinite-scroll>
