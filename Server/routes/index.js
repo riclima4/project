@@ -21,8 +21,8 @@ const routes = Router();
 
 routes.get("/users", getAllUsers);
 routes.get("/user/:idUser", getUsersById);
-routes.get("/newCar", newUser);
-routes.get("/updateCar", updateUser);
+routes.post("/newUser", newUser);
+routes.post("/updateUser", updateUser);
 
 routes.get("/cars", getAllcars);
 routes.get("/car/:idUser", getCarsByUser);
