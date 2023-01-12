@@ -5,9 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { Tab2Page } from './tab2.page';
 
 import { Tab2PageRoutingModule } from './tab2-routing.module';
+import { CreateCarComponent } from '../modals/create-car/create-car.component';
+import { UpdateCarComponent } from '../modals/update-car/update-car.component';
 
 @NgModule({
   imports: [IonicModule, CommonModule, FormsModule, Tab2PageRoutingModule],
-  declarations: [Tab2Page],
+  declarations: [Tab2Page, CreateCarComponent, UpdateCarComponent],
+  entryComponents: [CreateCarComponent, UpdateCarComponent],
 })
 export class Tab2PageModule {}
