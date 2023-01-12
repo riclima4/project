@@ -14,6 +14,7 @@ export interface Intervencao {
     description: string,
     idCarro: number,
     data: Date,
+
     kilometragem: number
   ];
 }
