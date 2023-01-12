@@ -4,31 +4,21 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 export interface Car {
-  car: [
-    idCarro: number,
-    nome: string,
-    marca: string,
-    matricula: string,
-    kilometragem: string
-  ];
+  car: [idCarro: number, nome: string, marca: string, kilometragem: string];
 }
 
-export interface intervencao {
+export interface Intervencao {
   intervencao: [
     idIntervencao: number,
     nome: string,
-    idTipoIntervencao: number,
+    description: string,
     idCarro: number,
-    NIF: number,
-    data: Date
+    data: Date,
+    km: number
   ];
 }
 
-export interface userCars {
-  userCars: [idUserCars: number, idCarro: number, NIF: number];
-}
-
-export interface users {
+export interface Users {
   users: [
     NIF: number,
     nome: string,

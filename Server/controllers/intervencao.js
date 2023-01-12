@@ -11,6 +11,7 @@ export const getAllIntervencaoByCar = async (req, res) => {
   });
   return res.send(intervencao);
 };
+
 export const newIntervencao = async (req, res) => {
   const newIntervencao = {
     nome: req.body.nome,
