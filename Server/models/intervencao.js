@@ -1,6 +1,7 @@
 import Sequelize from "sequelize";
 import { dbInstance } from "../config/db.js";
 import { CarsModel } from "./cars.js";
+import { UserModel } from "./users.js";
 
 const IntervencaoModel = dbInstance.define("intervencao", {
   idIntervencao: {
@@ -34,6 +35,17 @@ const IntervencaoModel = dbInstance.define("intervencao", {
       notEmpty: true,
     },
   },
+  idUser: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: CarsModel,
+      key: "idUser",
+    },
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+  },
   data: {
     type: Sequelize.DATEONLY,
   },
@@ -47,5 +59,8 @@ const IntervencaoModel = dbInstance.define("intervencao", {
 });
 IntervencaoModel.belongsTo(CarsModel, {
   foreignKey: "idCarro",
+});
+IntervencaoModel.belongsTo(UserModel, {
+  foreignKey: "idUser",
 });
 export { IntervencaoModel };

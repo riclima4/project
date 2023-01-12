@@ -16,6 +16,7 @@ export const newIntervencao = async (req, res) => {
     nome: req.body.nome,
     description: req.body.description,
     idCarro: req.body.idCarro,
+    idUser: req.body.idUser,
     data: req.body.data,
     kilometragem: req.body.kilometragem,
   };
@@ -28,6 +29,7 @@ export const updateIntervencao = async (req, res) => {
     nome: req.body.nome,
     description: req.body.description,
     idCarro: req.body.idCarro,
+    idUser: req.body.idUser,
     data: req.body.data,
     kilometragem: req.body.kilometragem,
   };
