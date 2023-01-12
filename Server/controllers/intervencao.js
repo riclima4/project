@@ -16,6 +16,7 @@ export const newIntervencao = async (req, res) => {
   const newIntervencao = {
     nome: req.body.nome,
     description: req.body.description,
+    idCarro: req.body.idCarro,
     data: req.body.data,
     kilometragem: req.body.kilometragem,
   };
@@ -27,14 +28,26 @@ export const updateIntervencao = async (req, res) => {
   const intervencaoUpdated = {
     nome: req.body.nome,
     description: req.body.description,
+    idCarro: req.body.idCarro,
     data: req.body.data,
     kilometragem: req.body.kilometragem,
   };
-  const intervao = await intervencaoModel.findByPk(idIntervencao);
-  if (intervao !== null) {
-    intervao.update(intervencaoUpdated);
+  const Intervencao = await IntervencaoModel.findByPk(idIntervencao);
+  if (Intervencao !== null) {
+    Intervencao.update(intervencaoUpdated);
     return res.redirect(); //----------POR REDIRECT----------
   } else {
     return res.send("Nao existe Intervencao com id:" + idIntervencao);
+  }
+};
+
+export const deleteIntervencao = async (req, res) => {
+  const idIntervencao = req.params.idIntervencao;
+  const intervencao = await IntervencaoModel.findByPk(idIntervencao);
+  if (intervencao !== null) {
+    intervencao.destroy({ where: { idIntervencao: idIntervencao } });
+    res.send("Intervencao Removida com sucesso");
+  } else {
+    return res.send("Não existe uma Intervencao com id:" + idIntervencao);
   }
 };
