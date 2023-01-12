@@ -1,7 +1,10 @@
+import { CrudService, Car } from './../services/api/crud.service';
 import { Component } from '@angular/core';
+
 import { ModalController } from '@ionic/angular';
 import { CreateCarComponent } from '../modals/create-car/create-car.component';
 import { UpdateCarComponent } from '../modals/update-car/update-car.component';
+
 
 @Component({
   selector: 'app-tab2',
@@ -9,6 +12,7 @@ import { UpdateCarComponent } from '../modals/update-car/update-car.component';
   styleUrls: ['tab2.page.scss'],
 })
 export class Tab2Page {
+
   constructor(private modalCtrl: ModalController) {}
   async openModalCreateIntervencao() {
     const modalIntervencao = await this.modalCtrl.create({
@@ -28,4 +32,5 @@ export class Tab2Page {
 
     await modalUpdateIntervencao.present();
   }
+
 }

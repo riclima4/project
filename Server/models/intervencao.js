@@ -1,7 +1,6 @@
 import Sequelize from "sequelize";
 import { dbInstance } from "../config/db.js";
 import { CarsModel } from "./cars.js";
-import { UserModel } from "./users.js";
 
 const IntervencaoModel = dbInstance.define("intervencao", {
   idIntervencao: {
@@ -16,8 +15,8 @@ const IntervencaoModel = dbInstance.define("intervencao", {
       notEmpty: true,
     },
   },
-  idTipoIntervencao: {
-    type: Sequelize.INTEGER,
+  description: {
+    type: Sequelize.STRING,
     allowNull: false,
     validate: {
       notEmpty: true,
@@ -29,18 +28,6 @@ const IntervencaoModel = dbInstance.define("intervencao", {
     references: {
       model: CarsModel,
       key: "idCarro",
-    },
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
-  },
-  // //FK NIF
-  NIF: {
-    type: Sequelize.INTEGER(9),
-    references: {
-      model: UserModel,
-      key: "NIF",
     },
     allowNull: false,
     validate: {
@@ -60,8 +47,5 @@ const IntervencaoModel = dbInstance.define("intervencao", {
 });
 IntervencaoModel.belongsTo(CarsModel, {
   foreignKey: "idCarro",
-});
-IntervencaoModel.hasOne(UserModel, {
-  foreignKey: "NIF",
 });
 export { IntervencaoModel };
