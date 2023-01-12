@@ -4,10 +4,6 @@ import { ModalController } from '@ionic/angular';
 import { CreateCarComponent } from '../modals/create-car/create-car.component';
 import { UpdateCarComponent } from '../modals/update-car/update-car.component';
 
-import { ModalController } from '@ionic/angular';
-import { CreateCarComponent } from '../modals/create-car/create-car.component';
-import { UpdateCarComponent } from '../modals/update-car/update-car.component';
-
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
