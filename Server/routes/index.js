@@ -1,7 +1,7 @@
 import Router from "express";
 import {
   getAllUsers,
-  getUsersById,
+  getUserid,
   newUser,
   updateUser,
 } from "../controllers/user.js";
@@ -20,18 +20,18 @@ import {
 const routes = Router();
 
 routes.get("/users", getAllUsers);
-routes.get("/user/:idUser", getUsersById);
-routes.get("/newCar", newUser);
-routes.get("/updateCar", updateUser);
+routes.get("/user/:idUser", getUserid);
+routes.post("/newUser", newUser);
+routes.post("/updateUser/:idUser", updateUser);
 
 routes.get("/cars", getAllcars);
 routes.get("/car/:idUser", getCarsByUser);
-routes.get("/newCar", newCar);
-routes.get("/updateCar/:idCarro", updateCar);
+routes.post("/newCar", newCar);
+routes.post("/updateCar/:idCarro", updateCar);
 
-routes.get("/intervencao", getAllIntervencao);
+routes.get("/intervencoes", getAllIntervencao);
 routes.get("/intervencao/:idCarro", getAllIntervencaoByCar);
-routes.get("/newIntervencao", newIntervencao);
-routes.get("/UpdateIntervencao/:idIntervencao", updateIntervencao);
+routes.post("/newIntervencao", newIntervencao);
+routes.post("/updateIntervencao/:idIntervencao", updateIntervencao);
 
 export { routes };

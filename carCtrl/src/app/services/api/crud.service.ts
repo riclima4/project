@@ -14,17 +14,18 @@ export interface Intervencao {
     description: string,
     idCarro: number,
     data: Date,
-    km: number
+
+    kilometragem: number
   ];
 }
 
 export interface Users {
   users: [
-    NIF: number,
-    nome: string,
-    marca: string,
-    matricula: string,
-    kilometragem: string
+    idUser: number,
+    username: string,
+    email: string,
+    password: string,
+    type: number
   ];
 }
 
@@ -39,6 +40,24 @@ export class CrudService {
 
   getCars(controller: string): Observable<Car> {
     return this.http.get<Car>(`${this.url}/api/${controller}`);
+  }
+
+  getUsers(controller: string): Observable<Users> {
+    return this.http.get<Users>(`${this.url}/api/${controller}`);
+  }
+
+  getIntervencao(controller: string): Observable<Intervencao> {
+    return this.http.get<Intervencao>(`${this.url}/api/${controller}`);
+  }
+
+  create(controller: string, model: any) {
+    return this.http.post(`${this.url}/api/${controller}`, model);
+  }
+
+  delete(controller: string, id: number) {
+    return this.http.delete(`${this.url}/api/${controller}/${id}`, {
+      responseType: 'text',
+    });
   }
 
   // getPex(controller : string): Observable<Pex> {

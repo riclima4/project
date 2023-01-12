@@ -13,11 +13,13 @@ export const getCarsByUser = async (req, res) => {
 
 export const newCar = async (req, res) => {
   const newCar = {
+    idUser: req.body.idUser,
     nome: req.body.nome,
     marca: req.body.marca,
     kilometragem: req.body.kilometragem,
   };
   await CarsModel.create(newCar);
+  res.send({ newCar });
 };
 
 export const updateCar = async (req, res) => {
