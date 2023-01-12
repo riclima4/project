@@ -5,9 +5,17 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-item-sliding *ngFor="let item of carsArray">
+    <ion-item-options side="start">
+      <ion-item-option color="danger"
+        ><ion-icon name="trash-bin" (click)="(item.id)"></ion-icon
+      ></ion-item-option>
+    </ion-item-options>
+    <ion-item>
+      <ion-label>{{item.title}}</ion-label>
+      <ion-button (click)="(item)"
+        ><ion-icon name="search-outline"></ion-icon
+      ></ion-button>
+    </ion-item>
+  </ion-item-sliding>
 </ion-content>

@@ -5,59 +5,69 @@ export const getAllUsers = async (req, res) => {
   return res.send({ users });
 };
 
-export const getUserNIF = async (req, res) => {
-  const NIF = req.params.NIF;
-  const user = await UserModel.findByPk(NIF);
+export const getUsersById = async (req, res) => {
+  const idUser = req.params.idUser;
+  const user = await UserModel.findByPk(idUser);
   if (user === null) {
-    res.send("Não existe User com NIF: " + NIF);
+    res.send("Não existe User com Id: " + idUser);
   }
   res.send({ user });
 };
 
 export const newUser = async (req, res) => {
   const newUser = {
-    NIF: req.body.NIF,
-    idUserCat: req.body.idUserCat,
-    nome: req.body.nome,
     username: req.body.username,
-    email: req.body.email,
     password: req.body.password,
-    telemovel: req.body.telemovel,
-    cidade: req.body.cidade,
+    email: req.body.email,
   };
-  await UserModel.create(newUser);
+  const asd = await UserModel.create(newUser);
+  const { password, ...user } = asd.dataValues;
 
-  res.send({ newUser });
+  const token = createToken(user);
+
+  res.send(token);
 };
 
 export const updateUser = async (req, res) => {
-  const NIF = req.params.NIF;
+  const idUser = req.params.idUser;
   const userUpdated = {
-    NIF: req.body.NIF,
-    idUserCat: req.body.idUserCat,
-    nome: req.body.nome,
     username: req.body.username,
-    email: req.body.email,
     password: req.body.password,
-    telemovel: req.body.telemovel,
-    cidade: req.body.cidade,
+    email: req.body.email,
+    type: req.body.type,
   };
-  const user = await UserModel.findByPk(NIF);
+  const user = await UserModel.findByPk(idUser);
   if (user !== null) {
     user.update(userUpdated);
-    return res.send("User  Updated");
+    return res.redirect(); //----------POR REDIRECT----------
   } else {
-    return res.send("Não existe User com NIF: " + NIF);
+    return res.send("Não existe User com id: " + idUser);
   }
 };
 
-export const deleteUsers = async (req, res) => {
-  const NIF = req.params.NIF;
-  const user = await UserModel.findByPk(NIF);
-  if (user !== null) {
-    user.destroy({ where: { NIF: NIF } });
-    return res.send("User  Deleted");
-  } else {
-    return res.send("Não existe User com NIF: " + NIF);
-  }
+//---------ESPERAR PARA FAZER DELETE POR CAUSA DOS DELETES DE INTERVENÇOES E CARROS AO APAGAR CONTA--------------------------------------
+
+// export const deleteUsers = async (req, res) => {
+//   const NIF = req.params.NIF;
+//   const user = await UserModel.findByPk(NIF);
+//   if (user !== null) {
+//     user.destroy({ where: { NIF: NIF } });
+//     return res.send("User  Deleted");
+//   } else {
+//     return res.send("Não existe User com NIF: " + NIF);
+//   }
+// };
+
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  const userWithEmail = await UserModel.findOne({ where: { email, password } });
+
+  if (!userWithEmail)
+    return res.status(400).json({ message: "Email or password errados" });
+
+  const { password: OhYouDontNeedThis, ...user } = userWithEmail.dataValues;
+
+  const token = createToken(user);
+  res.json({ token });
 };

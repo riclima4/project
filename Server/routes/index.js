@@ -1,13 +1,24 @@
 import Router from "express";
-import { getAllUsers } from "../controllers/user.js";
-import { getAllcars } from "../controllers/car.js";
-
-import { getAllIntervencao } from "../controllers/intervencao.js";
-import { getAllUserCars } from "../controllers/userCars.js";
+import {
+  getAllUsers,
+  getUsersById,
+  newUser,
+  updateUser,
+} from "../controllers/user.js";
+import {
+  getAllcars,
+  getCarsByUser,
+  newCar,
+  updateCar,
+} from "../controllers/car.js";
+import {
+  getAllIntervencao,
+  getAllIntervencaoByCar,
+  newIntervencao,
+  updateIntervencao,
+} from "../controllers/intervencao.js";
 const routes = Router();
-routes.get("/", getAllUsers);
+routes.get("/users", getAllUsers);
 routes.get("/cars", getAllcars);
-
 routes.get("/intervencao", getAllIntervencao);
-routes.get("/getAllUserCars", getAllUserCars);
 export { routes };
