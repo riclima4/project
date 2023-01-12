@@ -1,6 +1,10 @@
 import { CrudService, Car } from './../services/api/crud.service';
 import { Component } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
+
+import { ModalController } from '@ionic/angular';
+import { CreateCarComponent } from '../modals/create-car/create-car.component';
+import { UpdateCarComponent } from '../modals/update-car/update-car.component';
+
 
 @Component({
   selector: 'app-tab2',
@@ -8,25 +12,25 @@ import { LoadingController } from '@ionic/angular';
   styleUrls: ['tab2.page.scss'],
 })
 export class Tab2Page {
-  carsArray: any = [];
 
-  constructor(
-    private loadingCtrl: LoadingController,
-    private crudService: CrudService
-  ) {}
+  constructor(private modalCtrl: ModalController) {}
+  async openModalCreateIntervencao() {
+    const modalIntervencao = await this.modalCtrl.create({
+      component: CreateCarComponent,
+    });
 
-  // async loadCars() {
-  //   const loading = await this.loadingCtrl.create({
-  //     spinner: 'dots',
-  //   });
-  //   await loading.present();
-  //   this.crudService.getCars('cars').subscribe((res) => {
-  //     loading.dismiss();
-  //     this.carsArray = res;
-  //     console.log(res);
-  //   });
-  // }
-  // ngOnInit() {
-  //   this.loadCars();
-  // }
+    await modalIntervencao.present();
+  }
+  async openModalUpdateIntervencao() {
+    // console.log(item);
+    const modalUpdateIntervencao = await this.modalCtrl.create({
+      component: UpdateCarComponent,
+      // componentProps: {
+      //   item: item,
+      // },
+    });
+
+    await modalUpdateIntervencao.present();
+  }
+
 }

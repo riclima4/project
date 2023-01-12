@@ -1,0 +1,15 @@
+.userTitle {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: 40px;
+}
+.update {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+.updateBtn {
+  width: 100px;
+}
