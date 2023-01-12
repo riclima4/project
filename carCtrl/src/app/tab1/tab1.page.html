@@ -1,7 +1,79 @@
-<ion-header mode="md">
-  <ion-toolbar>
-    <ion-title>Header Toolbar</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-toolbar>
+  <ion-title>Intervenções</ion-title>
+</ion-toolbar>
 
-<ion-content [fullscreen]="true"> asdsad</ion-content>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <!-- Título -->
+
+  <ion-text
+    class="tituloSection ion-align-items-center ion-padding"
+    color="dark"
+  >
+    <h1>Adicionar</h1>
+    <ion-button>
+      <ion-icon size="small" slot="icon-only" name="add-outline"></ion-icon>
+    </ion-button>
+  </ion-text>
+
+  <!-- Inervenções -->
+
+  <ion-list>
+    <ion-item-sliding>
+      <ion-item lines="full">
+        <ion-label>
+          <h1>Nome Intervenção</h1>
+          <p>descrição da intervenção</p>
+        </ion-label>
+
+        <ion-icon name="caret-back-outline" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item-options>
+        <ion-item-option>
+          <ion-icon slot="icon-only" name="create"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="danger">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item-sliding>
+      <ion-item lines="full">
+        <ion-label>
+          <h1>Nome Intervenção</h1>
+          <p>descrição da intervenção</p>
+        </ion-label>
+
+        <ion-icon name="caret-back-outline" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item-options>
+        <ion-item-option>
+          <ion-icon slot="icon-only" name="create"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="danger">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item-sliding>
+      <ion-item lines="full">
+        <ion-label>
+          <h1>Nome Intervenção</h1>
+          <p>descrição da intervenção</p>
+        </ion-label>
+
+        <ion-icon name="caret-back-outline" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item-options>
+        <ion-item-option>
+          <ion-icon slot="icon-only" name="create"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="danger">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>
