@@ -34,7 +34,7 @@ routes.post("/newCar", newCar);
 routes.post("/updateCar/:idCarro", updateCar);
 routes.delete("/removeCar/:idCarro", deleteCar);
 
-routes.get("/intervencoes", getAllIntervencao);
+routes.get("/intervencoes/:idUser", getAllIntervencao);
 routes.get("/intervencao/:idCarro", getAllIntervencaoByCar);
 routes.post("/newIntervencao", newIntervencao);
 routes.post("/updateIntervencao/:idIntervencao", updateIntervencao);

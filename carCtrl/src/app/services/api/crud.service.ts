@@ -4,7 +4,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 export interface Car {
-  car: [idCarro: number, nome: string, marca: string, kilometragem: string];
+  cars: [
+    idCarro: number,
+    idUser: number,
+    nome: string,
+    marca: string,
+    kilometragem: string
+  ];
 }
 
 export interface Intervencao {
@@ -13,6 +19,7 @@ export interface Intervencao {
     nome: string,
     description: string,
     idCarro: number,
+    idUser: number,
     data: Date,
     kilometragem: number
   ];
@@ -37,16 +44,16 @@ export class CrudService {
   url: string = environment.api_url;
   constructor(private http: HttpClient) {}
 
-  getCars(controller: string): Observable<Car> {
-    return this.http.get<Car>(`${this.url}/api/${controller}`);
+  getCars(controller: string, id: number): Observable<Car> {
+    return this.http.get<Car>(`${this.url}/api/${controller}/${id}`);
   }
 
   getUsers(controller: string): Observable<Users> {
     return this.http.get<Users>(`${this.url}/api/${controller}`);
   }
 
-  getIntervencao(controller: string): Observable<Intervencao> {
-    return this.http.get<Intervencao>(`${this.url}/api/${controller}`);
+  getIntervencao(controller: string, id: number): Observable<Intervencao> {
+    return this.http.get<Intervencao>(`${this.url}/api/${controller}/${id}`);
   }
 
   create(controller: string, model: any) {
