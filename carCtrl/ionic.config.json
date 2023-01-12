@@ -1,0 +1,7 @@
+{
+  "name": "carCtrl",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
