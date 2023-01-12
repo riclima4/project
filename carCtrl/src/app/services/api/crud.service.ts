@@ -4,37 +4,27 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 export interface Car {
-  car: [
-    idCarro: number,
-    nome: string,
-    marca: string,
-    matricula: string,
-    kilometragem: string
-  ];
+  car: [idCarro: number, nome: string, marca: string, kilometragem: string];
 }
 
-export interface intervencao {
+export interface Intervencao {
   intervencao: [
     idIntervencao: number,
     nome: string,
-    idTipoIntervencao: number,
+    description: string,
     idCarro: number,
-    NIF: number,
-    data: Date
+    data: Date,
+    kilometragem: number
   ];
 }
 
-export interface userCars {
-  userCars: [idUserCars: number, idCarro: number, NIF: number];
-}
-
-export interface users {
+export interface Users {
   users: [
-    NIF: number,
-    nome: string,
-    marca: string,
-    matricula: string,
-    kilometragem: string
+    idUser: number,
+    username: string,
+    email: string,
+    password: string,
+    type: number
   ];
 }
 
@@ -49,6 +39,24 @@ export class CrudService {
 
   getCars(controller: string): Observable<Car> {
     return this.http.get<Car>(`${this.url}/api/${controller}`);
+  }
+
+  getUsers(controller: string): Observable<Users> {
+    return this.http.get<Users>(`${this.url}/api/${controller}`);
+  }
+
+  getIntervencao(controller: string): Observable<Intervencao> {
+    return this.http.get<Intervencao>(`${this.url}/api/${controller}`);
+  }
+
+  create(controller: string, model: any) {
+    return this.http.post(`${this.url}/api/${controller}`, model);
+  }
+
+  delete(controller: string, id: number) {
+    return this.http.delete(`${this.url}/api/${controller}/${id}`, {
+      responseType: 'text',
+    });
   }
 
   // getPex(controller : string): Observable<Pex> {
