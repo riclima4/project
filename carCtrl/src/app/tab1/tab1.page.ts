@@ -10,11 +10,14 @@ import { CrudService } from '../services/api/crud.service';
   styleUrls: ['tab1.page.scss'],
 })
 export class Tab1Page {
-  intervencoes = [];
+  intervencoes: any;
   constructor(
     private modalCtrl: ModalController,
     private crudService: CrudService
   ) {}
+  ngOnInit() {
+    this.loadIntervencoes();
+  }
   //Intervenções
   async openModalCreateIntervencao() {
     const modalIntervencao = await this.modalCtrl.create({
@@ -33,6 +36,12 @@ export class Tab1Page {
     });
 
     await modalUpdateIntervencao.present();
+  }
+
+  async loadIntervencoes() {
+    this.crudService.getIntervencao('intervencoes', 1).subscribe((res) => {
+      this.intervencoes = res.intervencao;
+    });
   }
 
   onIonInfinite(ev: any) {

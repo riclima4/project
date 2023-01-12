@@ -1,7 +1,10 @@
 import { IntervencaoModel } from "../models/intervencao.js";
 
 export const getAllIntervencao = async (req, res) => {
-  const intervencao = await IntervencaoModel.findAll();
+  const idUser = req.params.idUser;
+  const intervencao = await IntervencaoModel.findAll({
+    where: { idUser: idUser },
+  });
   return res.send({ intervencao });
 };
 export const getAllIntervencaoByCar = async (req, res) => {
@@ -18,8 +21,11 @@ export const newIntervencao = async (req, res) => {
     description: req.body.description,
     data: req.body.data,
     kilometragem: req.body.kilometragem,
+    idUser: req.body.idUser,
+    idCarro: req.body.idCarro,
   };
   await IntervencaoModel.create(newIntervencao);
+  return res.send(newIntervencao);
 };
 
 export const updateIntervencao = async (req, res) => {
