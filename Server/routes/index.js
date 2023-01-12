@@ -3,6 +3,7 @@ import {
   deleteUser,
   getAllUsers,
   getUserid,
+  login,
   newUser,
   updateUser,
 } from "../controllers/user.js";
@@ -39,5 +40,7 @@ routes.get("/intervencao/:idCarro", getAllIntervencaoByCar);
 routes.post("/newIntervencao", newIntervencao);
 routes.post("/updateIntervencao/:idIntervencao", updateIntervencao);
 routes.delete("/removeIntervencao/:idIntervencao", deleteIntervencao);
+
+routes.post("/auth", login);
 
 export { routes };

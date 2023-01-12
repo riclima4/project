@@ -60,7 +60,9 @@ export const deleteUser = async (req, res) => {
     });
   }
   if (carro !== null) {
-    carro.destroy({ where: { idUser: idUser } });
+    carro.forEach((item) => {
+      item.destroy({ where: { idUser: idUser } });
+    });
   }
   if (user !== null) {
     user.destroy({ where: { idUser: idUser } });
@@ -69,34 +71,6 @@ export const deleteUser = async (req, res) => {
     res.send("Não existe User com id: " + idUser);
   }
 };
-
-// export const deleteUsers = async (req, res) => {
-//   const idUser = req.params.id;
-//   const user = await UserModel.findByPk(idUser);
-//   const cart = await CartModule.findAll({ where: { idUser: idUser } });
-//   const userHistory = await HistoryModule.findAll({
-//     where: { idUser: idUser },
-//   });
-//   if (cart !== null) {
-//     cart.forEach((item) => {
-//       item.destroy({ where: { idUser: idUser } });
-//     });
-//   }
-//   if (userHistory !== null) {
-//     userHistory.forEach((item) => {
-//       item.destroy({ where: { idUser: idUser } });
-//     });
-//   }
-
-//   setTimeout(() => {
-//     if (user !== null) {
-//       user.destroy({ where: { idUser: idUser } });
-//       res.send("Funfa");
-//     } else {
-//       res.send("Não existe User com id: " + idUser);
-//     }
-//   }, 2000);
-// };
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
