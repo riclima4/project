@@ -11,7 +11,7 @@ import { dbInstance } from "./config/db.js";
 const app = express();
 
 // client can be postman | react website | react localhost link | etc
-const clientURL = "http://localhost:5501";
+const clientURL = "*";
 
 // CORS options
 const corsOptions = {

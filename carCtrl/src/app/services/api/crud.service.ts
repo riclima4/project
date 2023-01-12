@@ -3,44 +3,40 @@ import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-// export interface car {
-//   car:[
-//   idCarro: number,
-//   nome: string,
-//   marca: string,
-//   matricula: string,
-//   kilometragem:string,
-//];
-// }
+export interface Car {
+  car: [
+    idCarro: number,
+    nome: string,
+    marca: string,
+    matricula: string,
+    kilometragem: string
+  ];
+}
 
-// export interface intervencao {
-//   intervencao:[
-//   idIntervencao: number,
-//   nome:string,
-//   idTipoIntervencao: number,
-//   idCarro: number,
-//   NIF: number,
-//   data:date,
-//];
-// }
+export interface intervencao {
+  intervencao: [
+    idIntervencao: number,
+    nome: string,
+    idTipoIntervencao: number,
+    idCarro: number,
+    NIF: number,
+    data: Date
+  ];
+}
 
-// export interface userCars {
-//   userCars:[
-//   idUserCars: number,
-//   idCarro: number,
-//    NIF: number,
-//];
-// }
+export interface userCars {
+  userCars: [idUserCars: number, idCarro: number, NIF: number];
+}
 
-// export interface users {
-//   users:[
-//   NIF: number,
-//   nome: string,
-//   marca: string,
-//   matricula: string,
-//   kilometragem:string,
-//];
-// }
+export interface users {
+  users: [
+    NIF: number,
+    nome: string,
+    marca: string,
+    matricula: string,
+    kilometragem: string
+  ];
+}
 
 export interface RootObject {}
 
@@ -51,9 +47,9 @@ export class CrudService {
   url: string = environment.api_url;
   constructor(private http: HttpClient) {}
 
-  // getSkills(controller : string): Observable<Skill> {
-  // return this.http.get<Skill>(`${this.url}/api/${controller}`);
-  // }
+  getCars(controller: string): Observable<Car> {
+    return this.http.get<Car>(`${this.url}/api/${controller}`);
+  }
 
   // getPex(controller : string): Observable<Pex> {
   //   return this.http.get<Pex>(`${this.url}/api/${controller}`);

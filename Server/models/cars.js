@@ -1,5 +1,6 @@
 import Sequelize from "sequelize";
 import { dbInstance } from "../config/db.js";
+import { UserModel } from "./users.js";
 
 const CarsModel = dbInstance.define("cars", {
   idCarro: {
@@ -7,33 +8,27 @@ const CarsModel = dbInstance.define("cars", {
     autoIncrement: true,
     primaryKey: true,
   },
+  idUser: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+
+    references: {
+      model: UserModel,
+      key: "idUser",
+    },
+  },
   nome: {
     type: Sequelize.STRING(100),
     allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
   },
   marca: {
     type: Sequelize.STRING(100),
     allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
-  },
-  matricula: {
-    type: Sequelize.STRING(6),
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
   },
   kilometragem: {
     type: Sequelize.INTEGER(50),
     allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
   },
 });
+CarsModel.belongsTo(UserModel, { foreignKey: "idUser" });
 export { CarsModel };
