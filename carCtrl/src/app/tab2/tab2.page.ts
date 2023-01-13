@@ -1,6 +1,6 @@
 import { CrudService, Car } from './../services/api/crud.service';
 import { Component } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { CreateCarComponent } from '../modals/create-car/create-car.component';
 import { UpdateCarComponent } from '../modals/update-car/update-car.component';
 
@@ -16,7 +16,8 @@ export class Tab2Page {
   carros: any;
   constructor(
     private modalCtrl: ModalController,
-    private crudService: CrudService
+    private crudService: CrudService,
+    private loadingCtrl: LoadingController
   ) {}
 
   async loadCarros() {
@@ -30,18 +31,44 @@ export class Tab2Page {
     const modalIntervencao = await this.modalCtrl.create({
       component: CreateCarComponent,
     });
-
+    modalIntervencao.onDidDismiss().then(() => {
+      this.loadingSpinner();
+      setTimeout(() => {
+        this.crudService.getCars('car', 1).subscribe((res) => {
+          this.carros = res.cars;
+          console.log(this.carros);
+        });
+      }, 2000);
+    });
     await modalIntervencao.present();
   }
-  async openModalUpdateIntervencao() {
+  async openModalUpdateIntervencao(item: any) {
     // console.log(item);
     const modalUpdateIntervencao = await this.modalCtrl.create({
       component: UpdateCarComponent,
-      // componentProps: {
-      //   item: item,
-      // },
+      componentProps: {
+        item: item,
+      },
     });
-
+    modalUpdateIntervencao.onDidDismiss().then(() => {
+      this.loadingSpinner();
+      setTimeout(() => {
+        this.crudService.getCars('car', 1).subscribe((res) => {
+          this.carros = res.cars;
+          console.log(this.carros);
+        });
+      }, 2000);
+    });
     await modalUpdateIntervencao.present();
+  }
+  async loadingSpinner() {
+    const loading = await this.loadingCtrl.create({
+      spinner: 'crescent',
+      mode: 'ios',
+    });
+    await loading.present();
+    setTimeout(() => {
+      loading.dismiss();
+    }, 2000);
   }
 }

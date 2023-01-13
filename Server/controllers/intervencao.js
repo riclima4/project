@@ -36,10 +36,10 @@ export const updateIntervencao = async (req, res) => {
     data: req.body.data,
     kilometragem: req.body.kilometragem,
   };
-  const intervao = await intervencaoModel.findByPk(idIntervencao);
-  if (intervao !== null) {
-    intervao.update(intervencaoUpdated);
-    return res.redirect(); //----------POR REDIRECT----------
+  const intervencao = await IntervencaoModel.findByPk(idIntervencao);
+  if (intervencao !== null) {
+    intervencao.update(intervencaoUpdated);
+    return res.send({ intervencaoUpdated }); //----------POR REDIRECT----------
   } else {
     return res.send("Nao existe Intervencao com id:" + idIntervencao);
   }

@@ -28,6 +28,7 @@ const CarsModel = dbInstance.define("cars", {
   kilometragem: {
     type: Sequelize.INTEGER(50),
     allowNull: false,
+    defaultValue: 0,
   },
 });
 UserModel.hasMany(CarsModel, { foreignKey: "idUser" });

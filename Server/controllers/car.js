@@ -25,6 +25,7 @@ export const newCar = async (req, res) => {
 export const updateCar = async (req, res) => {
   const idCarro = req.params.idCarro;
   const carUpdated = {
+    idUser: req.body.idUser,
     nome: req.body.nome,
     marca: req.body.marca,
     kilometragem: req.body.kilometragem,
@@ -32,7 +33,7 @@ export const updateCar = async (req, res) => {
   const car = await CarsModel.findByPk(idCarro);
   if (car !== null) {
     car.update(carUpdated);
-    return res.redirect(); //----------POR REDIRECT----------
+    return res.send("deu");
   } else {
     return res.send("Nao existe carro com id:" + idCarro);
   }

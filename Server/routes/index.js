@@ -27,11 +27,11 @@ routes.post("/updateUser/:idUser", updateUser);
 routes.get("/cars", getAllcars);
 routes.get("/car/:idUser", getCarsByUser);
 routes.post("/newCar", newCar);
-routes.post("/updateCar/:idCarro", updateCar);
+routes.put("/updateCar/:idCarro", updateCar);
 
 routes.get("/intervencoes/:idUser", getAllIntervencao);
 routes.get("/intervencao/:idCarro", getAllIntervencaoByCar);
 routes.post("/newIntervencao", newIntervencao);
-routes.post("/updateIntervencao/:idIntervencao", updateIntervencao);
+routes.put("/updateIntervencao/:idIntervencao", updateIntervencao);
 
 export { routes };
