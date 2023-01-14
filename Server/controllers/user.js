@@ -1,3 +1,5 @@
+import { CarsModel } from "../models/cars.js";
+import { IntervencaoModel } from "../models/intervencao.js";
 import { UserModel } from "../models/users.js";
 import { createToken } from "../utils/jwt.js";
 
@@ -45,17 +47,55 @@ export const updateUser = async (req, res) => {
   }
 };
 
-//---------ESPERAR PARA FAZER DELETE POR CAUSA DOS DELETES DE INTERVENÇOES E CARROS AO APAGAR CONTA--------------------------------------
+export const deleteUser = async (req, res) => {
+  const idUser = req.params.idUser;
+  const user = await UserModel.findByPk(idUser);
+  const carro = await CarsModel.findAll({ where: { idUser: idUser } });
+  const intervencao = await IntervencaoModel.findAll({
+    where: { idUser: idUser },
+  });
+  if (intervencao !== null) {
+    intervencao.forEach((item) => {
+      item.destroy({ where: { idUser: idUser } });
+    });
+  }
+  if (carro !== null) {
+    carro.destroy({ where: { idUser: idUser } });
+  }
+  if (user !== null) {
+    user.destroy({ where: { idUser: idUser } });
+    res.send("Utilizador eliminado com sucesso");
+  } else {
+    res.send("Não existe User com id: " + idUser);
+  }
+};
 
 // export const deleteUsers = async (req, res) => {
-//   const NIF = req.params.NIF;
-//   const user = await UserModel.findByPk(NIF);
-//   if (user !== null) {
-//     user.destroy({ where: { NIF: NIF } });
-//     return res.send("User  Deleted");
-//   } else {
-//     return res.send("Não existe User com NIF: " + NIF);
+//   const idUser = req.params.id;
+//   const user = await UserModel.findByPk(idUser);
+//   const cart = await CartModule.findAll({ where: { idUser: idUser } });
+//   const userHistory = await HistoryModule.findAll({
+//     where: { idUser: idUser },
+//   });
+//   if (cart !== null) {
+//     cart.forEach((item) => {
+//       item.destroy({ where: { idUser: idUser } });
+//     });
 //   }
+//   if (userHistory !== null) {
+//     userHistory.forEach((item) => {
+//       item.destroy({ where: { idUser: idUser } });
+//     });
+//   }
+
+//   setTimeout(() => {
+//     if (user !== null) {
+//       user.destroy({ where: { idUser: idUser } });
+//       res.send("Funfa");
+//     } else {
+//       res.send("Não existe User com id: " + idUser);
+//     }
+//   }, 2000);
 // };
 
 export const login = async (req, res) => {

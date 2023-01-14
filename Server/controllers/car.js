@@ -1,4 +1,5 @@
 import { CarsModel } from "../models/cars.js";
+import { IntervencaoModel } from "../models/intervencao.js";
 
 export const getAllcars = async (req, res) => {
   const cars = await CarsModel.findAll();
@@ -36,5 +37,24 @@ export const updateCar = async (req, res) => {
     return res.send("deu");
   } else {
     return res.send("Nao existe carro com id:" + idCarro);
+  }
+};
+
+export const deleteCar = async (req, res) => {
+  const idCarro = req.params.idCarro;
+  const carro = await CarsModel.findByPk(idCarro);
+  const intervencao = await IntervencaoModel.findAll({
+    where: { idCarro: idCarro },
+  });
+  if (intervencao !== null) {
+    intervencao.forEach((item) => {
+      item.destroy({ where: { idCarro: idCarro } });
+    });
+  }
+  if (carro !== null) {
+    carro.destroy({ where: { idCarro: idCarro } });
+    res.send("Carro Removido com sucesso");
+  } else {
+    res.send("Não existe uma Carro com id:" + idCarro);
   }
 };
