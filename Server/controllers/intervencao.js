@@ -54,7 +54,7 @@ export const deleteIntervencao = async (req, res) => {
   const intervencao = await IntervencaoModel.findByPk(idIntervencao);
   if (intervencao !== null) {
     intervencao.destroy({ where: { idIntervencao: idIntervencao } });
-    res.send("Intervencao Removida com sucesso");
+    return res.send("Intervencao Removida com sucesso");
   } else {
     return res.send("Não existe uma Intervencao com id:" + idIntervencao);
   }

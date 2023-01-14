@@ -1,6 +1,11 @@
 import { CrudService, Car } from './../services/api/crud.service';
 import { Component } from '@angular/core';
-import { LoadingController, ModalController } from '@ionic/angular';
+import {
+  ActionSheetController,
+  LoadingController,
+  ModalController,
+  ToastController,
+} from '@ionic/angular';
 import { CreateCarComponent } from '../modals/create-car/create-car.component';
 import { UpdateCarComponent } from '../modals/update-car/update-car.component';
 
@@ -10,23 +15,23 @@ import { UpdateCarComponent } from '../modals/update-car/update-car.component';
   styleUrls: ['tab2.page.scss'],
 })
 export class Tab2Page {
-  ngOnInit() {
-    this.loadCarros();
-  }
   carros: any;
   constructor(
     private modalCtrl: ModalController,
     private crudService: CrudService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private toastController: ToastController,
+    private actionSheetCtrl: ActionSheetController
   ) {}
-
+  ngOnInit() {
+    this.loadCarros();
+  }
   async loadCarros() {
     this.crudService.getCars('car', 1).subscribe((res) => {
       this.carros = res.cars;
       console.log(this.carros);
     });
   }
-
   async openModalCreateIntervencao() {
     const modalIntervencao = await this.modalCtrl.create({
       component: CreateCarComponent,
@@ -69,6 +74,54 @@ export class Tab2Page {
     await loading.present();
     setTimeout(() => {
       loading.dismiss();
+    }, 2000);
+  }
+  async deleteCarroActionSheet(id: number) {
+    const actionSheet = await this.actionSheetCtrl.create({
+      mode: 'ios',
+      header: 'O carro e as suas intervenções vão ser removidas',
+      subHeader: 'Pretende continuar?',
+      buttons: [
+        {
+          text: 'Delete',
+          role: 'destructive',
+          data: {
+            action: 'delete',
+          },
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          data: {
+            action: 'cancel',
+          },
+        },
+      ],
+    });
+
+    await actionSheet.present();
+
+    const result = await actionSheet.onDidDismiss();
+    if (result.data.action == 'delete') {
+      this.deleteIntervencao(id);
+    }
+  }
+  async presentToastDelete(position: 'top' | 'middle' | 'bottom') {
+    const toast = await this.toastController.create({
+      message: 'Carro eliminado com sucesso',
+      duration: 2000,
+      position: position,
+    });
+
+    await toast.present();
+  }
+  async deleteIntervencao(id: number) {
+    this.crudService.delete('deleteIntervencao', id).subscribe((res) => {});
+    this.loadingSpinner();
+    setTimeout(() => {
+      this.loadCarros();
+
+      this.presentToastDelete('top');
     }, 2000);
   }
 }

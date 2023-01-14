@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 
 export const createToken = (payload) => {
   return jwt.sign(payload, process.env.TOKEN_SECRET, {
-    expiresIn: 60 * 60 + "s",
+    expiresIn: 60 * 5 + "s",
   });
 };
 export const authRequired = (req, res, next) => {

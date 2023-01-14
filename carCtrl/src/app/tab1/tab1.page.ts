@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import {
+  ActionSheetController,
   InfiniteScrollCustomEvent,
   LoadingController,
   ModalController,
+  ToastController,
 } from '@ionic/angular';
 import { CreateIntervencaoComponent } from '../modals/create-intervencao/create-intervencao.component';
 import { UpdateIntervencaoComponent } from '../modals/update-intervencao/update-intervencao.component';
@@ -18,7 +20,9 @@ export class Tab1Page {
   constructor(
     private modalCtrl: ModalController,
     private crudService: CrudService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private toastController: ToastController,
+    private actionSheetCtrl: ActionSheetController
   ) {}
   ngOnInit() {
     this.loadIntervencoes();
@@ -52,13 +56,20 @@ export class Tab1Page {
     });
     await modalUpdateIntervencao.present();
   }
+  async deleteIntervencao(id: number) {
+    this.crudService.delete('deleteIntervencao', id).subscribe((res) => {});
+    this.loadingSpinner();
+    setTimeout(() => {
+      this.loadIntervencoes();
 
+      this.presentToastDelete('top');
+    }, 2000);
+  }
   async loadIntervencoes() {
     this.crudService.getIntervencao('intervencoes', 1).subscribe((res) => {
       this.intervencoes = res.intervencao;
     });
   }
-
   onIonInfinite(ev: any) {
     setTimeout(() => {
       (ev as InfiniteScrollCustomEvent).target.complete();
@@ -73,5 +84,42 @@ export class Tab1Page {
     setTimeout(() => {
       loading.dismiss();
     }, 2000);
+  }
+  async deleteIntervencaoActionSheet(id: number) {
+    const actionSheet = await this.actionSheetCtrl.create({
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Delete',
+          role: 'destructive',
+          data: {
+            action: 'delete',
+          },
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          data: {
+            action: 'cancel',
+          },
+        },
+      ],
+    });
+
+    await actionSheet.present();
+
+    const result = await actionSheet.onDidDismiss();
+    if (result.data.action == 'delete') {
+      this.deleteIntervencao(id);
+    }
+  }
+  async presentToastDelete(position: 'top' | 'middle' | 'bottom') {
+    const toast = await this.toastController.create({
+      message: 'Intervencao eliminada com sucesso',
+      duration: 2000,
+      position: position,
+    });
+
+    await toast.present();
   }
 }
