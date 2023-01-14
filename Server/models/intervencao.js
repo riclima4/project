@@ -48,6 +48,7 @@ const IntervencaoModel = dbInstance.define("intervencao", {
   },
   data: {
     type: Sequelize.DATEONLY,
+    defaultValue: Sequelize.NOW,
   },
   kilometragem: {
     type: Sequelize.INTEGER(50),

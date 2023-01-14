@@ -40,7 +40,7 @@ export class CreateCarComponent implements OnInit {
   }
   async presentToast(position: 'top' | 'middle' | 'bottom') {
     const toast = await this.toastController.create({
-      message: 'Habilitação Académica criada com sucesso',
+      message: 'Carro criado com sucesso',
       duration: 2000,
       position: position,
     });

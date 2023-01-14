@@ -31,13 +31,19 @@ routes.delete("/removeUser/:idUser", deleteUser);
 routes.get("/cars", getAllcars);
 routes.get("/car/:idUser", getCarsByUser);
 routes.post("/newCar", newCar);
-routes.post("/updateCar/:idCarro", updateCar);
+
+routes.put("/updateCar/:idCarro", updateCar);
+
 routes.delete("/removeCar/:idCarro", deleteCar);
+
 
 routes.get("/intervencoes/:idUser", getAllIntervencao);
 routes.get("/intervencao/:idCarro", getAllIntervencaoByCar);
 routes.post("/newIntervencao", newIntervencao);
-routes.post("/updateIntervencao/:idIntervencao", updateIntervencao);
+
+routes.put("/updateIntervencao/:idIntervencao", updateIntervencao);
+
 routes.delete("/removeIntervencao/:idIntervencao", deleteIntervencao);
+
 
 export { routes };

@@ -65,6 +65,11 @@ export class CrudService {
       responseType: 'text',
     });
   }
+  update(controller: string, id: number, model: any) {
+    return this.http.put(`${this.url}/api/${controller}/${id}`, model, {
+      responseType: 'text',
+    });
+  }
 
   // getPex(controller : string): Observable<Pex> {
   //   return this.http.get<Pex>(`${this.url}/api/${controller}`);
