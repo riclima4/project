@@ -1,0 +1,15 @@
+{
+  "add": "Add",
+  "name": "Name",
+  "desc": "Description",
+  "Killometers": "Killometers",
+  "Car": "Car",
+  "lang": "Language Settings",
+  "Def": "Settings",
+  "pag1": "Interventions",
+  "pag2": "Cars",
+  "pag3": "User",
+  "int title": "Add Intervention",
+  "car title": "Add Car",
+  "brand": "Brand/Model"
+}

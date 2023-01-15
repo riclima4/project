@@ -1,3 +1,4 @@
+import { TranslateModule } from '@ngx-translate/core';
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -9,7 +10,13 @@ import { CreateCarComponent } from '../modals/create-car/create-car.component';
 import { UpdateCarComponent } from '../modals/update-car/update-car.component';
 
 @NgModule({
-  imports: [IonicModule, CommonModule, FormsModule, Tab2PageRoutingModule],
+  imports: [
+    IonicModule,
+    CommonModule,
+    FormsModule,
+    Tab2PageRoutingModule,
+    TranslateModule,
+  ],
   declarations: [Tab2Page, CreateCarComponent, UpdateCarComponent],
   entryComponents: [CreateCarComponent, UpdateCarComponent],
 })

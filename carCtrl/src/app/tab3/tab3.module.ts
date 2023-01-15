@@ -1,3 +1,5 @@
+import { HelpComponent } from './../modals/help/help.component';
+import { TranslateModule } from '@ngx-translate/core';
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -7,7 +9,13 @@ import { Tab3Page } from './tab3.page';
 import { Tab3PageRoutingModule } from './tab3-routing.module';
 
 @NgModule({
-  imports: [IonicModule, CommonModule, FormsModule, Tab3PageRoutingModule],
-  declarations: [Tab3Page],
+  imports: [
+    IonicModule,
+    CommonModule,
+    FormsModule,
+    Tab3PageRoutingModule,
+    TranslateModule,
+  ],
+  declarations: [Tab3Page, HelpComponent],
 })
 export class Tab3PageModule {}

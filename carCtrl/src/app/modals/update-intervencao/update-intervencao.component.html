@@ -12,12 +12,12 @@
   <form (ngSubmit)="newUpdate()">
     <ion-list lines="full">
       <ion-item>
-        <ion-label position="floating">Nome</ion-label>
+        <ion-label position="floating">{{ "Nome" | translate }}</ion-label>
         <ion-input [(ngModel)]="nomeInput" name="nome" placeholder="Enter text">
         </ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Descrição</ion-label>
+        <ion-label position="floating">{{ "desc" | translate }}</ion-label>
         <ion-textarea
           [autoGrow]="true"
           [(ngModel)]="descInput"
@@ -27,7 +27,9 @@
         </ion-textarea>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Kilometragem</ion-label>
+        <ion-label position="floating">{{
+          "Killometers" | translate
+        }}</ion-label>
         <ion-input
           type="number"
           [(ngModel)]="kilometragemInput"
