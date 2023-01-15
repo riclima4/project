@@ -3,6 +3,9 @@
     <ion-button fill="solid" color="primary" (click)="openModalHelp()">
       <ion-icon name="help-circle"></ion-icon>
     </ion-button>
+    <ion-button (click)="logout()" fill="solid" color="primary">
+      <ion-icon name="log-out"></ion-icon>
+    </ion-button>
   </ion-buttons>
   <ion-title>
     <ion-icon size="large" name="car-sport-outline"></ion-icon>
@@ -35,24 +38,28 @@
       </ion-icon>
       <ion-label>Password</ion-label>
     </ion-item>
-    <div class="update">
+    <!-- <div class="update">
       <ion-button class="updateBtn" color="dark" size="small" fill="outline">
         UPDATE
       </ion-button>
-    </div>
-    <ion-text class="ion-padding" />
+    </div> -->
   </ion-list>
 
-  <ion-card>
-    <ion-text class="ion-text-center"
-      ><h3 class="ion-text-center">{{ 'Def' | translate}}</h3>
-      <ion-buttons class="center">
-        <h5 class="ion-padding">Dark Mode</h5>
+  <ion-text class="ion-text-center ion-padding">
+    <h3 class="ion-text-center">{{ 'Def' | translate}}</h3>
+
+    <div class="ion-padding">
+      <div class="darkmode">
+        <h5>Dark Mode</h5>
         <ion-toggle (ionChange)="toggleTheme($event)"></ion-toggle>
+      </div>
+      <div class="langSettings">
         <h5>{{ 'lang' | translate}}</h5>
-        <ion-button (click)="changeLanguage('en')"> ENG </ion-button>
-        <ion-button (click)="changeLanguage('pt')"> PT </ion-button>
-      </ion-buttons>
-    </ion-text>
-  </ion-card>
+        <div class="langBtn">
+          <ion-button (click)="changeLanguage('en')"> EN </ion-button>
+          <ion-button (click)="changeLanguage('pt')"> PT </ion-button>
+        </div>
+      </div>
+    </div>
+  </ion-text>
 </ion-content>

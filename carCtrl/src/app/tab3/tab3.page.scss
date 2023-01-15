@@ -19,3 +19,9 @@
   align-items: center;
   margin-top: 20px;
 }
+.langSettings,
+.darkmode {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

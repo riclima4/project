@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Preferences } from '@capacitor/preferences';
+import jwt_decode from 'jwt-decode';
 import {
   ActionSheetController,
   InfiniteScrollCustomEvent,
@@ -19,6 +20,8 @@ import { CrudService } from '../services/api/crud.service';
 })
 export class Tab1Page {
   intervencoes: any;
+  user: any;
+  userID: any;
 
   constructor(
     private modalCtrl: ModalController,
@@ -30,8 +33,31 @@ export class Tab1Page {
   ) {}
   ngOnInit() {
     this.checkToken();
+    this.getToken();
+  }
+  ionViewDidEnter() {
     this.loadIntervencoes();
   }
+  logout = async () => {
+    const token = await Preferences.get({ key: 'token' });
+
+    // console.log(token.value !== null);
+    if (token) {
+      Preferences.remove({ key: 'token' });
+      window.location.reload();
+    }
+  };
+  getToken = async () => {
+    const token = await Preferences.get({ key: 'token' });
+
+    // console.log(token.value !== null);
+    if (token.value !== null) {
+      const user = jwt_decode(token.value);
+      this.user = user;
+      this.userID = this.user.idUser;
+      // console.log(this.userID);
+    }
+  };
   checkToken = async () => {
     const hasToken = await Preferences.get({ key: 'token' });
     if (hasToken.value === null) {
@@ -44,6 +70,9 @@ export class Tab1Page {
   async openModalCreateIntervencao() {
     const modalIntervencao = await this.modalCtrl.create({
       component: CreateIntervencaoComponent,
+      componentProps: {
+        idUser: this.userID,
+      },
     });
     modalIntervencao.onDidDismiss().then(() => {
       this.loadingSpinner();
@@ -79,9 +108,12 @@ export class Tab1Page {
     }, 2000);
   }
   async loadIntervencoes() {
-    this.crudService.getIntervencao('intervencoes', 1).subscribe((res) => {
-      this.intervencoes = res.intervencao;
-    });
+    // console.log(this.userID);
+    this.crudService
+      .getIntervencao('intervencoes', this.userID)
+      .subscribe((res) => {
+        this.intervencoes = res.intervencao;
+      });
   }
   onIonInfinite(ev: any) {
     setTimeout(() => {
