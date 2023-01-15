@@ -1,6 +1,6 @@
 <ion-toolbar color="primary">
   <ion-buttons slot="primary">
-    <ion-button fill="solid">
+    <ion-button fill="solid" color="primary">
       <ion-icon name="help-circle"></ion-icon>
     </ion-button>
   </ion-buttons>
@@ -40,5 +40,21 @@
         UPDATE
       </ion-button>
     </div>
+    <ion-text class="ion-padding" />
   </ion-list>
+
+  <ion-text class="ion-text-center"
+    ><h3 class="ion-text-center">{{ 'Def' | translate}}</h3>
+    <ion-buttons class="center">
+      <h5>Dark Mode</h5>
+      <ion-toggle (ionChange)="toggleTheme($event)"></ion-toggle>
+      <h5>{{ 'lang' | translate}}</h5>
+      <ion-button (click)="refreshPage()" (click)="changeLanguage('en')">
+        ENG
+      </ion-button>
+      <ion-button (click)="refreshPage()" (click)="changeLanguage('pt')">
+        PT
+      </ion-button>
+    </ion-buttons>
+  </ion-text>
 </ion-content>

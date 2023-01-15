@@ -15,6 +15,7 @@ import { CrudService } from '../services/api/crud.service';
 })
 export class Tab1Page {
   intervencoes: any;
+
   constructor(
     private modalCtrl: ModalController,
     private crudService: CrudService,

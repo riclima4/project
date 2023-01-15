@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Platform } from '@ionic/angular';
+import { LocalizationService } from './services/localization/localization.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,15 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+  constructor(
+    private platform: Platform,
+    private localizationService: LocalizationService
+  ) {}
+  async ngOnInit() {
+    await this.initializeApp();
+  }
+  async initializeApp() {
+    await this.platform.ready();
+    await this.localizationService.setInitialAppLanguage();
+  }
 }
