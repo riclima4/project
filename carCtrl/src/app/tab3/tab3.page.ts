@@ -1,7 +1,12 @@
+import { HelpComponent } from './../modals/help/help.component';
 import { Preferences } from '@capacitor/preferences';
 import { TranslateService } from '@ngx-translate/core';
 import { Component } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import {
+  ToastController,
+  ModalController,
+  LoadingController,
+} from '@ionic/angular';
 
 @Component({
   selector: 'app-tab3',
@@ -11,7 +16,9 @@ import { ToastController } from '@ionic/angular';
 export class Tab3Page {
   constructor(
     private translateService: TranslateService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private modalCtrl: ModalController,
+    private loadingCtrl: LoadingController
   ) {}
 
   toggleTheme(event: any) {
@@ -25,18 +32,34 @@ export class Tab3Page {
 
   async changeLanguage(language: string) {
     await Preferences.set({ key: 'user-lang', value: language });
-    await this.showToast();
+
+    this.translateService.use(language);
+    this.showToast(language);
   }
 
-  async showToast() {
-    const toast = await this.toastController.create({
-      message: this.translateService.instant('language sucessfully changed'),
-      duration: 4000,
+  async showToast(lng: string) {
+    if (lng == 'pt') {
+      const toast = await this.toastController.create({
+        message: this.translateService.instant('Idioma mudado para Português'),
+        duration: 2000,
+        position: 'top',
+      });
+      await toast.present();
+    } else if (lng == 'en') {
+      const toast = await this.toastController.create({
+        message: this.translateService.instant('Language Changed to English'),
+        duration: 2000,
+        position: 'top',
+      });
+      await toast.present();
+    }
+  }
+
+  async openModalHelp() {
+    const ModalHelp = await this.modalCtrl.create({
+      component: HelpComponent,
     });
-    await toast.present();
-  }
-
-  refreshPage() {
-    location.reload();
+    ModalHelp.onDidDismiss().then(() => {});
+    await ModalHelp.present();
   }
 }
