@@ -20,7 +20,8 @@ export class LocalizationService {
   }
   async setLanguage(lng: string) {
     this.selected = lng;
-    await this.translate.use(lng);
+
     await Preferences.set({ key: 'user-lang', value: lng });
+    await this.translate.use(lng);
   }
 }
