@@ -1,6 +1,6 @@
 <ion-toolbar color="primary">
   <ion-buttons slot="primary">
-    <ion-button fill="solid">
+    <ion-button fill="solid" color="primary">
       <ion-icon name="help-circle"></ion-icon>
     </ion-button>
   </ion-buttons>
@@ -16,7 +16,7 @@
     class="tituloSection ion-align-items-center ion-padding"
     color="dark"
   >
-    <h1>Adicionar</h1>
+    <h1>{{ 'add' | translate}}</h1>
     <ion-button (click)="openModalCreateIntervencao()" size="small">
       <ion-icon slot="icon-only" name="add-outline"></ion-icon>
     </ion-button>

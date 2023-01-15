@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Adicionar intervenção</ion-title>
+    <ion-title>{{ "int title" | translate }}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismissModal()">
         <ion-icon name="close-outline"></ion-icon>
@@ -12,7 +12,7 @@
   <form (ngSubmit)="newIntervencao(1)">
     <ion-list lines="full">
       <ion-item>
-        <ion-label position="floating">Nome</ion-label>
+        <ion-label position="floating">{{ "Nome" | translate }}</ion-label>
         <ion-input
           [(ngModel)]="nomeInput"
           name="nome"
@@ -20,7 +20,7 @@
         ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Descrição</ion-label>
+        <ion-label position="floating">{{ "desc" | translate }}</ion-label>
         <ion-textarea
           [(ngModel)]="descInput"
           name="desc"
@@ -28,7 +28,9 @@
         ></ion-textarea>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Kilometragem</ion-label>
+        <ion-label position="floating">{{
+          "Killometers" | translate
+        }}</ion-label>
         <ion-input
           type="number"
           [(ngModel)]="kilometragemInput"
@@ -37,7 +39,7 @@
         ></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Carro</ion-label>
+        <ion-label position="floating">{{ "Car" | translate }}</ion-label>
         <ion-select [(ngModel)]="carInput" name="car" interface="popover">
           <ion-select-option
             *ngFor="let item of carros"
