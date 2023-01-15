@@ -109,5 +109,5 @@ export const login = async (req, res) => {
   const { password: OhYouDontNeedThis, ...user } = userWithEmail.dataValues;
 
   const token = createToken(user);
-  res.json({ token });
+  res.json(token);
 };

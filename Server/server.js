@@ -5,6 +5,7 @@ import morgan from "morgan";
 import "dotenv/config.js";
 import { routes } from "./routes/index.js";
 import { dbInstance } from "./config/db.js";
+import cookieParser from "cookie-parser";
 
 //TODO: ROUTES VÃO SER COLOCADOS AQUI!
 //--REST SERVER--//
@@ -25,6 +26,9 @@ app.use(morgan("short"));
 // parse dados dos pedidos no content-type - application/json
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+//Middleware for cookies
+app.use(cookieParser());
 
 //--ROUTES--//
 app.use("/api", routes);

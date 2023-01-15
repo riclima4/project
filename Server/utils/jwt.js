@@ -5,6 +5,7 @@ export const createToken = (payload) => {
     expiresIn: 60 * 5 + "s",
   });
 };
+
 export const authRequired = (req, res, next) => {
   const authHeader = req.headers["authorization"];
 

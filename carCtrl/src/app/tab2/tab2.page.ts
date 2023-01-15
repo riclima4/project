@@ -8,6 +8,8 @@ import {
 } from '@ionic/angular';
 import { CreateCarComponent } from '../modals/create-car/create-car.component';
 import { UpdateCarComponent } from '../modals/update-car/update-car.component';
+import { Preferences } from '@capacitor/preferences';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab2',
@@ -21,11 +23,21 @@ export class Tab2Page {
     private crudService: CrudService,
     private loadingCtrl: LoadingController,
     private toastController: ToastController,
-    private actionSheetCtrl: ActionSheetController
+    private actionSheetCtrl: ActionSheetController,
+    private router: Router
   ) {}
   ngOnInit() {
+    this.checkToken();
     this.loadCarros();
   }
+  checkToken = async () => {
+    const hasToken = await Preferences.get({ key: 'token' });
+    if (hasToken.value === null) {
+      this.router.navigateByUrl('/signin', { replaceUrl: true });
+    } else {
+      this.router.navigateByUrl('/tab2', { replaceUrl: true });
+    }
+  };
   async loadCarros() {
     this.crudService.getCars('car', 1).subscribe((res) => {
       this.carros = res.cars;

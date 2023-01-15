@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { Preferences } from '@capacitor/preferences';
 import {
   ActionSheetController,
   InfiniteScrollCustomEvent,
@@ -22,11 +24,21 @@ export class Tab1Page {
     private crudService: CrudService,
     private loadingCtrl: LoadingController,
     private toastController: ToastController,
-    private actionSheetCtrl: ActionSheetController
+    private actionSheetCtrl: ActionSheetController,
+    private router: Router
   ) {}
   ngOnInit() {
+    this.checkToken();
     this.loadIntervencoes();
   }
+  checkToken = async () => {
+    const hasToken = await Preferences.get({ key: 'token' });
+    if (hasToken.value === null) {
+      this.router.navigateByUrl('/signin', { replaceUrl: true });
+    } else {
+      this.router.navigateByUrl('/tab1', { replaceUrl: true });
+    }
+  };
   //Intervenções
   async openModalCreateIntervencao() {
     const modalIntervencao = await this.modalCtrl.create({
