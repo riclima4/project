@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@capacitor/preferences": "^4.0.2",
+    "capacitor": "^0.5.5",
+    "cookie-parser": "^1.4.6"
+  }
+}

@@ -40,7 +40,10 @@
         <ion-item-option (click)="openModalUpdateIntervencao(item)">
           <ion-icon slot="icon-only" name="create"></ion-icon>
         </ion-item-option>
-        <ion-item-option color="danger">
+        <ion-item-option
+          (click)="deleteIntervencaoActionSheet(item.idIntervencao)"
+          color="danger"
+        >
           <ion-icon slot="icon-only" name="trash"></ion-icon>
         </ion-item-option>
       </ion-item-options>

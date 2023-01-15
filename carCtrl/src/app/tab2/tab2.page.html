@@ -35,7 +35,7 @@
       <ion-button (click)="openModalUpdateIntervencao(item)">
         <ion-icon slot="icon-only" name="create"></ion-icon>
       </ion-button>
-      <ion-button color="danger">
+      <ion-button (click)="deleteCarroActionSheet(item.idCarro)" color="danger">
         <ion-icon slot="icon-only" name="trash"></ion-icon>
       </ion-button>
     </div>
