@@ -15,7 +15,7 @@ export class CreateCarComponent implements OnInit {
   nomeInput: any;
   marcaInput: any;
   kilometragemInput: any;
-
+  userID: any;
   constructor(
     private modalCtrl: ModalController,
     private crudService: CrudService,
@@ -47,10 +47,10 @@ export class CreateCarComponent implements OnInit {
 
     await toast.present();
   }
-  newCar(idUser: number) {
+  newCar() {
     if (this.nomeInput && this.marcaInput) {
       const newCar = {
-        idUser: idUser,
+        idUser: this.userID,
         nome: this.nomeInput,
         marca: this.marcaInput,
         kilometragem: this.kilometragemInput,

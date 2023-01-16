@@ -7,6 +7,8 @@ import {
   ModalController,
   LoadingController,
 } from '@ionic/angular';
+import { Router } from '@angular/router';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-tab3',
@@ -14,22 +16,55 @@ import {
   styleUrls: ['tab3.page.scss'],
 })
 export class Tab3Page {
+  user: any;
   constructor(
     private translateService: TranslateService,
     private toastController: ToastController,
     private modalCtrl: ModalController,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private router: Router
   ) {}
+  ngOnInit() {
+    this.checkToken();
+    this.getToken();
+  }
+  getToken = async () => {
+    const token = await Preferences.get({ key: 'token' });
 
-  toggleTheme(event: any) {
+    // console.log(token.value !== null);
+    if (token.value !== null) {
+      const user = jwt_decode(token.value);
+      this.user = user;
+      // console.log(this.userID);
+    }
+  };
+  async toggleTheme(event: any) {
     console.log(event);
     if (event.detail.checked) {
       document.body.setAttribute('color-theme', 'dark');
+      await Preferences.set({ key: 'color-theme', value: 'dark' });
     } else {
       document.body.setAttribute('color-theme', 'light');
+      await Preferences.remove({ key: 'color-theme' });
     }
   }
+  checkToken = async () => {
+    const hasToken = await Preferences.get({ key: 'token' });
+    if (hasToken.value === null) {
+      this.router.navigateByUrl('/signin', { replaceUrl: true });
+    } else {
+      this.router.navigateByUrl('/tab3', { replaceUrl: true });
+    }
+  };
+  logout = async () => {
+    const token = await Preferences.get({ key: 'token' });
 
+    // console.log(token.value !== null);
+    if (token) {
+      Preferences.remove({ key: 'token' });
+      window.location.reload();
+    }
+  };
   async changeLanguage(language: string) {
     await Preferences.set({ key: 'user-lang', value: language });
 

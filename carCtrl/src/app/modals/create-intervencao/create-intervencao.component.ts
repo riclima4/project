@@ -17,6 +17,7 @@ export class CreateIntervencaoComponent implements OnInit {
   carInput: any;
   kilometragemInput: any;
   carros: any;
+  idUser: any;
   // tipoInput: any;
   constructor(
     private modalCtrl: ModalController,
@@ -51,15 +52,15 @@ export class CreateIntervencaoComponent implements OnInit {
     await toast.present();
   }
   async loadCarros() {
-    this.crudService.getCars('car', 1).subscribe((res) => {
+    this.crudService.getCars('car', this.idUser).subscribe((res) => {
       this.carros = res.cars;
       console.log(this.carros);
     });
   }
-  newIntervencao(idUser: number) {
+  newIntervencao() {
     if (this.nomeInput && this.descInput) {
       const newIntervencao = {
-        idUser: idUser,
+        idUser: this.idUser,
         idCarro: this.carInput,
         nome: this.nomeInput,
         description: this.descInput,

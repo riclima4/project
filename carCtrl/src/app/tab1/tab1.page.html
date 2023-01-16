@@ -3,6 +3,9 @@
     <ion-button fill="solid" color="primary">
       <ion-icon name="help-circle"></ion-icon>
     </ion-button>
+    <ion-button (click)="logout()" fill="solid" color="primary">
+      <ion-icon name="log-out"></ion-icon>
+    </ion-button>
   </ion-buttons>
   <ion-title>
     <ion-icon size="large" name="car-sport-outline"></ion-icon>
@@ -40,7 +43,10 @@
         <ion-item-option (click)="openModalUpdateIntervencao(item)">
           <ion-icon slot="icon-only" name="create"></ion-icon>
         </ion-item-option>
-        <ion-item-option color="danger">
+        <ion-item-option
+          (click)="deleteIntervencaoActionSheet(item.idIntervencao)"
+          color="danger"
+        >
           <ion-icon slot="icon-only" name="trash"></ion-icon>
         </ion-item-option>
       </ion-item-options>

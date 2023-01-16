@@ -1,8 +1,16 @@
 import { CrudService, Car } from './../services/api/crud.service';
 import { Component } from '@angular/core';
-import { LoadingController, ModalController } from '@ionic/angular';
+import {
+  ActionSheetController,
+  LoadingController,
+  ModalController,
+  ToastController,
+} from '@ionic/angular';
 import { CreateCarComponent } from '../modals/create-car/create-car.component';
 import { UpdateCarComponent } from '../modals/update-car/update-car.component';
+import { Preferences } from '@capacitor/preferences';
+import { Router } from '@angular/router';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-tab2',
@@ -10,47 +18,85 @@ import { UpdateCarComponent } from '../modals/update-car/update-car.component';
   styleUrls: ['tab2.page.scss'],
 })
 export class Tab2Page {
-  ngOnInit() {
-    this.loadCarros();
-  }
   carros: any;
+  user: any;
+  userID: any;
   constructor(
     private modalCtrl: ModalController,
     private crudService: CrudService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private toastController: ToastController,
+    private actionSheetCtrl: ActionSheetController,
+    private router: Router
   ) {}
+  ngOnInit() {
+    this.checkToken();
+    this.getToken();
+  }
+  ionViewDidEnter() {
+    this.loadCarros();
+  }
+  checkToken = async () => {
+    const hasToken = await Preferences.get({ key: 'token' });
+    if (hasToken.value === null) {
+      this.router.navigateByUrl('/signin', { replaceUrl: true });
+    } else {
+      this.router.navigateByUrl('/tab2', { replaceUrl: true });
+    }
+  };
+  getToken = async () => {
+    const token = await Preferences.get({ key: 'token' });
 
+    // console.log(token.value !== null);
+    if (token.value !== null) {
+      const user = jwt_decode(token.value);
+      this.user = user;
+      this.userID = this.user.idUser;
+      // console.log(this.userID);
+    }
+  };
+  logout = async () => {
+    const token = await Preferences.get({ key: 'token' });
+
+    // console.log(token.value !== null);
+    if (token) {
+      Preferences.remove({ key: 'token' });
+      window.location.reload();
+    }
+  };
   async loadCarros() {
-    this.crudService.getCars('car', 1).subscribe((res) => {
+    this.crudService.getCars('car', this.userID).subscribe((res) => {
       this.carros = res.cars;
       console.log(this.carros);
     });
   }
-
-  async openModalCreateIntervencao() {
-    const modalIntervencao = await this.modalCtrl.create({
+  async openModalCreateCarro() {
+    const modalCarro = await this.modalCtrl.create({
       component: CreateCarComponent,
+      componentProps: {
+        userID: this.userID,
+      },
     });
-    modalIntervencao.onDidDismiss().then(() => {
+    modalCarro.onDidDismiss().then(() => {
       this.loadingSpinner();
       setTimeout(() => {
-        this.crudService.getCars('car', 1).subscribe((res) => {
+        this.crudService.getCars('car', this.userID).subscribe((res) => {
           this.carros = res.cars;
           console.log(this.carros);
         });
       }, 2000);
     });
-    await modalIntervencao.present();
+    await modalCarro.present();
   }
-  async openModalUpdateIntervencao(item: any) {
+  async openModalUpdateCarro(item: any) {
     // console.log(item);
-    const modalUpdateIntervencao = await this.modalCtrl.create({
+    const modalUpdateCarro = await this.modalCtrl.create({
       component: UpdateCarComponent,
       componentProps: {
         item: item,
       },
     });
-    modalUpdateIntervencao.onDidDismiss().then(() => {
+    modalUpdateCarro.onDidDismiss().then(() => {
       this.loadingSpinner();
       setTimeout(() => {
         this.crudService.getCars('car', 1).subscribe((res) => {
@@ -59,7 +105,7 @@ export class Tab2Page {
         });
       }, 2000);
     });
-    await modalUpdateIntervencao.present();
+    await modalUpdateCarro.present();
   }
   async loadingSpinner() {
     const loading = await this.loadingCtrl.create({
@@ -69,6 +115,54 @@ export class Tab2Page {
     await loading.present();
     setTimeout(() => {
       loading.dismiss();
+    }, 2000);
+  }
+  async deleteCarroActionSheet(id: number) {
+    const actionSheet = await this.actionSheetCtrl.create({
+      mode: 'ios',
+      header: 'O carro e as suas intervenções vão ser removidas',
+      subHeader: 'Pretende continuar?',
+      buttons: [
+        {
+          text: 'Delete',
+          role: 'destructive',
+          data: {
+            action: 'delete',
+          },
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          data: {
+            action: 'cancel',
+          },
+        },
+      ],
+    });
+
+    await actionSheet.present();
+
+    const result = await actionSheet.onDidDismiss();
+    if (result.data.action == 'delete') {
+      this.deleteCarro(id);
+    }
+  }
+  async presentToastDelete(position: 'top' | 'middle' | 'bottom') {
+    const toast = await this.toastController.create({
+      message: 'Carro eliminado com sucesso',
+      duration: 2000,
+      position: position,
+    });
+
+    await toast.present();
+  }
+  async deleteCarro(id: number) {
+    this.crudService.delete('removeCar', id).subscribe((res) => {});
+    this.loadingSpinner();
+    setTimeout(() => {
+      this.loadCarros();
+
+      this.presentToastDelete('top');
     }, 2000);
   }
 }

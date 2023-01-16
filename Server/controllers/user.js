@@ -104,10 +104,10 @@ export const login = async (req, res) => {
   const userWithEmail = await UserModel.findOne({ where: { email, password } });
 
   if (!userWithEmail)
-    return res.status(400).json({ message: "Email or password errados" });
+    return res.status(400).json({ message: "Email ou password errados" });
 
   const { password: OhYouDontNeedThis, ...user } = userWithEmail.dataValues;
 
   const token = createToken(user);
-  res.json({ token });
+  res.json(token);
 };
