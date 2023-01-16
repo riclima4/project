@@ -17,16 +17,23 @@ import jwt_decode from 'jwt-decode';
 })
 export class Tab3Page {
   user: any;
+  username: any;
+  email: any;
+  type: any;
   constructor(
     private translateService: TranslateService,
     private toastController: ToastController,
     private modalCtrl: ModalController,
-    private loadingCtrl: LoadingController,
     private router: Router
   ) {}
   ngOnInit() {
     this.checkToken();
     this.getToken();
+  }
+  ionViewWillEnter() {
+    this.username = this.user.username;
+    this.email = this.user.email;
+    this.type = this.user.type;
   }
   getToken = async () => {
     const token = await Preferences.get({ key: 'token' });
@@ -35,7 +42,7 @@ export class Tab3Page {
     if (token.value !== null) {
       const user = jwt_decode(token.value);
       this.user = user;
-      // console.log(this.userID);
+      console.log(this.user);
     }
   };
   async toggleTheme(event: any) {
@@ -89,12 +96,11 @@ export class Tab3Page {
       await toast.present();
     }
   }
-
   async openModalHelp() {
     const ModalHelp = await this.modalCtrl.create({
       component: HelpComponent,
     });
-    ModalHelp.onDidDismiss().then(() => {});
+
     await ModalHelp.present();
   }
 }

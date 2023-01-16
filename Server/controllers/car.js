@@ -34,7 +34,7 @@ export const updateCar = async (req, res) => {
   const car = await CarsModel.findByPk(idCarro);
   if (car !== null) {
     car.update(carUpdated);
-    return res.send("deu");
+    return res.send(carUpdated);
   } else {
     return res.send("Nao existe carro com id:" + idCarro);
   }

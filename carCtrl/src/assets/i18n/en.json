@@ -11,5 +11,6 @@
   "pag3": "User",
   "int title": "Add Intervention",
   "car title": "Add Car",
-  "brand": "Brand/Model"
+  "brand": "Brand/Model",
+  "darkmode": "Dark mode"
 }

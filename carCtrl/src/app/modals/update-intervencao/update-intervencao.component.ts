@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
   AlertController,
+  LoadingController,
   ModalController,
   ToastController,
 } from '@ionic/angular';
@@ -22,9 +23,20 @@ export class UpdateIntervencaoComponent implements OnInit {
     private modalCtrl: ModalController,
     private crudService: CrudService,
     private alertController: AlertController,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private loadingCtrl: LoadingController
   ) {}
-
+  compareWith(item1: any, item2: any) {
+    return item1 && item2 ? item1.idCarro === item2.idCarro : item1 === item2;
+  }
+  async loadingSpinner() {
+    const loading = await this.loadingCtrl.create({
+      spinner: 'crescent',
+      mode: 'ios',
+      duration: 2000,
+    });
+    await loading.present();
+  }
   ngOnInit() {
     this.loadCarros();
     this.nomeInput = this.item.nome;
@@ -32,6 +44,7 @@ export class UpdateIntervencaoComponent implements OnInit {
     this.carInput = this.item.idCarro;
     this.kilometragemInput = this.item.kilometragem;
   }
+
   async loadCarros() {
     this.crudService.getCars('car', this.item.idCarro).subscribe((res) => {
       this.carros = res.cars;
@@ -61,7 +74,12 @@ export class UpdateIntervencaoComponent implements OnInit {
     await toast.present();
   }
   newUpdate() {
-    if (this.nomeInput && this.descInput) {
+    if (
+      this.nomeInput &&
+      this.descInput &&
+      this.kilometragemInput &&
+      this.carInput
+    ) {
       const idIntervencao = this.item.idIntervencao;
       const idUser = this.item.idUser;
       const updatedIntervencao = {
@@ -77,15 +95,13 @@ export class UpdateIntervencaoComponent implements OnInit {
         .subscribe((res) => {
           console.log(res);
         });
-      this.dismissModal();
+      this.loadingSpinner();
       setTimeout(() => {
+        this.dismissModal();
         this.presentToast('top');
-      }, 2500);
+      }, 2000);
     } else {
-      this.dismissModal();
-      setTimeout(() => {
-        this.presentAlert();
-      }, 2500);
+      this.presentAlert();
     }
   }
 }

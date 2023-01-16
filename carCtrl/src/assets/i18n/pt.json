@@ -1,15 +1,16 @@
 {
   "add": "Adicionar",
   "name": "Nome",
-  "desc": "Descriçao",
+  "desc": "Descrição",
   "Killometers": "Kilometragem",
   "Car": "Carro",
-  "lang": "Defenir idioma",
-  "Def": "Defeniçoes",
-  "pag1": "Intervençoes",
+  "lang": "Definir idioma",
+  "Def": "Definições",
+  "pag1": "Intervenções",
   "pag2": "Carros",
   "pag3": "Utilizador",
-  "int title": "Adicionar intervenção",
-  "car title": "Adicionar carro",
-  "brand": "Marca/Modelo"
+  "int title": "Adicionar Intervenção",
+  "car title": "Adicionar Carro",
+  "brand": "Marca/Modelo",
+  "darkmode": "Modo escuro"
 }

@@ -26,18 +26,24 @@
         src="https://ionicframework.com/docs/img/demos/avatar.svg"
       />
     </ion-avatar>
-    <ion-text><h2>Ricardo Lima</h2></ion-text>
+    <ion-text>
+      <h2>
+        <span *ngIf="type==1">Cliente:</span>
+        <span *ngIf="type==100">Admin:</span>
+        {{username}}
+      </h2>
+    </ion-text>
   </div>
   <ion-list class="ion-margin-top ion-padding">
     <ion-item>
       <ion-icon position="fixed" name="mail-outline" slot="start"></ion-icon>
-      <ion-label>ricardo.lima@ipvc.pt</ion-label>
+      <ion-label>{{email}}</ion-label>
     </ion-item>
-    <ion-item>
+    <!-- <ion-item>
       <ion-icon position="fixed" slot="start" name="lock-closed-outline">
       </ion-icon>
       <ion-label>Password</ion-label>
-    </ion-item>
+    </ion-item> -->
     <!-- <div class="update">
       <ion-button class="updateBtn" color="dark" size="small" fill="outline">
         UPDATE
@@ -50,7 +56,7 @@
 
     <div class="ion-padding">
       <div class="darkmode">
-        <h5>Dark Mode</h5>
+        <h5>{{'darkmode'| translate}}</h5>
         <ion-toggle (ionChange)="toggleTheme($event)"></ion-toggle>
       </div>
       <div class="langSettings">
