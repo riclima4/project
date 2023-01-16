@@ -14,7 +14,12 @@
 
 <ion-content [fullscreen]="true">
   <!-- Título -->
-  <ion-img src="../../assets/Gear.svg" alt="IntervençãoImg" class="ion-padding">
+  <ion-img
+    class="pageImg"
+    src="../../assets/Gear.svg"
+    alt="IntervençãoImg"
+    class="ion-padding"
+  >
   </ion-img>
   <ion-text
     class="tituloSection ion-align-items-center ion-padding"
@@ -33,9 +38,8 @@
       <ion-item lines="full">
         <ion-label>
           <h1>{{item.nome}}</h1>
-          <p>descrição da intervenção</p>
+          <p>{{item.description}}</p>
         </ion-label>
-
         <ion-icon name="caret-back-outline" slot="end"></ion-icon>
       </ion-item>
 

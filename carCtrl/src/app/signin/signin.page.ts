@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CrudService } from '../services/api/crud.service';
 import { Preferences } from '@capacitor/preferences';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../services/auth/authentication.service';
 
 @Component({
   selector: 'app-signin',
@@ -9,11 +10,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./signin.page.scss'],
 })
 export class SigninPage implements OnInit {
-  constructor(private crudService: CrudService, private router: Router) {}
+  constructor(
+    private crudService: CrudService,
+    private router: Router,
+    private authService: AuthenticationService
+  ) {}
   emailInput: any;
   passwordInput: any;
   ngOnInit() {
-    this.checkToken();
+    //this.checkToken();
   }
   // ionViewWillEnter() {
   //   this.checkToken();
@@ -26,18 +31,25 @@ export class SigninPage implements OnInit {
       this.router.navigateByUrl('/tab1', { replaceUrl: true });
     }
   };
-  login() {
+  async login() {
     if (this.emailInput && this.passwordInput) {
       const login = {
         email: this.emailInput,
         password: this.passwordInput,
       };
       console.log(login);
-      this.crudService.create('login', login).subscribe((res) => {
-        console.log(res);
-        Preferences.set({ key: 'token', value: res.toString() });
-        this.router.navigateByUrl('/tab1', { replaceUrl: true });
-      });
+      // this.crudService.create('login', login).subscribe((res) => {
+      //   console.log(res);
+      //   Preferences.set({ key: 'token', value: res.toString() });
+      //   this.router.navigateByUrl('/tab1', { replaceUrl: true });
+      // });
+
+      await this.authService.login(login).subscribe(
+        async (res) => {
+          await this.router.navigateByUrl('/tabs', { replaceUrl: true });
+        },
+        async (error) => {}
+      );
     }
   }
 }

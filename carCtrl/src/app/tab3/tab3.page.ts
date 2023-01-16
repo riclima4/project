@@ -35,7 +35,7 @@ export class Tab3Page {
     if (token.value !== null) {
       const user = jwt_decode(token.value);
       this.user = user;
-      // console.log(this.userID);
+      console.log(this.user);
     }
   };
   async toggleTheme(event: any) {
