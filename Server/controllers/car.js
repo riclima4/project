@@ -6,6 +6,12 @@ export const getAllcars = async (req, res) => {
   return res.send({ cars });
 };
 
+export const getCarsById = async (req, res) => {
+  const idCarro = req.params.idCarro;
+  const cars = await CarsModel.findByPk(idCarro);
+  return res.send({ cars });
+};
+
 export const getCarsByUser = async (req, res) => {
   const idUser = req.params.idUser;
   const cars = await CarsModel.findAll({ where: { idUser: idUser } });

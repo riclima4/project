@@ -40,13 +40,13 @@
       </ion-item>
       <ion-item>
         <ion-label position="floating">Carro</ion-label>
-        <ion-select [(ngModel)]="carInput" name="car" interface="popover">
-          <ion-select-option
-            *ngFor="let item of carros"
-            value="{{ item.idCarro }}"
-            >{{ item.nome }}</ion-select-option
-          >
-        </ion-select>
+        <ion-input
+          [(ngModel)]="carInput"
+          name="car"
+          interface="popover"
+          [readonly]="true"
+        >
+        </ion-input>
       </ion-item>
       <!-- <ion-item class="ion-margin-bottom">
         <ion-label position="floating">Tipo de Intervenção</ion-label>
