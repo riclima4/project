@@ -11,5 +11,11 @@
   "pag3": "User",
   "int title": "Add Intervention",
   "car title": "Add Car",
-  "brand": "Brand/Model"
+  "brand": "Brand/Model",
+  "help title": "Help Zone",
+  "help sub": "Tips and Tricks",
+  "helpAuto": "Repair tips form AutoDoc",
+  "diagnostic": "AutoDoc Diagnostic",
+  "helpText": "If you want to carry out a diagnosis of your vehicle, we provide the AutoDoc forum with information to help you carry out a diagnosis at home",
+  "Forum": "AutoDoc Forum"
 }
