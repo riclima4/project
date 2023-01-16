@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
   AlertController,
+  LoadingController,
   ModalController,
   ToastController,
 } from '@ionic/angular';
@@ -21,7 +22,8 @@ export class UpdateCarComponent implements OnInit {
     private modalCtrl: ModalController,
     private crudService: CrudService,
     private alertController: AlertController,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {
@@ -52,8 +54,16 @@ export class UpdateCarComponent implements OnInit {
 
     await toast.present();
   }
+  async loadingSpinner() {
+    const loading = await this.loadingCtrl.create({
+      spinner: 'crescent',
+      mode: 'ios',
+      duration: 2000,
+    });
+    await loading.present();
+  }
   newUpdate() {
-    if (this.nomeInput && this.marcaInput) {
+    if (this.nomeInput && this.marcaInput && this.kilometragemInput) {
       const idCar = this.item.idCarro;
       const idUser = this.item.idUser;
       const updatedCar = {
@@ -66,17 +76,16 @@ export class UpdateCarComponent implements OnInit {
       this.crudService
         .update('updateCar', idCar, updatedCar)
         .subscribe((res) => {
-          console.log(res);
+          // console.log(res);
         });
-      this.dismissModal();
+      this.loadingSpinner();
+
       setTimeout(() => {
+        this.dismissModal();
         this.presentToast('top');
-      }, 2500);
+      }, 2000);
     } else {
-      this.dismissModal();
-      setTimeout(() => {
-        this.presentAlert();
-      }, 2500);
+      this.presentAlert();
     }
   }
 }

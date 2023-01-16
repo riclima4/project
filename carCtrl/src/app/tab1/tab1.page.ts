@@ -38,6 +38,7 @@ export class Tab1Page {
   ionViewDidEnter() {
     this.loadIntervencoes();
   }
+
   logout = async () => {
     const token = await Preferences.get({ key: 'token' });
 
@@ -47,6 +48,7 @@ export class Tab1Page {
       window.location.reload();
     }
   };
+
   getToken = async () => {
     const token = await Preferences.get({ key: 'token' });
 
@@ -75,10 +77,8 @@ export class Tab1Page {
       },
     });
     modalIntervencao.onDidDismiss().then(() => {
-      this.loadingSpinner();
-      setTimeout(() => {
-        this.loadIntervencoes();
-      }, 2000);
+      // this.loadingSpinner();
+      this.loadIntervencoes();
     });
     await modalIntervencao.present();
   }
@@ -91,10 +91,8 @@ export class Tab1Page {
       },
     });
     modalUpdateIntervencao.onDidDismiss().then(() => {
-      this.loadingSpinner();
-      setTimeout(() => {
-        this.loadIntervencoes();
-      }, 2000);
+      // this.loadingSpinner();
+      this.loadIntervencoes();
     });
     await modalUpdateIntervencao.present();
   }
@@ -103,9 +101,9 @@ export class Tab1Page {
     this.loadingSpinner();
     setTimeout(() => {
       this.loadIntervencoes();
-
-      this.presentToastDelete('top');
     }, 2000);
+
+    this.presentToastDelete('top');
   }
   async loadIntervencoes() {
     // console.log(this.userID);
@@ -115,20 +113,13 @@ export class Tab1Page {
         this.intervencoes = res.intervencao;
       });
   }
-  onIonInfinite(ev: any) {
-    setTimeout(() => {
-      (ev as InfiniteScrollCustomEvent).target.complete();
-    }, 500);
-  }
   async loadingSpinner() {
     const loading = await this.loadingCtrl.create({
       spinner: 'crescent',
       mode: 'ios',
+      duration: 2000,
     });
     await loading.present();
-    setTimeout(() => {
-      loading.dismiss();
-    }, 2000);
   }
   async deleteIntervencaoActionSheet(id: number) {
     const actionSheet = await this.actionSheetCtrl.create({
@@ -166,5 +157,10 @@ export class Tab1Page {
     });
 
     await toast.present();
+  }
+  onIonInfinite(ev: any) {
+    setTimeout(() => {
+      (ev as InfiniteScrollCustomEvent).target.complete();
+    }, 500);
   }
 }

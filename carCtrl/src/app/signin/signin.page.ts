@@ -3,6 +3,7 @@ import { CrudService } from '../services/api/crud.service';
 import { Preferences } from '@capacitor/preferences';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/auth/authentication.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-signin',
@@ -13,7 +14,8 @@ export class SigninPage implements OnInit {
   constructor(
     private crudService: CrudService,
     private router: Router,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private toastController: ToastController
   ) {}
   emailInput: any;
   passwordInput: any;
@@ -31,6 +33,15 @@ export class SigninPage implements OnInit {
       this.router.navigateByUrl('/tab1', { replaceUrl: true });
     }
   };
+  async presentToastDelete(position: 'top' | 'middle' | 'bottom') {
+    const toast = await this.toastController.create({
+      message: 'Credenciais erradas tente novamente',
+      duration: 2000,
+      position: position,
+    });
+
+    await toast.present();
+  }
   async login() {
     if (this.emailInput && this.passwordInput) {
       const login = {
@@ -44,12 +55,24 @@ export class SigninPage implements OnInit {
       //   this.router.navigateByUrl('/tab1', { replaceUrl: true });
       // });
 
-      await this.authService.login(login).subscribe(
+      this.authService.login(login).subscribe(
         async (res) => {
+          // console.log(res);
           await this.router.navigateByUrl('/tabs', { replaceUrl: true });
         },
-        async (error) => {}
+        async (error) => {
+          this.presentToastDelete('top');
+        }
       );
+    } else {
+      if (
+        !this.emailInput ||
+        !this.passwordInput ||
+        this.emailInput == '' ||
+        this.passwordInput == ''
+      ) {
+        this.presentToastDelete('top');
+      }
     }
   }
 }
