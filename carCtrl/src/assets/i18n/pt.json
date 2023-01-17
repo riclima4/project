@@ -17,5 +17,15 @@
   "helpAuto": "Dicas de Reparaçao da AutoDoc",
   "diagnostic": "Diagnóstico AutoDoc",
   "helpText": "Caso pertenda realizar um diagnóstico do seu veículo fornecemos o fórum da AutoDoc com informaçôes de ajuda na realizaçâo de um diagnóstico em casa",
-  "forum": "Fórum AutoDoc"
+  "forum": "Fórum AutoDoc",
+  "signin": "Entrar",
+  "email": "Email",
+  "emailText": "Ensere o teu Email",
+  "password": "Palavra-passe",
+  "passwordText": "Palavra-passe",
+  "passwordTextConfirm": "Confirmar Palavra-passe",
+  "signup": "Registar",
+
+  "404": "Página não encontrada",
+  "goback": "Voltar a tras"
 }
