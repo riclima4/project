@@ -1,0 +1,76 @@
+<ion-toolbar color="primary">
+  <ion-title>
+    <ion-icon size="large" name="car-sport-outline"></ion-icon>
+  </ion-title>
+</ion-toolbar>
+
+<ion-content class="ion-padding">
+  <ion-img src="../../assets/registerImage.svg" alt="Login Image"></ion-img>
+  <!-- <ion-text class="ion-text-center">
+    <h1>SignIn</h1>
+  </ion-text> -->
+  <form class="registerForm" (ngSubmit)="newUser()">
+    <ion-list>
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="fixed">Nome</ion-label>
+        <ion-input
+          [(ngModel)]="nomeInput"
+          Name
+          required
+          name="nome"
+          type="text"
+          placeholder="Ensere o teu nome"
+        ></ion-input>
+      </ion-item>
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="fixed">Email</ion-label>
+        <ion-input
+          [(ngModel)]="emailInput"
+          email
+          required
+          name="email"
+          type="email"
+          placeholder="Ensere o teu email"
+        >
+        </ion-input>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="fixed">Password</ion-label>
+        <ion-input
+          [(ngModel)]="passwordInput"
+          password
+          required
+          minlength="4"
+          name="password"
+          type="password"
+          placeholder="Ensere a tua password"
+        >
+        </ion-input>
+      </ion-item>
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="fixed">
+          Comfirma
+          <br />
+          Password
+        </ion-label>
+        <ion-input
+          [(ngModel)]="passwordConfInput"
+          password
+          minlength="4"
+          required
+          name="confpassword"
+          type="password"
+          placeholder="Ensere a tua password"
+        >
+        </ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-button type="submit" expand="block"> Registar </ion-button>
+  </form>
+  <div class="linkSignPages">
+    <ion-text class="ion-align-self-center">
+      Se já tens conta entra na página do <a href="#/signin">Login</a>.
+    </ion-text>
+  </div>
+</ion-content>

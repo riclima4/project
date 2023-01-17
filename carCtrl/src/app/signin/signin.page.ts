@@ -48,7 +48,6 @@ export class SigninPage implements OnInit {
         email: this.emailInput,
         password: this.passwordInput,
       };
-      console.log(login);
       // this.crudService.create('login', login).subscribe((res) => {
       //   console.log(res);
       //   Preferences.set({ key: 'token', value: res.toString() });

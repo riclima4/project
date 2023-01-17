@@ -5,10 +5,11 @@
 </ion-toolbar>
 
 <ion-content class="ion-padding">
-  <ion-text class="ion-text-center">
+  <ion-img src="../../assets/loginImage.svg" alt="Login Image"></ion-img>
+  <!-- <ion-text class="ion-text-center">
     <h1>SignIn</h1>
-  </ion-text>
-  <form (ngSubmit)="login()">
+  </ion-text> -->
+  <form class="loginForm" (ngSubmit)="login()">
     <ion-list>
       <ion-item class="ion-margin-bottom">
         <ion-label position="fixed">Email</ion-label>
@@ -27,7 +28,8 @@
           name="password"
           type="password"
           placeholder="Ensere a tua password"
-        ></ion-input>
+        >
+        </ion-input>
       </ion-item>
     </ion-list>
     <ion-button type="submit" expand="block">
@@ -35,4 +37,9 @@
       <ion-icon slot="end" name="log-in-outline"></ion-icon>
     </ion-button>
   </form>
+  <div class="linkSignPages">
+    <ion-text class="ion-align-self-center">
+      Se não tens conta entra na página de <a href="#/signup">Registo</a>.
+    </ion-text>
+  </div>
 </ion-content>

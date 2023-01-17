@@ -21,6 +21,12 @@ const routes: Routes = [
       import('./tabs/tabs.module').then((m) => m.TabsPageModule),
     canLoad: [AuthGuard],
   },
+  {
+    path: 'signup',
+    loadChildren: () =>
+      import('./signup/signup.module').then((m) => m.SignupPageModule),
+    canLoad: [AutoLoginGuard],
+  },
 ];
 @NgModule({
   imports: [
