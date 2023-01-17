@@ -19,6 +19,7 @@ export class UpdateIntervencaoComponent implements OnInit {
   carInput: any;
   kilometragemInput: any;
   carros: any;
+  carroById: any;
   constructor(
     private modalCtrl: ModalController,
     private crudService: CrudService,
@@ -38,12 +39,12 @@ export class UpdateIntervencaoComponent implements OnInit {
     await loading.present();
   }
   ngOnInit() {
-    this.loadCarros();
+    this.loadCarroById();
     this.nomeInput = this.item.nome;
     this.descInput = this.item.description;
-    this.carInput = this.item.idCarro;
     this.kilometragemInput = this.item.kilometragem;
   }
+
 
   async loadCarros() {
     this.crudService.getCars('car', this.item.idCarro).subscribe((res) => {
@@ -51,6 +52,14 @@ export class UpdateIntervencaoComponent implements OnInit {
       console.log(this.carros);
     });
   }
+
+  async loadCarroById() {
+    this.crudService.getCars('carById', this.item.idCarro).subscribe((res) => {
+      this.carroById = res.cars;
+      console.log(this.carroById);
+    });
+  }
+
   dismissModal() {
     this.modalCtrl.dismiss();
   }

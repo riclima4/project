@@ -5,18 +5,18 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SigninPageRoutingModule } from './signin-routing.module';
+import { Error404PageRoutingModule } from './error404-routing.module';
 
-import { SigninPage } from './signin.page';
+import { Error404Page } from './error404.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SigninPageRoutingModule,
+    Error404PageRoutingModule,
     TranslateModule,
   ],
-  declarations: [SigninPage],
+  declarations: [Error404Page],
 })
-export class SigninPageModule {}
+export class Error404PageModule {}

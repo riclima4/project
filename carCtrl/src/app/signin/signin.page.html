@@ -12,28 +12,28 @@
   <form class="loginForm" (ngSubmit)="login()">
     <ion-list>
       <ion-item class="ion-margin-bottom">
-        <ion-label position="fixed">Email</ion-label>
+        <ion-label position="fixed">{{ 'email' | translate}}</ion-label>
         <ion-input
           [(ngModel)]="emailInput"
           name="email"
           type="email"
-          placeholder="Ensere o teu email"
+          placeholder="{{ 'emailText' | translate}}"
         ></ion-input>
       </ion-item>
 
       <ion-item class="ion-margin-bottom">
-        <ion-label position="fixed">Password</ion-label>
+        <ion-label position="fixed">{{ 'password' | translate}}</ion-label>
         <ion-input
           [(ngModel)]="passwordInput"
           name="password"
           type="password"
-          placeholder="Ensere a tua password"
-        >
-        </ion-input>
+          placeholder="{{ 'passwordText' | translate}}"
+        ></ion-input>
+
       </ion-item>
     </ion-list>
     <ion-button type="submit" expand="block">
-      Entrar
+      {{ 'signin' | translate}}
       <ion-icon slot="end" name="log-in-outline"></ion-icon>
     </ion-button>
   </form>
