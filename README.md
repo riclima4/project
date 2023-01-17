@@ -8,13 +8,13 @@
   <h3 align="center">Projeto web e multimédia</h3>
 </p>
 
-# 👨🏽‍💻 Autores
+# 👨🏽‍🧑🏽 Autores
 <h3> Ricardo Lima </h3>
 <h3> Gonçalo Peixoto </h3>
 <h3> Caroline Barbosa </h3>
 </br>
 
-# 👋🏼 Introduction
+# 🔥Introduction
 
 <h3>Trabalho Prático - Projeto Final</h3>
 Este projeto consiste no desenvolvimento de uma aplicação de intervenções de carros, para que cada utilizador possa criar e consultar as intervenções feitas nos seus veículos.
