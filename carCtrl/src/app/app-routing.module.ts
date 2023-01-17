@@ -33,11 +33,11 @@ const routes: Routes = [
   },
   {
     path: 'tab2',
-    redirectTo: 'tabs',
+    redirectTo: 'tabs/tab2',
   },
   {
     path: 'tab3',
-    redirectTo: 'tabs',
+    redirectTo: 'tabs/tab3',
   },
 
   {
