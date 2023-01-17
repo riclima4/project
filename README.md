@@ -1,6 +1,6 @@
 <br />
 <p align="center">
-    <img src="/carCTRL/src/assets/icon/icon.png" alt="Logo" width="auto" height="100">
+    <img src="carCtrl\src\assets\icon\icon.png" alt="Logo" width="auto" height="100">
   </a>
   <h1 align="center">Instituto Politécnico Viana do Castelo</h1>
 
