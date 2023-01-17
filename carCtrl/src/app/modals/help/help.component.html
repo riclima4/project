@@ -3,14 +3,14 @@
     <ion-buttons slot="start">
       <ion-button (click)="dismissModal()">Cancel</ion-button>
     </ion-buttons>
-    <ion-title>Zona de Ajuda</ion-title>
+    <ion-title>{{ "help title" | translate }}</ion-title>
     <ion-buttons slot="end"> </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding ion-text-center">
   <ion-text>
-    <h3>Dicas e Ajuda</h3>
-    <h5>Dicas de Reparaçao da AutoDoc</h5>
+    <h3>{{ "help sub" | translate }}</h3>
+    <h5>{{ "helpAuto" | translate }}</h5>
   </ion-text>
   <iframe
     class="video"
@@ -20,16 +20,15 @@
     allowfullscreen
   ></iframe>
   <ion-text>
-    <h5>Diagnóstico AutoDoc</h5>
+    <h5>{{ "diagnostic" | translate }}</h5>
     <p>
-      Caso pertenda realizar um diagnóstico do seu veículo fornecemos o fórum da
-      AutoDoc com informaçôes de ajuda na realizaçâo de um diagnóstico em casa
+      {{ "helpText" | translate }}
     </p>
   </ion-text>
   <ion-button
     class="ion-margin"
     href="https://www.auto-doc.pt/info/category/diagnostico"
     target="_blank"
-    >Fórum AutoDoc</ion-button
+    >{{ "forum" | translate }}</ion-button
   >
 </ion-content>

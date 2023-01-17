@@ -10,6 +10,7 @@ import {
 import {
   deleteCar,
   getAllcars,
+  getCarsById,
   getCarsByUser,
   newCar,
   updateCar,
@@ -39,6 +40,8 @@ routes.delete("/removeUser/:idUser", deleteUser);
 //Carro
 routes.get("/cars", getAllcars);
 routes.get("/car/:idUser", getCarsByUser);
+routes.get("/carById/:idCarro", getCarsById);
+
 routes.post("/newCar", newCar);
 routes.put("/updateCar/:idCarro", updateCar);
 routes.delete("/removeCar/:idCarro", deleteCar);

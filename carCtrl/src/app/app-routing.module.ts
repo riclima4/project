@@ -21,6 +21,12 @@ const routes: Routes = [
       import('./tabs/tabs.module').then((m) => m.TabsPageModule),
     canLoad: [AuthGuard],
   },
+{
+    path: 'error404',
+    loadChildren: () =>
+      import('./error404/error404.module').then((m) => m.Error404PageModule),
+  },
+  { path: '**', redirectTo: '/error404' },
 ];
 @NgModule({
   imports: [

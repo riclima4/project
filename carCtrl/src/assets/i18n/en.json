@@ -12,5 +12,21 @@
   "int title": "Add Intervention",
   "car title": "Add Car",
   "brand": "Brand/Model",
+  "help title": "Help Zone",
+  "help sub": "Tips and Tricks",
+  "helpAuto": "Repair tips form AutoDoc",
+  "diagnostic": "AutoDoc Diagnostic",
+  "helpText": "If you want to carry out a diagnosis of your vehicle, we provide the AutoDoc forum with information to help you carry out a diagnosis at home",
+  "Forum": "AutoDoc Forum",
+  "sign": "Sign in",
+  "email": "Email",
+  "emailText": "Input your email",
+  "password": "Password",
+  "passwordText": "Input your password",
+  "passwordTextConfirm": "Confirm your password",
+  "signup": "Register",
+  "404": "Page not found",
+  "goback": "Go back"
   "darkmode": "Dark mode"
+
 }
