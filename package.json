@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "@capacitor/preferences": "^4.0.2",
+    "@ionic-native/file": "^5.36.0",
+    "@ionic-native/file-transfer": "^5.36.0",
     "capacitor": "^0.5.5",
     "cookie-parser": "^1.4.6"
   }

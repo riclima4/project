@@ -2,6 +2,7 @@ import { CarsModel } from "../models/cars.js";
 import { IntervencaoModel } from "../models/intervencao.js";
 import { UserModel } from "../models/users.js";
 import { createToken } from "../utils/jwt.js";
+import bcrypt from "bcrypt";
 
 export const getAllUsers = async (req, res) => {
   const users = await UserModel.findAll();
@@ -17,17 +18,26 @@ export const getUserid = async (req, res) => {
   res.send(user);
 };
 export const newUser = async (req, res) => {
+  const passwordNormal = req.body.password;
+  const salt = bcrypt.genSaltSync(10);
+  const hash = await bcrypt.hash(passwordNormal, salt);
   const newUser = {
     username: req.body.username,
-    password: req.body.password,
+    password: hash,
     email: req.body.email,
   };
-  const asd = await UserModel.create(newUser);
-  const { password, ...user } = asd.dataValues;
+  const findUser = await UserModel.findOne({ where: { email: newUser.email } });
+  if (!findUser) {
+    const asd = await UserModel.create(newUser);
+    const { password, ...user } = asd.dataValues;
 
-  const token = createToken(user);
+    const token = createToken(user);
 
-  res.send(token);
+    res.send(false);
+  } else {
+    res.send(true);
+    return;
+  }
 };
 
 export const updateUser = async (req, res) => {
@@ -41,7 +51,7 @@ export const updateUser = async (req, res) => {
   const user = await UserModel.findByPk(idUser);
   if (user !== null) {
     user.update(userUpdated);
-    return res.send(userUpdated); //----------POR REDIRECT----------
+    return res.send(userUpdated);
   } else {
     return res.send("Não existe User com id: " + idUser);
   }
@@ -70,43 +80,23 @@ export const deleteUser = async (req, res) => {
   }
 };
 
-// export const deleteUsers = async (req, res) => {
-//   const idUser = req.params.id;
-//   const user = await UserModel.findByPk(idUser);
-//   const cart = await CartModule.findAll({ where: { idUser: idUser } });
-//   const userHistory = await HistoryModule.findAll({
-//     where: { idUser: idUser },
-//   });
-//   if (cart !== null) {
-//     cart.forEach((item) => {
-//       item.destroy({ where: { idUser: idUser } });
-//     });
-//   }
-//   if (userHistory !== null) {
-//     userHistory.forEach((item) => {
-//       item.destroy({ where: { idUser: idUser } });
-//     });
-//   }
-
-//   setTimeout(() => {
-//     if (user !== null) {
-//       user.destroy({ where: { idUser: idUser } });
-//       res.send("Funfa");
-//     } else {
-//       res.send("Não existe User com id: " + idUser);
-//     }
-//   }, 2000);
-// };
-
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
-  const userWithEmail = await UserModel.findOne({ where: { email, password } });
+  const userWithEmail = await UserModel.findOne({ where: { email: email } });
 
-  if (!userWithEmail)
-    return res.status(400).json({ message: "Email ou password errados" });
-
-  const { password: OhYouDontNeedThis, ...user } = userWithEmail.dataValues;
+  if (!userWithEmail) {
+    res.send("Utilizador não encontrado");
+    return;
+  }
+  //  res.status(400).json({ message: "Email ou password errados" });
+  const hashPass = userWithEmail.password;
+  const isValid = await bcrypt.compare(password, hashPass);
+  if (!isValid) {
+    res.send(isValid);
+    return;
+  }
+  const { password: noPassNeed, ...user } = userWithEmail.dataValues;
 
   const token = createToken(user);
   res.json(token);
