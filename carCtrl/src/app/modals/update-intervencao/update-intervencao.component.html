@@ -40,13 +40,19 @@
       </ion-item>
       <ion-item>
         <ion-label position="floating">Carro</ion-label>
-        <ion-input
+        <ion-select
           [(ngModel)]="carInput"
+          [compareWith]="compareWith"
           name="car"
           interface="popover"
-          [readonly]="true"
         >
-        </ion-input>
+          <ion-select-option
+            *ngFor="let item of carros"
+            value="{{ item.idCarro }}"
+            >{{ item.nome }}</ion-select-option
+          >
+        </ion-select>
+
       </ion-item>
       <!-- <ion-item class="ion-margin-bottom">
         <ion-label position="floating">Tipo de Intervenção</ion-label>

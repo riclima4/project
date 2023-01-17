@@ -24,14 +24,14 @@
       <ion-icon slot="icon-only" name="add-outline"></ion-icon>
     </ion-button>
   </ion-text>
-  <ion-card button color="dark" *ngFor="let item of carros">
+  <ion-card color="dark" *ngFor="let item of carros">
     <ion-card-header>
       <ion-card-title>{{item.nome}}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-text>
         <p>Modelo: {{item.marca}}</p>
-        <p>Kilometragem: {{item.kilometragem}}</p>
+        <p>Kilometragem: {{item.kilometragem}} km</p>
       </ion-text>
     </ion-card-content>
     <div class="btnCard">

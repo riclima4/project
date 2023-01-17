@@ -1,12 +1,12 @@
 {
   "add": "Adicionar",
   "name": "Nome",
-  "desc": "Descriçao",
+  "desc": "Descrição",
   "Killometers": "Kilometragem",
   "Car": "Carro",
-  "lang": "Defenir idioma",
-  "Def": "Defeniçoes",
-  "pag1": "Intervençoes",
+  "lang": "Definir idioma",
+  "Def": "Definições",
+  "pag1": "Intervenções",
   "pag2": "Carros",
   "pag3": "Utilizador",
   "int title": "Adicionar intervenção",
@@ -25,7 +25,7 @@
   "passwordText": "Palavra-passe",
   "passwordTextConfirm": "Confirmar Palavra-passe",
   "signup": "Registar",
-
   "404": "Página não encontrada",
   "goback": "Voltar a tras"
+  "darkmode": "Modo escuro"
 }

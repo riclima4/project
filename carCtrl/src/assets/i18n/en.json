@@ -25,7 +25,8 @@
   "passwordText": "Input your password",
   "passwordTextConfirm": "Confirm your password",
   "signup": "Register",
-
   "404": "Page not found",
   "goback": "Go back"
+  "darkmode": "Dark mode"
+
 }

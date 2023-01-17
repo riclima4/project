@@ -67,7 +67,7 @@ export class Tab2Page {
   async loadCarros() {
     this.crudService.getCars('car', this.userID).subscribe((res) => {
       this.carros = res.cars;
-      console.log(this.carros);
+      // console.log(this.carros);
     });
   }
   async openModalCreateCarro() {
@@ -78,13 +78,8 @@ export class Tab2Page {
       },
     });
     modalCarro.onDidDismiss().then(() => {
-      this.loadingSpinner();
-      setTimeout(() => {
-        this.crudService.getCars('car', this.userID).subscribe((res) => {
-          this.carros = res.cars;
-          console.log(this.carros);
-        });
-      }, 2000);
+      // this.loadingSpinner();
+      this.loadCarros();
     });
     await modalCarro.present();
   }
@@ -97,13 +92,8 @@ export class Tab2Page {
       },
     });
     modalUpdateCarro.onDidDismiss().then(() => {
-      this.loadingSpinner();
-      setTimeout(() => {
-        this.crudService.getCars('car', 1).subscribe((res) => {
-          this.carros = res.cars;
-          console.log(this.carros);
-        });
-      }, 2000);
+      // this.loadingSpinner();
+      this.loadCarros();
     });
     await modalUpdateCarro.present();
   }
@@ -161,7 +151,6 @@ export class Tab2Page {
     this.loadingSpinner();
     setTimeout(() => {
       this.loadCarros();
-
       this.presentToastDelete('top');
     }, 2000);
   }
