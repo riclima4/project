@@ -19,6 +19,7 @@ export class CreateIntervencaoComponent implements OnInit {
   kilometragemInput: any;
   carros: any;
   idUser: any;
+  priceInput: any;
   // tipoInput: any;
   constructor(
     private modalCtrl: ModalController,

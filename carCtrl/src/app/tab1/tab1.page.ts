@@ -22,6 +22,9 @@ export class Tab1Page {
   intervencoes: any;
   user: any;
   userID: any;
+  haveCars: any;
+  carros: any;
+  haveInterventions: any;
 
   constructor(
     private modalCtrl: ModalController,
@@ -37,17 +40,8 @@ export class Tab1Page {
   }
   ionViewDidEnter() {
     this.loadIntervencoes();
+    this.loadCarros();
   }
-
-  logout = async () => {
-    const token = await Preferences.get({ key: 'token' });
-
-    // console.log(token.value !== null);
-    if (token) {
-      Preferences.remove({ key: 'token' });
-      window.location.reload();
-    }
-  };
 
   getToken = async () => {
     const token = await Preferences.get({ key: 'token' });
@@ -105,13 +99,48 @@ export class Tab1Page {
 
     this.presentToastDelete('top');
   }
+  // async loadIntervencoes() {
+  //   // console.log(this.userID);
+  //   this.crudService
+  //     .getIntervencao('intervencoes', this.userID)
+  //     .subscribe((res) => {
+  //       this.intervencoes = res.intervencao;
+  //       if (this.intervencoes.length > 0) {
+  //         this.haveInterventions = true;
+  //         // console.log(this.haveCars);
+  //         return;
+  //       }
+  //       this.haveInterventions = false;
+  //       // console.log(this.haveCars);
+  //     });
+  // }
   async loadIntervencoes() {
     // console.log(this.userID);
     this.crudService
       .getIntervencao('intervencoes', this.userID)
       .subscribe((res) => {
         this.intervencoes = res.intervencao;
+        if (this.intervencoes.length > 0) {
+          this.haveInterventions = true;
+          // console.log(this.haveCars);
+          return;
+        }
+        this.haveInterventions = false;
+        // console.log(this.haveCars);
       });
+  }
+  async loadCarros() {
+    this.crudService.getCars('car', this.userID).subscribe((res) => {
+      this.carros = res.cars;
+
+      if (this.carros.length > 0) {
+        this.haveCars = true;
+        // console.log(this.haveCars);
+        return;
+      }
+      this.haveCars = false;
+      // console.log(this.haveCars);
+    });
   }
   async loadingSpinner() {
     const loading = await this.loadingCtrl.create({

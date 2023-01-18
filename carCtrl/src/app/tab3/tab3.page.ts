@@ -23,7 +23,7 @@ export class Tab3Page {
   constructor(
     private translateService: TranslateService,
     private toastController: ToastController,
-    private modalCtrl: ModalController,
+
     private router: Router
   ) {}
   ngOnInit() {
@@ -42,7 +42,7 @@ export class Tab3Page {
     if (token.value !== null) {
       const user = jwt_decode(token.value);
       this.user = user;
-      console.log(this.user);
+      // console.log(this.user);
     }
   };
   async toggleTheme(event: any) {
@@ -63,22 +63,13 @@ export class Tab3Page {
       this.router.navigateByUrl('/tab3', { replaceUrl: true });
     }
   };
-  logout = async () => {
-    const token = await Preferences.get({ key: 'token' });
 
-    // console.log(token.value !== null);
-    if (token) {
-      Preferences.remove({ key: 'token' });
-      window.location.reload();
-    }
-  };
   async changeLanguage(language: string) {
     await Preferences.set({ key: 'user-lang', value: language });
 
     this.translateService.use(language);
     this.showToast(language);
   }
-
   async showToast(lng: string) {
     if (lng == 'pt') {
       const toast = await this.toastController.create({
@@ -95,12 +86,5 @@ export class Tab3Page {
       });
       await toast.present();
     }
-  }
-  async openModalHelp() {
-    const ModalHelp = await this.modalCtrl.create({
-      component: HelpComponent,
-    });
-
-    await ModalHelp.present();
   }
 }

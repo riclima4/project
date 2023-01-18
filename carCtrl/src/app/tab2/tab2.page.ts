@@ -21,6 +21,8 @@ export class Tab2Page {
   carros: any;
   user: any;
   userID: any;
+  haveCars: any;
+
   constructor(
     private modalCtrl: ModalController,
     private crudService: CrudService,
@@ -68,6 +70,11 @@ export class Tab2Page {
     this.crudService.getCars('car', this.userID).subscribe((res) => {
       this.carros = res.cars;
       // console.log(this.carros);
+      if (this.carros.length > 0) {
+        this.haveCars = true;
+        return;
+      }
+      this.haveCars = false;
     });
   }
   async openModalCreateCarro() {

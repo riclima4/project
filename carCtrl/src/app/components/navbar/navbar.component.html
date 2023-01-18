@@ -1,3 +1,13 @@
-<p>
-  navbar works!
-</p>
+<ion-toolbar color="primary">
+  <ion-buttons slot="end">
+    <ion-button fill="solid" color="primary" (click)="openModalHelp()">
+      <ion-icon name="help-circle"></ion-icon>
+    </ion-button>
+    <ion-button (click)="logout()" fill="solid" color="primary">
+      <ion-icon name="log-out"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-title>
+    <ion-icon size="large" name="car-sport-outline"></ion-icon>
+  </ion-title>
+</ion-toolbar>

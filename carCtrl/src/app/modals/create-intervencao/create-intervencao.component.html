@@ -48,6 +48,15 @@
           >
         </ion-select>
       </ion-item>
+      <ion-item>
+        <ion-label position="floating">Gastos</ion-label>
+        <ion-input
+          type="number"
+          [(ngModel)]="priceInput"
+          name="price"
+          placeholder="Enter price"
+        ></ion-input>
+      </ion-item>
       <!-- <ion-item class="ion-margin-bottom">
         <ion-label position="floating">Tipo de Intervenção</ion-label>
         <ion-select [(ngModel)]="tipoInput" name="tipo" interface="popover">

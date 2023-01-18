@@ -8,6 +8,7 @@ import { Tab1Page } from './tab1.page';
 import { Tab1PageRoutingModule } from './tab1-routing.module';
 import { CreateIntervencaoComponent } from '../modals/create-intervencao/create-intervencao.component';
 import { UpdateIntervencaoComponent } from '../modals/update-intervencao/update-intervencao.component';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { UpdateIntervencaoComponent } from '../modals/update-intervencao/update-
     FormsModule,
     Tab1PageRoutingModule,
     TranslateModule,
+    ComponentsModule,
   ],
   declarations: [
     Tab1Page,

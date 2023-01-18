@@ -27,5 +27,6 @@
   "signup": "Register",
   "404": "Page not found",
   "goback": "Go back",
-  "darkmode": "Dark mode"
+  "darkmode": "Dark mode",
+  "client": "User"
 }
