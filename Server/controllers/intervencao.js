@@ -4,17 +4,21 @@ export const getAllIntervencao = async (req, res) => {
   const idUser = req.params.idUser;
   const intervencao = await IntervencaoModel.findAll({
     where: { idUser: idUser },
+    order: [
+      ["idCarro", "DESC"],
+      ["idIntervencao", "DESC"],
+    ],
   });
   return res.send({ intervencao });
 };
 export const getAllIntervencaoByCar = async (req, res) => {
-  const idCar = req.params.idCar;
+  const idCarro = req.params.idCarro;
   const intervencao = await IntervencaoModel.findAll({
-    where: { idCar: idCar },
+    where: { idCarro: idCarro },
+    order: [["idCarro", "ASC"]],
   });
   return res.send(intervencao);
 };
-
 export const newIntervencao = async (req, res) => {
   const newIntervencao = {
     nome: req.body.nome,
@@ -43,7 +47,6 @@ export const updateIntervencao = async (req, res) => {
   if (intervencao !== null) {
     intervencao.update(intervencaoUpdated);
     return res.send({ intervencaoUpdated }); //----------POR REDIRECT----------
-
   } else {
     return res.send("Nao existe Intervencao com id:" + idIntervencao);
   }

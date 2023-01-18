@@ -33,11 +33,12 @@ export class SigninPage implements OnInit {
       this.router.navigateByUrl('/tab1', { replaceUrl: true });
     }
   };
-  async presentToastDelete(position: 'top' | 'middle' | 'bottom') {
+  async presentToast(position: 'top' | 'middle' | 'bottom') {
     const toast = await this.toastController.create({
       message: 'Credenciais erradas tente novamente',
       duration: 2000,
       position: position,
+      color: 'danger',
     });
 
     await toast.present();
@@ -60,7 +61,7 @@ export class SigninPage implements OnInit {
           await this.router.navigateByUrl('/tabs', { replaceUrl: true });
         },
         async (error) => {
-          this.presentToastDelete('top');
+          this.presentToast('top');
         }
       );
     } else {
@@ -70,7 +71,7 @@ export class SigninPage implements OnInit {
         this.emailInput == '' ||
         this.passwordInput == ''
       ) {
-        this.presentToastDelete('top');
+        this.presentToast('top');
       }
     }
   }
