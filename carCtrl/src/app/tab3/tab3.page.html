@@ -22,7 +22,7 @@
       </h2>
     </ion-text>
   </div>
-  <ion-list class="ion-margin-top ion-padding">
+  <ion-list class="ion-margin-top ion-padding formCss">
     <ion-item>
       <ion-icon position="fixed" name="mail-outline" slot="start"></ion-icon>
       <ion-label>{{email}}</ion-label>
@@ -45,7 +45,10 @@
     <div class="ion-padding">
       <div class="darkmode">
         <h5>{{'darkmode'| translate}}</h5>
-        <ion-toggle (ionChange)="toggleTheme($event)"></ion-toggle>
+        <ion-toggle
+          checked="{{toggleDarkMode}}"
+          (ionChange)="toggleTheme($event)"
+        ></ion-toggle>
       </div>
       <div class="langSettings">
         <h5>{{ 'lang' | translate}}</h5>
@@ -53,6 +56,22 @@
           <ion-button (click)="changeLanguage('en')"> EN </ion-button>
           <ion-button (click)="changeLanguage('pt')"> PT </ion-button>
         </div>
+      </div>
+    </div>
+  </ion-text>
+  <ion-text class="ion-text-center ion-padding">
+    <h3 class="ion-text-center">{{ 'expenses' | translate}}</h3>
+
+    <div class="ion-padding">
+      <div *ngFor="let item of carAndPrice">
+        <div class="linhaGastosCarro">
+          <h5>{{item.nome}}:</h5>
+          <h5>{{item.price}} €</h5>
+        </div>
+      </div>
+      <div class="linhaGastosTotal">
+        <h5>Total:</h5>
+        <h5>{{totalPrice}} €</h5>
       </div>
     </div>
   </ion-text>

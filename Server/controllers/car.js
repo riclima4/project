@@ -9,7 +9,27 @@ export const getAllcars = async (req, res) => {
 export const getCarsById = async (req, res) => {
   const idCarro = req.params.idCarro;
   const cars = await CarsModel.findByPk(idCarro);
+
   return res.send({ cars });
+};
+export const getCarsByIdPrice = async (req, res) => {
+  const idCarro = req.params.idCarro;
+
+  const cars = await CarsModel.findByPk(idCarro);
+
+  const interv = await IntervencaoModel.findAll({
+    where: { idCarro: idCarro },
+  });
+  if (!cars || !interv) {
+    return res.send("nao há carros ou intervenções");
+  }
+  var priceByCar = 0;
+  interv.forEach((element) => {
+    priceByCar = priceByCar + element.price;
+    // console.log(priceByCar);
+  });
+
+  res.send(priceByCar.toString());
 };
 
 export const getCarsByUser = async (req, res) => {
@@ -24,6 +44,10 @@ export const newCar = async (req, res) => {
     nome: req.body.nome,
     marca: req.body.marca,
     kilometragem: req.body.kilometragem,
+    ano: req.body.ano,
+    gasType: req.body.gasType,
+    motor: req.body.motor,
+    modelo: req.body.modelo,
   };
   await CarsModel.create(newCar);
   res.send({ newCar });
@@ -36,6 +60,10 @@ export const updateCar = async (req, res) => {
     nome: req.body.nome,
     marca: req.body.marca,
     kilometragem: req.body.kilometragem,
+    ano: req.body.ano,
+    gasType: req.body.gasType,
+    motor: req.body.motor,
+    modelo: req.body.modelo,
   };
   const car = await CarsModel.findByPk(idCarro);
   if (car !== null) {

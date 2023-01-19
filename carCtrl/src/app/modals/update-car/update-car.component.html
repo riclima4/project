@@ -9,26 +9,62 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding modalContent">
-  <form (ngSubmit)="newUpdate()">
+  <form (ngSubmit)="newUpdate()" class="formCss">
     <ion-list lines="full">
-      <ion-item>
+      <ion-item class="ion-margin-bottom">
         <ion-label position="floating">{{ "name" | translate }}</ion-label>
         <ion-input
           [(ngModel)]="nomeInput"
           name="nome"
-          placeholder="Enter text"
+          placeholder="{{ 'insertText' | translate }}"
         ></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item class="ion-margin-bottom">
         <ion-label position="floating">{{ "brand" | translate }}</ion-label>
         <ion-input
           [(ngModel)]="marcaInput"
           name="marca"
-          placeholder="Enter text"
+          placeholder="{{ 'insertText' | translate }}"
         >
         </ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="floating">{{ "model" | translate }}</ion-label>
+        <ion-input
+          [(ngModel)]="modeloInput"
+          name="modelo"
+          placeholder="{{ 'insertText' | translate }}"
+        >
+        </ion-input>
+      </ion-item>
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="floating">{{ "engine" | translate }}</ion-label>
+        <ion-input
+          [(ngModel)]="motorInput"
+          name="motor"
+          placeholder="{{ 'insertText' | translate }}"
+        >
+        </ion-input>
+      </ion-item>
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="floating">{{ "fuel" | translate }}</ion-label>
+        <ion-input
+          [(ngModel)]="fuelInput"
+          name="fuel"
+          placeholder="{{ 'insertText' | translate }}"
+        >
+        </ion-input>
+      </ion-item>
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="floating">{{ "year" | translate }}</ion-label>
+        <ion-input
+          [(ngModel)]="yearInput"
+          name="year"
+          placeholder="{{ 'insertYear' | translate }}"
+        >
+        </ion-input>
+      </ion-item>
+      <ion-item class="ion-margin-bottom">
         <ion-label position="floating">{{
           "Killometers" | translate
         }}</ion-label>
@@ -36,7 +72,7 @@
           type="number"
           [(ngModel)]="kilometragemInput"
           name="kilometragem"
-          placeholder="Enter text"
+          placeholder="{{ 'insertKM' | translate }}"
         >
         </ion-input>
       </ion-item>

@@ -17,6 +17,10 @@ export class CreateCarComponent implements OnInit {
   marcaInput: any;
   kilometragemInput: any;
   userID: any;
+  motorInput: any;
+  modeloInput: any;
+  yearInput: any;
+  fuelInput: any;
   constructor(
     private modalCtrl: ModalController,
     private crudService: CrudService,
@@ -45,6 +49,7 @@ export class CreateCarComponent implements OnInit {
       message: 'Carro criado com sucesso',
       duration: 2000,
       position: position,
+      color: 'success',
     });
 
     await toast.present();
@@ -58,11 +63,23 @@ export class CreateCarComponent implements OnInit {
     await loading.present();
   }
   newCar() {
-    if (this.nomeInput && this.marcaInput && this.kilometragemInput) {
+    if (
+      this.nomeInput &&
+      this.marcaInput &&
+      this.kilometragemInput &&
+      this.marcaInput &&
+      this.modeloInput &&
+      this.yearInput &&
+      this.fuelInput
+    ) {
       const newCar = {
         idUser: this.userID,
         nome: this.nomeInput,
         marca: this.marcaInput,
+        modelo: this.modeloInput,
+        motor: this.motorInput,
+        ano: this.yearInput,
+        gasType: this.fuelInput,
         kilometragem: this.kilometragemInput,
       };
       console.log(newCar);

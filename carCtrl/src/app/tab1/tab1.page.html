@@ -22,14 +22,20 @@
 
   <!-- Inervenções -->
   <div *ngIf="haveCars">
-    <ion-list class="ion-padding">
-      <ion-item-sliding *ngFor="let item of intervencoes">
-        {{item.idCarro}}
+    <ion-list class="ion-padding formCss" *ngIf="haveInterventions">
+      <ion-item-sliding
+        class="ion-margin-bottom"
+        *ngFor="let item of intervencoes"
+      >
         <ion-item lines="full">
           <ion-label>
-            <h1>{{item.nome}}</h1>
-            <p>{{item.description}}</p>
+            <ion-text>{{'Car'|translate}}: {{item.carro.nome}} </ion-text>
+            <h1>{{'name'|translate}}: {{item.nome}}</h1>
+            <p>{{'desc'| translate}}: {{item.description}}</p>
+            <p>{{'date'|translate}}: {{item.data}}</p>
           </ion-label>
+          <h3>{{item.price}} €</h3>
+
           <ion-icon name="caret-back-outline" slot="end"></ion-icon>
         </ion-item>
 
@@ -54,13 +60,15 @@
       *ngIf="!haveInterventions"
       class="ion-padding ion-text-center noCars"
     >
-      <h3>Não existem intervenções</h3>
+      <h3>{{'noInt'| translate}}</h3>
     </ion-text>
   </div>
   <ion-content *ngIf="!haveCars" class="ion-padding">
     <ion-text class="ion-padding ion-text-center noCars">
-      <h3>Não existem carros para poderes adicionar intervenções</h3>
+      <h3>{{'noCarsInt'| translate}}</h3>
     </ion-text>
-    <ion-button href="#/tabs/tab2" expand="block">Adicionar Carro</ion-button>
+    <ion-button href="#/tabs/tab2" expand="block"
+      >{{'car title'|translate}}</ion-button
+    >
   </ion-content>
 </ion-content>

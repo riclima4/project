@@ -4,6 +4,7 @@ export const getAllIntervencao = async (req, res) => {
   const idUser = req.params.idUser;
   const intervencao = await IntervencaoModel.findAll({
     where: { idUser: idUser },
+    include: { association: "carro" },
     order: [
       ["idCarro", "DESC"],
       ["idIntervencao", "DESC"],
@@ -28,6 +29,7 @@ export const newIntervencao = async (req, res) => {
     kilometragem: req.body.kilometragem,
     idUser: req.body.idUser,
     idCarro: req.body.idCarro,
+    price: req.body.price,
   };
   await IntervencaoModel.create(newIntervencao);
   return res.send(newIntervencao);
@@ -41,6 +43,7 @@ export const updateIntervencao = async (req, res) => {
     idCarro: req.body.idCarro,
     data: req.body.data,
     kilometragem: req.body.kilometragem,
+    price: req.body.price,
   };
 
   const intervencao = await IntervencaoModel.findByPk(idIntervencao);
