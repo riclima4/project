@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CrudService } from '../services/api/crud.service';
 import { Preferences } from '@capacitor/preferences';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/auth/authentication.service';
-import { ToastController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-signin',
@@ -12,19 +12,33 @@ import { ToastController } from '@ionic/angular';
 })
 export class SigninPage implements OnInit {
   constructor(
-    private crudService: CrudService,
     private router: Router,
     private authService: AuthenticationService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private translateService: TranslateService,
+    private loadingCtrl: LoadingController
   ) {}
   emailInput: any;
   passwordInput: any;
   ngOnInit() {
-    //this.checkToken();
+    this.checkDarkmode();
   }
-  // ionViewWillEnter() {
-  //   this.checkToken();
-  // }
+  async loadingSpinner() {
+    const loading = await this.loadingCtrl.create({
+      spinner: 'crescent',
+      mode: 'ios',
+      duration: 2000,
+    });
+    await loading.present();
+  }
+  checkDarkmode = async () => {
+    const darkmode = await Preferences.get({ key: 'color-theme' });
+    if (darkmode.value == 'dark') {
+      document.body.setAttribute('color-theme', 'dark');
+    } else {
+      document.body.setAttribute('color-theme', 'light');
+    }
+  };
   checkToken = async () => {
     const hasToken = await Preferences.get({ key: 'token' });
     if (hasToken.value === null) {
@@ -61,7 +75,10 @@ export class SigninPage implements OnInit {
           await this.router.navigateByUrl('/tabs', { replaceUrl: true });
         },
         async (error) => {
-          this.presentToast('top');
+          this.loadingSpinner();
+          setTimeout(() => {
+            this.presentToast('top');
+          }, 2000);
         }
       );
     } else {
@@ -73,6 +90,31 @@ export class SigninPage implements OnInit {
       ) {
         this.presentToast('top');
       }
+    }
+  }
+  async changeLanguage(language: string) {
+    await Preferences.set({ key: 'user-lang', value: language });
+
+    this.translateService.use(language);
+    this.showToast(language);
+  }
+  async showToast(lng: string) {
+    if (lng == 'pt') {
+      const toast = await this.toastController.create({
+        message: this.translateService.instant('Idioma mudado para Português'),
+        duration: 2000,
+        position: 'bottom',
+        color: 'success',
+      });
+      await toast.present();
+    } else if (lng == 'en') {
+      const toast = await this.toastController.create({
+        message: this.translateService.instant('Language Changed to English'),
+        duration: 2000,
+        position: 'bottom',
+        color: 'success',
+      });
+      await toast.present();
     }
   }
 }

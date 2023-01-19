@@ -54,3 +54,12 @@ ion-content ion-img {
   max-width: 700px;
   margin: 0 auto;
 }
+.formCss {
+  background-color: rgba(255, 255, 255, 0);
+}
+.formCss ion-item {
+  --background: var(--ion-color-light);
+  --border-radius: 3px;
+  // --padding-top: 5px;
+  // --padding-bottom: 5px;
+}

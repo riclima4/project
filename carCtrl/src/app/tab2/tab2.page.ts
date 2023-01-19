@@ -34,6 +34,7 @@ export class Tab2Page {
   ngOnInit() {
     this.checkToken();
     this.getToken();
+    this.checkDarkmode();
   }
   ionViewDidEnter() {
     this.loadCarros();
@@ -44,6 +45,14 @@ export class Tab2Page {
       this.router.navigateByUrl('/signin', { replaceUrl: true });
     } else {
       this.router.navigateByUrl('/tab2', { replaceUrl: true });
+    }
+  };
+  checkDarkmode = async () => {
+    const darkmode = await Preferences.get({ key: 'color-theme' });
+    if (darkmode.value == 'dark') {
+      document.body.setAttribute('color-theme', 'dark');
+    } else {
+      document.body.setAttribute('color-theme', 'light');
     }
   };
   getToken = async () => {

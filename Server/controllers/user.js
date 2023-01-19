@@ -92,8 +92,9 @@ export const login = async (req, res) => {
   //  res.status(400).json({ message: "Email ou password errados" });
   const hashPass = userWithEmail.password;
   const isValid = await bcrypt.compare(password, hashPass);
-  if (!isValid) {
-    res.send(isValid);
+  if (isValid === false) {
+    // res.send(isValid);
+    res.sendStatus(400);
     return;
   }
   const { password: noPassNeed, ...user } = userWithEmail.dataValues;

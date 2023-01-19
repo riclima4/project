@@ -10,23 +10,24 @@
 </ion-header>
 <ion-content class="ion-padding modalContent">
   <form (ngSubmit)="newUpdate()">
-    <ion-list lines="full">
-      <ion-item>
-        <ion-label position="floating">{{ "Nome" | translate }}</ion-label>
-        <ion-input [(ngModel)]="nomeInput" name="nome" placeholder="Enter text">
-        </ion-input>
+    <ion-list lines="full" class="formCss">
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="floating">{{ "name" | translate }}</ion-label>
+        <ion-input
+          [(ngModel)]="nomeInput"
+          name="nome"
+          placeholder="{{ 'insertText' | translate }}"
+        ></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item class="ion-margin-bottom">
         <ion-label position="floating">{{ "desc" | translate }}</ion-label>
         <ion-textarea
-          [autoGrow]="true"
           [(ngModel)]="descInput"
           name="desc"
-          placeholder="Enter text"
-        >
-        </ion-textarea>
+          placeholder="{{ 'insertText' | translate }}"
+        ></ion-textarea>
       </ion-item>
-      <ion-item>
+      <ion-item class="ion-margin-bottom">
         <ion-label position="floating">{{
           "Killometers" | translate
         }}</ion-label>
@@ -34,29 +35,29 @@
           type="number"
           [(ngModel)]="kilometragemInput"
           name="kilometragem"
-          placeholder="Enter text"
-        >
-        </ion-input>
+          placeholder="{{ 'insertKM' | translate }}"
+        ></ion-input>
       </ion-item>
-      <ion-item>
-        <ion-label position="floating">Carro</ion-label>
-        <ion-select
-          [(ngModel)]="carInput"
-          [compareWith]="compareWith"
-          name="car"
-          interface="popover"
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="floating">{{ "Car" | translate }}</ion-label>
+        <ion-input [(ngModel)]="carroInput" name="car" disabled></ion-input>
+      </ion-item>
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="floating">
+          {{ "expenses" | translate }}
+        </ion-label>
+        <ion-input
+          type="number"
+          [(ngModel)]="priceInput"
+          name="price"
+          placeholder="{{ 'insertPrice' | translate }}"
         >
-          <ion-select-option
-            *ngFor="let item of carros"
-            value="{{ item.idCarro }}"
-            >{{ item.nome }}</ion-select-option
-          >
-        </ion-select>
-
+          <ion-icon name="logo-euro"></ion-icon>
+        </ion-input>
       </ion-item>
       <!-- <ion-item class="ion-margin-bottom">
         <ion-label position="floating">Tipo de Intervenção</ion-label>
-        <ion-select interface="popover">
+        <ion-select [(ngModel)]="tipoInput" name="tipo" interface="popover">
           <ion-select-option value="apples">intervenção1</ion-select-option>
           <ion-select-option value="oranges">intervenção2</ion-select-option>
           <ion-select-option value="bananas">intervenção3</ion-select-option>

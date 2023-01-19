@@ -1,10 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button (click)="dismissModal()">Cancel</ion-button>
-    </ion-buttons>
     <ion-title>{{ "help title" | translate }}</ion-title>
-    <ion-buttons slot="end"> </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding ion-text-center">

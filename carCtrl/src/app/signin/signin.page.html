@@ -1,4 +1,8 @@
 <ion-toolbar color="primary">
+  <ion-buttons slot="end">
+    <ion-button (click)="changeLanguage('en')"> EN </ion-button>
+    <ion-button (click)="changeLanguage('pt')"> PT </ion-button>
+  </ion-buttons>
   <ion-title>
     <ion-icon size="large" name="car-sport-outline"></ion-icon>
   </ion-title>
@@ -10,35 +14,35 @@
     <h1>SignIn</h1>
   </ion-text> -->
   <form class="loginForm" (ngSubmit)="login()">
-    <ion-list>
+    <ion-list class="formCss">
       <ion-item class="ion-margin-bottom">
         <ion-label position="fixed">Email</ion-label>
         <ion-input
           [(ngModel)]="emailInput"
           name="email"
           type="email"
-          placeholder="Ensere o teu email"
+          placeholder="{{'insertEmail'| translate}}"
         ></ion-input>
       </ion-item>
-
       <ion-item class="ion-margin-bottom">
         <ion-label position="fixed">Password</ion-label>
         <ion-input
           [(ngModel)]="passwordInput"
           name="password"
           type="password"
-          placeholder="Ensere a tua password"
+          placeholder="{{'insertPassword'| translate}}"
         >
         </ion-input>
       </ion-item>
     </ion-list>
     <ion-button type="submit" expand="block">
-      {{'Entrar' | translate}}
+      {{'signin' | translate}}
     </ion-button>
   </form>
   <div class="linkSignPages">
     <ion-text class="ion-align-self-center">
-      Se não tens conta entra na página de <a href="#/signup">Registo</a>.
+      {{'linksignin' | translate}}
+      <a href="#/signup">{{'signup'| translate}}</a>.
     </ion-text>
   </div>
 </ion-content>

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Preferences } from '@capacitor/preferences';
 import { ToastController } from '@ionic/angular';
 import { CrudService } from '../services/api/crud.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-signup',
@@ -16,10 +18,21 @@ export class SignupPage implements OnInit {
   constructor(
     private toastController: ToastController,
     private crudService: CrudService,
-    private router: Router
+    private router: Router,
+    private translateService: TranslateService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.checkDarkmode();
+  }
+  checkDarkmode = async () => {
+    const darkmode = await Preferences.get({ key: 'color-theme' });
+    if (darkmode.value == 'dark') {
+      document.body.setAttribute('color-theme', 'dark');
+    } else {
+      document.body.setAttribute('color-theme', 'light');
+    }
+  };
   async presentToast(position: 'top' | 'middle' | 'bottom', nome: string) {
     if (nome == 'input') {
       const toast = await this.toastController.create({
@@ -58,7 +71,31 @@ export class SignupPage implements OnInit {
       await toast.present();
     }
   }
+  async changeLanguage(language: string) {
+    await Preferences.set({ key: 'user-lang', value: language });
 
+    this.translateService.use(language);
+    this.showToast(language);
+  }
+  async showToast(lng: string) {
+    if (lng == 'pt') {
+      const toast = await this.toastController.create({
+        message: this.translateService.instant('Idioma mudado para Português'),
+        duration: 2000,
+        position: 'bottom',
+        color: 'success',
+      });
+      await toast.present();
+    } else if (lng == 'en') {
+      const toast = await this.toastController.create({
+        message: this.translateService.instant('Language Changed to English'),
+        duration: 2000,
+        position: 'bottom',
+        color: 'success',
+      });
+      await toast.present();
+    }
+  }
   newUser() {
     if (
       !this.nomeInput ||

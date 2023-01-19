@@ -37,6 +37,7 @@ export class Tab1Page {
   ngOnInit() {
     this.checkToken();
     this.getToken();
+    this.checkDarkmode();
   }
   ionViewDidEnter() {
     this.loadIntervencoes();
@@ -60,6 +61,14 @@ export class Tab1Page {
       this.router.navigateByUrl('/signin', { replaceUrl: true });
     } else {
       this.router.navigateByUrl('/tab1', { replaceUrl: true });
+    }
+  };
+  checkDarkmode = async () => {
+    const darkmode = await Preferences.get({ key: 'color-theme' });
+    if (darkmode.value == 'dark') {
+      document.body.setAttribute('color-theme', 'dark');
+    } else {
+      document.body.setAttribute('color-theme', 'light');
     }
   };
   //Intervenções
@@ -95,9 +104,8 @@ export class Tab1Page {
     this.loadingSpinner();
     setTimeout(() => {
       this.loadIntervencoes();
+      this.presentToastDelete('top');
     }, 2000);
-
-    this.presentToastDelete('top');
   }
   // async loadIntervencoes() {
   //   // console.log(this.userID);
@@ -183,6 +191,7 @@ export class Tab1Page {
       message: 'Intervencao eliminada com sucesso',
       duration: 2000,
       position: position,
+      color: 'success',
     });
 
     await toast.present();

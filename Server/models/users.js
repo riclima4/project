@@ -1,5 +1,6 @@
 import Sequelize from "sequelize";
 import { dbInstance } from "../config/db.js";
+import { CarsModel } from "./cars.js";
 
 const UserModel = dbInstance.define("users", {
   idUser: {
@@ -26,4 +27,5 @@ const UserModel = dbInstance.define("users", {
     defaultValue: 1,
   },
 });
+
 export { UserModel };

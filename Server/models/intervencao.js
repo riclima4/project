@@ -68,8 +68,7 @@ const IntervencaoModel = dbInstance.define("intervencao", {
 });
 IntervencaoModel.belongsTo(CarsModel, {
   foreignKey: "idCarro",
+  as: "carro",
 });
-IntervencaoModel.belongsTo(UserModel, {
-  foreignKey: "idUser",
-});
+
 export { IntervencaoModel };
