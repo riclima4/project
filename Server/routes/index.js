@@ -6,7 +6,7 @@ import {
   login,
   newUser,
   updateUser,
-} from "../api/user.js";
+} from "../controllers/user.js";
 import {
   deleteCar,
   getAllcars,
@@ -15,14 +15,14 @@ import {
   getCarsByUser,
   newCar,
   updateCar,
-} from "../api/car.js";
+} from "../controllers/car.js";
 import {
   deleteIntervencao,
   getAllIntervencao,
   getAllIntervencaoByCar,
   newIntervencao,
   updateIntervencao,
-} from "../api/intervencao.js";
+} from "../controllers/intervencao.js";
 import { authRequired } from "../utils/jwt.js";
 
 const routes = Router();
