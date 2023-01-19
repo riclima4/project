@@ -36,15 +36,10 @@ try {
 }
 
 // correr server no url host:port definido em .env
-// app.listen(process.env.SERVER_PORT, process.env.SERVER_HOST, () => {
-//   console.log(
-//     "Server up and running at http://%s:%s",
-//     process.env.SERVER_HOST,
-//     process.env.SERVER_PORT
-//   );
-// });
-const PORT = process.env.SERVER_PORT;
-
-app.listen(PORT, () => {
-  console.log(`API listening on PORT ${PORT} `);
+app.listen(process.env.SERVER_PORT, process.env.SERVER_HOST, () => {
+  console.log(
+    "Server up and running at http://%s:%s",
+    process.env.SERVER_HOST,
+    process.env.SERVER_PORT
+  );
 });
