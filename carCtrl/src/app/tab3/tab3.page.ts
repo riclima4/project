@@ -68,7 +68,7 @@ export class Tab3Page {
       document.body.setAttribute('color-theme', 'dark');
       this.toggleDarkMode = true;
       return;
-    } else if (darkmode.value === 'light') {
+    } else if (darkmode.value === 'light' || !darkmode) {
       document.body.setAttribute('color-theme', 'light');
       this.toggleDarkMode = false;
       return;
