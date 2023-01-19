@@ -64,11 +64,12 @@ export class Tab3Page {
   }
   checkDarkmode = async () => {
     const darkmode = await Preferences.get({ key: 'color-theme' });
+
     if (darkmode.value == 'dark') {
       document.body.setAttribute('color-theme', 'dark');
       this.toggleDarkMode = true;
       return;
-    } else if (darkmode.value === 'light' || !darkmode) {
+    } else if (darkmode.value == 'light' || darkmode.value == null) {
       document.body.setAttribute('color-theme', 'light');
       this.toggleDarkMode = false;
       return;
