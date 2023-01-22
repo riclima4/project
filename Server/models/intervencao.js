@@ -57,11 +57,18 @@ const IntervencaoModel = dbInstance.define("intervencao", {
       notEmpty: true,
     },
   },
+  price: {
+    type: Sequelize.FLOAT(),
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+    defaultValue: 0,
+  },
 });
 IntervencaoModel.belongsTo(CarsModel, {
   foreignKey: "idCarro",
+  as: "carro",
 });
-IntervencaoModel.belongsTo(UserModel, {
-  foreignKey: "idUser",
-});
+
 export { IntervencaoModel };

@@ -20,6 +20,8 @@ export class UpdateIntervencaoComponent implements OnInit {
   kilometragemInput: any;
   carros: any;
   carroById: any;
+  priceInput: any;
+  carroInput: any;
   constructor(
     private modalCtrl: ModalController,
     private crudService: CrudService,
@@ -40,11 +42,12 @@ export class UpdateIntervencaoComponent implements OnInit {
   }
   ngOnInit() {
     this.loadCarroById();
+    this.carroInput = this.item.carro.nome;
     this.nomeInput = this.item.nome;
     this.descInput = this.item.description;
     this.kilometragemInput = this.item.kilometragem;
+    this.priceInput = this.item.price;
   }
-
 
   async loadCarros() {
     this.crudService.getCars('car', this.item.idCarro).subscribe((res) => {
@@ -78,6 +81,7 @@ export class UpdateIntervencaoComponent implements OnInit {
       message: 'Intervenção editada com sucesso',
       duration: 2000,
       position: position,
+      color: 'success',
     });
 
     await toast.present();
@@ -87,7 +91,7 @@ export class UpdateIntervencaoComponent implements OnInit {
       this.nomeInput &&
       this.descInput &&
       this.kilometragemInput &&
-      this.carInput
+      this.priceInput
     ) {
       const idIntervencao = this.item.idIntervencao;
       const idUser = this.item.idUser;
@@ -95,8 +99,8 @@ export class UpdateIntervencaoComponent implements OnInit {
         idUser: idUser,
         nome: this.nomeInput,
         description: this.descInput,
-        idCarro: this.carInput,
         kilometragem: this.kilometragemInput,
+        price: this.priceInput,
       };
       console.log(idIntervencao);
       this.crudService

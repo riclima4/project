@@ -11,6 +11,7 @@ import {
   deleteCar,
   getAllcars,
   getCarsById,
+  getCarsByIdPrice,
   getCarsByUser,
   newCar,
   updateCar,
@@ -41,6 +42,7 @@ routes.delete("/removeUser/:idUser", deleteUser);
 routes.get("/cars", getAllcars);
 routes.get("/car/:idUser", getCarsByUser);
 routes.get("/carById/:idCarro", getCarsById);
+routes.get("/carByIdPrice/:idCarro", getCarsByIdPrice);
 
 routes.post("/newCar", newCar);
 routes.put("/updateCar/:idCarro", updateCar);

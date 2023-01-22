@@ -4,17 +4,22 @@ export const getAllIntervencao = async (req, res) => {
   const idUser = req.params.idUser;
   const intervencao = await IntervencaoModel.findAll({
     where: { idUser: idUser },
+    include: { association: "carro" },
+    order: [
+      ["idCarro", "DESC"],
+      ["idIntervencao", "DESC"],
+    ],
   });
   return res.send({ intervencao });
 };
 export const getAllIntervencaoByCar = async (req, res) => {
-  const idCar = req.params.idCar;
+  const idCarro = req.params.idCarro;
   const intervencao = await IntervencaoModel.findAll({
-    where: { idCar: idCar },
+    where: { idCarro: idCarro },
+    order: [["idCarro", "ASC"]],
   });
   return res.send(intervencao);
 };
-
 export const newIntervencao = async (req, res) => {
   const newIntervencao = {
     nome: req.body.nome,
@@ -24,6 +29,7 @@ export const newIntervencao = async (req, res) => {
     kilometragem: req.body.kilometragem,
     idUser: req.body.idUser,
     idCarro: req.body.idCarro,
+    price: req.body.price,
   };
   await IntervencaoModel.create(newIntervencao);
   return res.send(newIntervencao);
@@ -37,13 +43,13 @@ export const updateIntervencao = async (req, res) => {
     idCarro: req.body.idCarro,
     data: req.body.data,
     kilometragem: req.body.kilometragem,
+    price: req.body.price,
   };
 
   const intervencao = await IntervencaoModel.findByPk(idIntervencao);
   if (intervencao !== null) {
     intervencao.update(intervencaoUpdated);
     return res.send({ intervencaoUpdated }); //----------POR REDIRECT----------
-
   } else {
     return res.send("Nao existe Intervencao com id:" + idIntervencao);
   }

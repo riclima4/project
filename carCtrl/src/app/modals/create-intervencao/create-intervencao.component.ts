@@ -19,6 +19,7 @@ export class CreateIntervencaoComponent implements OnInit {
   kilometragemInput: any;
   carros: any;
   idUser: any;
+  priceInput: any;
   // tipoInput: any;
   constructor(
     private modalCtrl: ModalController,
@@ -49,6 +50,7 @@ export class CreateIntervencaoComponent implements OnInit {
       message: 'Intervenção criada com sucesso',
       duration: 2000,
       position: position,
+      color: 'success',
     });
 
     await toast.present();
@@ -72,7 +74,8 @@ export class CreateIntervencaoComponent implements OnInit {
       this.nomeInput &&
       this.descInput &&
       this.kilometragemInput &&
-      this.carInput
+      this.carInput &&
+      this.priceInput
     ) {
       const newIntervencao = {
         idUser: this.idUser,
@@ -80,6 +83,7 @@ export class CreateIntervencaoComponent implements OnInit {
         nome: this.nomeInput,
         description: this.descInput,
         kilometragem: this.kilometragemInput,
+        price: this.priceInput,
       };
       console.log(newIntervencao);
       this.crudService

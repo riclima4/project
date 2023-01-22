@@ -1,16 +1,4 @@
-<ion-toolbar color="primary">
-  <ion-buttons slot="primary">
-    <ion-button fill="solid" color="primary">
-      <ion-icon name="help-circle"></ion-icon>
-    </ion-button>
-    <ion-button (click)="logout()" fill="solid" color="primary">
-      <ion-icon name="log-out"></ion-icon>
-    </ion-button>
-  </ion-buttons>
-  <ion-title>
-    <ion-icon size="large" name="car-sport-outline"></ion-icon>
-  </ion-title>
-</ion-toolbar>
+<app-navbar></app-navbar>
 
 <ion-content [fullscreen]="true">
   <ion-img src="../../assets/Car.svg" alt="IntervençãoImg" class="ion-padding">
@@ -24,23 +12,37 @@
       <ion-icon slot="icon-only" name="add-outline"></ion-icon>
     </ion-button>
   </ion-text>
-  <ion-card color="dark" *ngFor="let item of carros">
-    <ion-card-header>
-      <ion-card-title>{{item.nome}}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-text>
-        <p>Modelo: {{item.marca}}</p>
-        <p>Kilometragem: {{item.kilometragem}} km</p>
-      </ion-text>
-    </ion-card-content>
-    <div class="btnCard">
-      <ion-button (click)="openModalUpdateCarro(item)">
-        <ion-icon slot="icon-only" name="create"></ion-icon>
-      </ion-button>
-      <ion-button (click)="deleteCarroActionSheet(item.idCarro)" color="danger">
-        <ion-icon slot="icon-only" name="trash"></ion-icon>
-      </ion-button>
-    </div>
-  </ion-card>
+  <div *ngIf="haveCars">
+    <ion-card color="dark" *ngFor="let item of carros">
+      <ion-card-header>
+        <ion-card-title>{{item.nome}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-text>
+          <div class="lineCarCard">
+            <p>{{'brand'| translate}}: {{item.marca}} /</p>
+            <p>{{'model'| translate}}: {{item.modelo}}</p>
+          </div>
+          <p>{{'engine'| translate}}: {{item.motor}}</p>
+          <p>{{'year'| translate}}: {{item.ano}}</p>
+          <p>{{'Killometers'| translate}}: {{item.kilometragem}} KM</p>
+        </ion-text>
+      </ion-card-content>
+      <div class="btnCard">
+        <ion-button (click)="openModalUpdateCarro(item)">
+          <ion-icon slot="icon-only" name="create"></ion-icon>
+        </ion-button>
+        <ion-button
+          (click)="deleteCarroActionSheet(item.idCarro)"
+          color="danger"
+        >
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-card>
+  </div>
+
+  <ion-text *ngIf="!haveCars" class="ion-padding ion-text-center noCars">
+    <h3>{{'noCars'| translate}}</h3>
+  </ion-text>
 </ion-content>

@@ -25,3 +25,12 @@
   align-items: center;
   justify-content: space-between;
 }
+.linhaGastosCarro,
+.linhaGastosTotal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.linhaGastosTotal {
+  border-top: 1px solid var(--ion-color-medium);
+}

@@ -17,6 +17,10 @@ export class UpdateCarComponent implements OnInit {
   nomeInput: any;
   marcaInput: any;
   kilometragemInput: any;
+  motorInput: any;
+  modeloInput: any;
+  yearInput: any;
+  fuelInput: any;
 
   constructor(
     private modalCtrl: ModalController,
@@ -30,6 +34,10 @@ export class UpdateCarComponent implements OnInit {
     this.nomeInput = this.item.nome;
     this.marcaInput = this.item.marca;
     this.kilometragemInput = this.item.kilometragem;
+    this.yearInput = this.item.ano;
+    this.motorInput = this.item.motor;
+    this.modeloInput = this.item.modelo;
+    this.fuelInput = this.item.gasType;
   }
 
   dismissModal() {
@@ -50,6 +58,7 @@ export class UpdateCarComponent implements OnInit {
       message: 'Carro editado com sucesso',
       duration: 2000,
       position: position,
+      color: 'success',
     });
 
     await toast.present();
@@ -63,7 +72,15 @@ export class UpdateCarComponent implements OnInit {
     await loading.present();
   }
   newUpdate() {
-    if (this.nomeInput && this.marcaInput && this.kilometragemInput) {
+    if (
+      this.nomeInput &&
+      this.marcaInput &&
+      this.kilometragemInput &&
+      this.modeloInput &&
+      this.yearInput &&
+      this.motorInput &&
+      this.fuelInput
+    ) {
       const idCar = this.item.idCarro;
       const idUser = this.item.idUser;
       const updatedCar = {
@@ -71,6 +88,10 @@ export class UpdateCarComponent implements OnInit {
         nome: this.nomeInput,
         marca: this.marcaInput,
         kilometragem: this.kilometragemInput,
+        ano: this.yearInput,
+        motor: this.motorInput,
+        modelo: this.modeloInput,
+        gasType: this.fuelInput,
       };
       console.log(idCar);
       this.crudService

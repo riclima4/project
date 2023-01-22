@@ -10,24 +10,24 @@
 </ion-header>
 <ion-content class="ion-padding modalContent">
   <form (ngSubmit)="newIntervencao()">
-    <ion-list lines="full">
-      <ion-item>
-        <ion-label position="floating">{{ "Nome" | translate }}</ion-label>
+    <ion-list lines="full" class="formCss">
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="floating">{{ "name" | translate }}</ion-label>
         <ion-input
           [(ngModel)]="nomeInput"
           name="nome"
-          placeholder="Enter text"
+          placeholder="{{ 'insertText' | translate }}"
         ></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item class="ion-margin-bottom">
         <ion-label position="floating">{{ "desc" | translate }}</ion-label>
         <ion-textarea
           [(ngModel)]="descInput"
           name="desc"
-          placeholder="Enter text"
+          placeholder="{{ 'insertText' | translate }}"
         ></ion-textarea>
       </ion-item>
-      <ion-item>
+      <ion-item class="ion-margin-bottom">
         <ion-label position="floating">{{
           "Killometers" | translate
         }}</ion-label>
@@ -35,10 +35,10 @@
           type="number"
           [(ngModel)]="kilometragemInput"
           name="kilometragem"
-          placeholder="Enter text"
+          placeholder="{{ 'insertKM' | translate }}"
         ></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item class="ion-margin-bottom">
         <ion-label position="floating">{{ "Car" | translate }}</ion-label>
         <ion-select [(ngModel)]="carInput" name="car" interface="popover">
           <ion-select-option
@@ -47,6 +47,19 @@
             >{{ item.nome }}</ion-select-option
           >
         </ion-select>
+      </ion-item>
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="floating">
+          {{ "expenses" | translate }}
+        </ion-label>
+        <ion-input
+          type="number"
+          [(ngModel)]="priceInput"
+          name="price"
+          placeholder="{{ 'insertPrice' | translate }}"
+        >
+          <ion-icon name="logo-euro"></ion-icon>
+        </ion-input>
       </ion-item>
       <!-- <ion-item class="ion-margin-bottom">
         <ion-label position="floating">Tipo de Intervenção</ion-label>

@@ -22,6 +22,9 @@ export class Tab1Page {
   intervencoes: any;
   user: any;
   userID: any;
+  haveCars: any;
+  carros: any;
+  haveInterventions: any;
 
   constructor(
     private modalCtrl: ModalController,
@@ -34,20 +37,12 @@ export class Tab1Page {
   ngOnInit() {
     this.checkToken();
     this.getToken();
+    this.checkDarkmode();
   }
   ionViewDidEnter() {
     this.loadIntervencoes();
+    this.loadCarros();
   }
-
-  logout = async () => {
-    const token = await Preferences.get({ key: 'token' });
-
-    // console.log(token.value !== null);
-    if (token) {
-      Preferences.remove({ key: 'token' });
-      window.location.reload();
-    }
-  };
 
   getToken = async () => {
     const token = await Preferences.get({ key: 'token' });
@@ -66,6 +61,14 @@ export class Tab1Page {
       this.router.navigateByUrl('/signin', { replaceUrl: true });
     } else {
       this.router.navigateByUrl('/tab1', { replaceUrl: true });
+    }
+  };
+  checkDarkmode = async () => {
+    const darkmode = await Preferences.get({ key: 'color-theme' });
+    if (darkmode.value == 'dark') {
+      document.body.setAttribute('color-theme', 'dark');
+    } else {
+      document.body.setAttribute('color-theme', 'light');
     }
   };
   //Intervenções
@@ -101,17 +104,51 @@ export class Tab1Page {
     this.loadingSpinner();
     setTimeout(() => {
       this.loadIntervencoes();
+      this.presentToastDelete('top');
     }, 2000);
-
-    this.presentToastDelete('top');
   }
+  // async loadIntervencoes() {
+  //   // console.log(this.userID);
+  //   this.crudService
+  //     .getIntervencao('intervencoes', this.userID)
+  //     .subscribe((res) => {
+  //       this.intervencoes = res.intervencao;
+  //       if (this.intervencoes.length > 0) {
+  //         this.haveInterventions = true;
+  //         // console.log(this.haveCars);
+  //         return;
+  //       }
+  //       this.haveInterventions = false;
+  //       // console.log(this.haveCars);
+  //     });
+  // }
   async loadIntervencoes() {
     // console.log(this.userID);
     this.crudService
       .getIntervencao('intervencoes', this.userID)
       .subscribe((res) => {
         this.intervencoes = res.intervencao;
+        if (this.intervencoes.length > 0) {
+          this.haveInterventions = true;
+          // console.log(this.haveCars);
+          return;
+        }
+        this.haveInterventions = false;
+        // console.log(this.haveCars);
       });
+  }
+  async loadCarros() {
+    this.crudService.getCars('car', this.userID).subscribe((res) => {
+      this.carros = res.cars;
+
+      if (this.carros.length > 0) {
+        this.haveCars = true;
+        // console.log(this.haveCars);
+        return;
+      }
+      this.haveCars = false;
+      // console.log(this.haveCars);
+    });
   }
   async loadingSpinner() {
     const loading = await this.loadingCtrl.create({
@@ -154,6 +191,7 @@ export class Tab1Page {
       message: 'Intervencao eliminada com sucesso',
       duration: 2000,
       position: position,
+      color: 'success',
     });
 
     await toast.present();
