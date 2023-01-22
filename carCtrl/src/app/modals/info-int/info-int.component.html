@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Ver Intervenção</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding modalContent">
+  <h1 class="ion-text-center">{{ item.nome }}</h1>
+  <h3 class="">Carro: {{ item.carro.nome }}</h3>
+  <p class="">Description: {{ item.description }}</p>
+  <p class="">kilometragem: {{ item.kilometragem }}</p>
+  <p class="">Preço: {{ item.price }}€</p>
+</ion-content>

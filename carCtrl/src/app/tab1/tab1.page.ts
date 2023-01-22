@@ -1,3 +1,4 @@
+import { InfoIntComponent } from './../modals/info-int/info-int.component';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Preferences } from '@capacitor/preferences';
@@ -200,5 +201,19 @@ export class Tab1Page {
     setTimeout(() => {
       (ev as InfiniteScrollCustomEvent).target.complete();
     }, 500);
+  }
+  ///////////////////////////////////////////////////////////////////////////////////////////////
+  async openModalInfoIntervencao(item: any) {
+    console.log(item);
+    const modalInfoIntervencao = await this.modalCtrl.create({
+      component: InfoIntComponent,
+      componentProps: {
+        item: item,
+      },
+    });
+    modalInfoIntervencao.onDidDismiss().then(() => {
+      this.loadIntervencoes();
+    });
+    await modalInfoIntervencao.present();
   }
 }

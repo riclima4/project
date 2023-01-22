@@ -1,4 +1,4 @@
-import { ModeloModel } from "../models/modelos";
+import { ModeloModel } from "../models/modelos.js";
 
 export const getAllModelos = async (req, res) => {
   const modelo = await ModeloModel.findAll();
