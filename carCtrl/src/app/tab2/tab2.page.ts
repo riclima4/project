@@ -1,3 +1,4 @@
+import { InfoCarComponent } from './../modals/info-car/info-car.component';
 import { CrudService, Car } from './../services/api/crud.service';
 import { Component } from '@angular/core';
 import {
@@ -169,5 +170,19 @@ export class Tab2Page {
       this.loadCarros();
       this.presentToastDelete('top');
     }, 2000);
+  }
+  ////////////////////////////////////////////////////////////
+  async openModaInfoCar(item: any) {
+    console.log(item);
+    const modaInfoCar = await this.modalCtrl.create({
+      component: InfoCarComponent,
+      componentProps: {
+        item: item,
+      },
+    });
+    modaInfoCar.onDidDismiss().then(() => {
+      this.loadCarros();
+    });
+    await modaInfoCar.present();
   }
 }

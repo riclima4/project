@@ -24,10 +24,36 @@ import {
   updateIntervencao,
 } from "../controllers/intervencao.js";
 import { authRequired } from "../utils/jwt.js";
-import { getAllGasType } from "../controllers/gasType.js";
-import { getAllInterventionType } from "../controllers/interventionType.js";
-import { getAllyears } from "../controllers/year.js";
-
+import {
+  deleteGasType,
+  getAllGasType,
+  newGasType,
+  updateGasType,
+} from "../controllers/gasType.js";
+import {
+  deleteInterventionType,
+  getAllInterventionType,
+  newInterventionType,
+  updateInterventionType,
+} from "../controllers/interventionType.js";
+import {
+  deleteYear,
+  getAllyears,
+  newYear,
+  updateYear,
+} from "../controllers/year.js";
+import {
+  deleteModelo,
+  getAllModelos,
+  newModelo,
+  updateModelo,
+} from "../controllers/modelo.js";
+import {
+  deleteMarca,
+  getAllMarcas,
+  newMarca,
+  updateMarca,
+} from "../controllers/marcas.js";
 const routes = Router();
 
 routes.post("/auth", authRequired);
@@ -59,8 +85,36 @@ routes.put("/updateIntervencao/:idIntervencao", updateIntervencao);
 
 //Tipo Combustivel
 routes.get("/combustivel", getAllGasType);
+routes.post("/newCombustivel", newGasType);
+routes.put("updateGasType/:idGasType", updateGasType);
+routes.delete("/deleteGasType/:idGasType", deleteGasType);
+
 //Tipo de Intervenção
 routes.get("/interventionType", getAllInterventionType);
+routes.post("/newInterventionType", newInterventionType);
+routes.put(
+  "/updateInterventionType/:idInterventionType",
+  updateInterventionType
+);
+routes.delete(
+  "/deleteInterventionType/:idInterventionType",
+  deleteInterventionType
+);
 //lista anos
 routes.get("/years", getAllyears);
+routes.post("/newYear", newYear);
+routes.put("/updateYear/:idYear", updateYear);
+routes.delete("/deleteYear/:idYear", deleteYear);
+//Modelos
+routes.get("/modelos", getAllModelos);
+routes.post("/newModelo", newModelo);
+routes.put("/updateModelo/:idModelo", updateModelo);
+routes.delete("/deleteModelo/:idModelo", deleteModelo);
+
+//marcas
+routes.get("/marcas", getAllMarcas);
+routes.post("/newMarca", newMarca);
+routes.put("/updateMarca/:idMarca", updateMarca);
+routes.delete("/deleteMarca/:idMarca", deleteMarca);
+
 export { routes };
