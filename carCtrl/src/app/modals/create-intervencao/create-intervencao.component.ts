@@ -20,7 +20,9 @@ export class CreateIntervencaoComponent implements OnInit {
   carros: any;
   idUser: any;
   priceInput: any;
-  // tipoInput: any;
+  tipoInput: any;
+
+  interventionType: any;
   constructor(
     private modalCtrl: ModalController,
     private crudService: CrudService,
@@ -31,6 +33,7 @@ export class CreateIntervencaoComponent implements OnInit {
 
   ngOnInit() {
     this.loadCarros();
+    this.loadInterventionType();
   }
   dismissModal() {
     this.modalCtrl.dismiss();
@@ -69,13 +72,22 @@ export class CreateIntervencaoComponent implements OnInit {
     });
     await loading.present();
   }
+  async loadInterventionType() {
+    this.crudService
+      .getInterventionType('interventionType')
+      .subscribe((res) => {
+        this.interventionType = res.interventionType;
+        console.log(this.interventionType);
+      });
+  }
   newIntervencao() {
     if (
       this.nomeInput &&
       this.descInput &&
       this.kilometragemInput &&
       this.carInput &&
-      this.priceInput
+      this.priceInput &&
+      this.tipoInput
     ) {
       const newIntervencao = {
         idUser: this.idUser,
@@ -84,6 +96,7 @@ export class CreateIntervencaoComponent implements OnInit {
         description: this.descInput,
         kilometragem: this.kilometragemInput,
         price: this.priceInput,
+        type: this.tipoInput,
       };
       console.log(newIntervencao);
       this.crudService

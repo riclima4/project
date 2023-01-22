@@ -1,5 +1,6 @@
 import Sequelize from "sequelize";
 import { dbInstance } from "../config/db.js";
+import { IntervencaoModel } from "./intervencao.js";
 
 const InterventionTypeModel = dbInstance.define("interventionType", {
   idInterventionType: {

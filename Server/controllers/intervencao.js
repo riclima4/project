@@ -1,10 +1,11 @@
 import { IntervencaoModel } from "../models/intervencao.js";
+import { InterventionTypeModel } from "../models/interventionType.js";
 
 export const getAllIntervencao = async (req, res) => {
   const idUser = req.params.idUser;
   const intervencao = await IntervencaoModel.findAll({
     where: { idUser: idUser },
-    include: { association: "carro" },
+    include: [{ association: "carro" }, { association: "intType" }],
     order: [
       ["idCarro", "DESC"],
       ["idIntervencao", "DESC"],
@@ -30,6 +31,7 @@ export const newIntervencao = async (req, res) => {
     idUser: req.body.idUser,
     idCarro: req.body.idCarro,
     price: req.body.price,
+    type: req.body.type,
   };
   await IntervencaoModel.create(newIntervencao);
   return res.send(newIntervencao);
@@ -44,6 +46,7 @@ export const updateIntervencao = async (req, res) => {
     data: req.body.data,
     kilometragem: req.body.kilometragem,
     price: req.body.price,
+    type: req.body.type,
   };
 
   const intervencao = await IntervencaoModel.findByPk(idIntervencao);
