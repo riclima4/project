@@ -1,5 +1,7 @@
 import Sequelize from "sequelize";
 import { dbInstance } from "../config/db.js";
+import { YearModel } from "./anos.js";
+import { GastTypeModel } from "./gasType.js";
 import { UserModel } from "./users.js";
 
 const CarsModel = dbInstance.define("cars", {
@@ -15,7 +17,6 @@ const CarsModel = dbInstance.define("cars", {
     references: {
       model: UserModel,
       key: "idUser",
-      onDelete: "CASCADE",
     },
   },
   nome: {
@@ -44,14 +45,30 @@ const CarsModel = dbInstance.define("cars", {
     allowNull: false,
     defaultValue: 0,
   },
-  gasType: {
-    type: Sequelize.TEXT(),
+  ano: {
+    type: Sequelize.INTEGER,
     allowNull: false,
+
+    references: {
+      model: YearModel,
+      key: "idYear",
+    },
+  },
+  gas: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+
+    references: {
+      model: GastTypeModel,
+      key: "idGasType",
+    },
   },
 });
-// UserModel.hasMany(CarsModel, { foreignKey: "idUser" });
 CarsModel.belongsTo(UserModel, {
   foreignKey: "idUser",
   as: "user",
 });
+// CarsModel.hasOne(YearModel, { foreignKey: "idYear" });
+// CarsModel.hasOne(GastTypeModel, { foreignKey: "idGasType" });
+
 export { CarsModel };

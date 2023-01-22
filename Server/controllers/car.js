@@ -45,7 +45,7 @@ export const newCar = async (req, res) => {
     marca: req.body.marca,
     kilometragem: req.body.kilometragem,
     ano: req.body.ano,
-    gasType: req.body.gasType,
+    gas: req.body.gasType,
     motor: req.body.motor,
     modelo: req.body.modelo,
   };
@@ -61,7 +61,7 @@ export const updateCar = async (req, res) => {
     marca: req.body.marca,
     kilometragem: req.body.kilometragem,
     ano: req.body.ano,
-    gasType: req.body.gasType,
+    gas: req.body.gasType,
     motor: req.body.motor,
     modelo: req.body.modelo,
   };

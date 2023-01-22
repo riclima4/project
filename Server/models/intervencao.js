@@ -37,10 +37,6 @@ const IntervencaoModel = dbInstance.define("intervencao", {
   },
   idUser: {
     type: Sequelize.INTEGER,
-    references: {
-      model: UserModel,
-      key: "idUser",
-    },
     allowNull: false,
     validate: {
       notEmpty: true,
