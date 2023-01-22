@@ -10,11 +10,10 @@
 </ion-header>
 <ion-content class="ion-padding modalContent">
   <h1 class="ion-text-center">{{ item.nome }}</h1>
-  <p class="">Description: {{ item.marca }}</p>
-  <p class="">Description: {{ item.modelo }}</p>
-  <p class="">Description: {{ item.motor }}</p>
-  <p class="">Description: {{ item.ano }}</p>
-  <p class="">Description: {{ item.gas }}</p>
-  <p class="">kilometragem: {{ item.kilometragem }}</p>
-  <p class="">Preço: {{ item.price }}€</p>
+  <p class="">{{ "brand" | translate }} : {{ item.marca }}</p>
+  <p class="">{{ "model" | translate }} : {{ item.modelo }}</p>
+  <p class="">{{ "engine" | translate }} : {{ item.motor }}</p>
+  <p class="">{{ "year" | translate }} : {{ item.yearType.year }}</p>
+  <p class="">{{ "fuel" | translate }} : {{ item.gasType.gasType }}</p>
+  <p class="">{{ "Killometers" | translate }} : {{ item.kilometragem }}</p>
 </ion-content>
