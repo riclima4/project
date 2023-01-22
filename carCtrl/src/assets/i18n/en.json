@@ -47,5 +47,6 @@
   "insertYear": "Insert the year",
   "insertKM": "Insert the kilometers",
   "insertText": "Insert Text",
-  "insertPrice": "Insert the price"
+  "insertPrice": "Insert the price",
+  "type": "Type"
 }

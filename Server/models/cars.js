@@ -68,6 +68,14 @@ CarsModel.belongsTo(UserModel, {
   foreignKey: "idUser",
   as: "user",
 });
+CarsModel.belongsTo(GastTypeModel, {
+  foreignKey: "gas",
+  as: "gasType",
+});
+CarsModel.belongsTo(YearModel, {
+  foreignKey: "ano",
+  as: "yearType",
+});
 // CarsModel.hasOne(YearModel, { foreignKey: "idYear" });
 // CarsModel.hasOne(GastTypeModel, { foreignKey: "idGasType" });
 

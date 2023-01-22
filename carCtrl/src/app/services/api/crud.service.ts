@@ -12,7 +12,15 @@ export interface Car {
     kilometragem: string
   ];
 }
-
+export interface GasType {
+  gasType: [idGasType: number, gasType: string];
+}
+export interface YearType {
+  years: [idYear: number, year: string];
+}
+export interface InterventionType {
+  interventionType: [idInterventionType: number, interventionType: string];
+}
 export interface Intervencao {
   intervencao: [
     idIntervencao: number,
@@ -24,7 +32,6 @@ export interface Intervencao {
     kilometragem: number
   ];
 }
-
 export interface Users {
   users: [
     idUser: number,
@@ -51,6 +58,15 @@ export class CrudService {
   getUsers(controller: string): Observable<Users> {
     return this.http.get<Users>(`${this.url}/api/${controller}`);
   }
+  getGasType(controller: string): Observable<GasType> {
+    return this.http.get<GasType>(`${this.url}/api/${controller}`);
+  }
+  getYear(controller: string): Observable<YearType> {
+    return this.http.get<YearType>(`${this.url}/api/${controller}`);
+  }
+  getInterventionType(controller: string): Observable<InterventionType> {
+    return this.http.get<InterventionType>(`${this.url}/api/${controller}`);
+  }
 
   getIntervencao(controller: string, id: number): Observable<Intervencao> {
     return this.http.get<Intervencao>(`${this.url}/api/${controller}/${id}`);
@@ -70,36 +86,4 @@ export class CrudService {
       responseType: 'text',
     });
   }
-
-  // getPex(controller : string): Observable<Pex> {
-  //   return this.http.get<Pex>(`${this.url}/api/${controller}`);
-  // }
-
-  // getPS(controller : string): Observable<PS> {
-  //   return this.http.get<PS>(`${this.url}/api/${controller}`);
-  // }
-
-  // getOskills(controller : string): Observable<Oskills> {
-  //   return this.http.get<Oskills>(`${this.url}/api/${controller}`);
-  // }
-
-  // getRA(controller : string): Observable<RA> {
-  //   return this.http.get<RA>(`${this.url}/api/${controller}`);
-  // }
-
-  // getProjects(controller : string): Observable<Projects> {
-  //   return this.http.get<Projects>(`${this.url}/api/${controller}`);
-  //   }
-
-  // getFutureProjects(controller : string): Observable<FP> {
-  // return this.http.get<FP>(`${this.url}/api/${controller}`);
-  // }
-
-  // create(controller: string, model: any) {
-  //   return this.http.post(`${this.url}/api/${controller}`, model);
-  // }
-
-  //   delete(controller: string, id: number) {
-  //     return this.http.delete(`${this.url}/api/${controller}/${id}`,{responseType:"text"});
-  //   }
 }

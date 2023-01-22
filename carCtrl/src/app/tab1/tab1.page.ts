@@ -128,6 +128,7 @@ export class Tab1Page {
       .getIntervencao('intervencoes', this.userID)
       .subscribe((res) => {
         this.intervencoes = res.intervencao;
+        console.log(this.intervencoes);
         if (this.intervencoes.length > 0) {
           this.haveInterventions = true;
           // console.log(this.haveCars);

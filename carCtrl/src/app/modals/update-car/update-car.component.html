@@ -48,21 +48,33 @@
       </ion-item>
       <ion-item class="ion-margin-bottom">
         <ion-label position="floating">{{ "fuel" | translate }}</ion-label>
-        <ion-input
+        <ion-select
           [(ngModel)]="fuelInput"
           name="fuel"
           placeholder="{{ 'insertText' | translate }}"
         >
-        </ion-input>
+          <ion-select-option
+            *ngFor="let item of gasType"
+            value="{{ item.idGasType }}"
+          >
+            {{ item.gasType }}
+          </ion-select-option>
+        </ion-select>
       </ion-item>
       <ion-item class="ion-margin-bottom">
         <ion-label position="floating">{{ "year" | translate }}</ion-label>
-        <ion-input
+        <ion-select
           [(ngModel)]="yearInput"
           name="year"
           placeholder="{{ 'insertYear' | translate }}"
         >
-        </ion-input>
+          <ion-select-option
+            *ngFor="let item of years"
+            value="{{ item.idYear }}"
+          >
+            {{ item.year }}
+          </ion-select-option>
+        </ion-select>
       </ion-item>
       <ion-item class="ion-margin-bottom">
         <ion-label position="floating">{{
