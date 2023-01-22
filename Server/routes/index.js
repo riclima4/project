@@ -24,6 +24,9 @@ import {
   updateIntervencao,
 } from "../controllers/intervencao.js";
 import { authRequired } from "../utils/jwt.js";
+import { getAllGasType } from "../controllers/gasType.js";
+import { getAllInterventionType } from "../controllers/interventionType.js";
+import { getAllyears } from "../controllers/year.js";
 
 const routes = Router();
 
@@ -43,7 +46,6 @@ routes.get("/cars", getAllcars);
 routes.get("/car/:idUser", getCarsByUser);
 routes.get("/carById/:idCarro", getCarsById);
 routes.get("/carByIdPrice/:idCarro", getCarsByIdPrice);
-
 routes.post("/newCar", newCar);
 routes.put("/updateCar/:idCarro", updateCar);
 routes.delete("/removeCar/:idCarro", deleteCar);
@@ -55,4 +57,10 @@ routes.post("/newIntervencao", newIntervencao);
 routes.delete("/deleteIntervencao/:idIntervencao", deleteIntervencao);
 routes.put("/updateIntervencao/:idIntervencao", updateIntervencao);
 
+//Tipo Combustivel
+routes.get("/combustivel", getAllGasType);
+//Tipo de Intervenção
+routes.get("/interventionType", getAllInterventionType);
+//lista anos
+routes.get("/years", getAllyears);
 export { routes };
