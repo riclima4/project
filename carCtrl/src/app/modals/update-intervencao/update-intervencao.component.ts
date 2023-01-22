@@ -22,6 +22,8 @@ export class UpdateIntervencaoComponent implements OnInit {
   carroById: any;
   priceInput: any;
   carroInput: any;
+  tipoInput: any;
+  interventionType: any;
   constructor(
     private modalCtrl: ModalController,
     private crudService: CrudService,
@@ -42,13 +44,22 @@ export class UpdateIntervencaoComponent implements OnInit {
   }
   ngOnInit() {
     this.loadCarroById();
+    this.loadInterventionType();
     this.carroInput = this.item.carro.nome;
     this.nomeInput = this.item.nome;
     this.descInput = this.item.description;
     this.kilometragemInput = this.item.kilometragem;
     this.priceInput = this.item.price;
+    this.tipoInput = this.item.type.toString();
   }
-
+  async loadInterventionType() {
+    this.crudService
+      .getInterventionType('interventionType')
+      .subscribe((res) => {
+        this.interventionType = res.interventionType;
+        console.log(this.interventionType);
+      });
+  }
   async loadCarros() {
     this.crudService.getCars('car', this.item.idCarro).subscribe((res) => {
       this.carros = res.cars;
@@ -91,7 +102,8 @@ export class UpdateIntervencaoComponent implements OnInit {
       this.nomeInput &&
       this.descInput &&
       this.kilometragemInput &&
-      this.priceInput
+      this.priceInput &&
+      this.tipoInput
     ) {
       const idIntervencao = this.item.idIntervencao;
       const idUser = this.item.idUser;
@@ -101,6 +113,7 @@ export class UpdateIntervencaoComponent implements OnInit {
         description: this.descInput,
         kilometragem: this.kilometragemInput,
         price: this.priceInput,
+        type: this.tipoInput,
       };
       console.log(idIntervencao);
       this.crudService

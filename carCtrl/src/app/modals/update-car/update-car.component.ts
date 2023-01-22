@@ -22,6 +22,9 @@ export class UpdateCarComponent implements OnInit {
   yearInput: any;
   fuelInput: any;
 
+  gasType: any;
+  years: any;
+
   constructor(
     private modalCtrl: ModalController,
     private crudService: CrudService,
@@ -31,13 +34,15 @@ export class UpdateCarComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.loadGasType();
+    this.loadYears();
     this.nomeInput = this.item.nome;
     this.marcaInput = this.item.marca;
     this.kilometragemInput = this.item.kilometragem;
-    this.yearInput = this.item.ano;
+    this.yearInput = this.item.ano.toString();
     this.motorInput = this.item.motor;
     this.modeloInput = this.item.modelo;
-    this.fuelInput = this.item.gasType;
+    this.fuelInput = this.item.gas.toString();
   }
 
   dismissModal() {
@@ -71,6 +76,20 @@ export class UpdateCarComponent implements OnInit {
     });
     await loading.present();
   }
+
+  async loadGasType() {
+    this.crudService.getGasType('combustivel').subscribe((res) => {
+      this.gasType = res.gasType;
+      console.log(this.gasType);
+    });
+  }
+  async loadYears() {
+    this.crudService.getYear('years').subscribe((res) => {
+      this.years = res.years;
+      console.log(this.years);
+    });
+  }
+
   newUpdate() {
     if (
       this.nomeInput &&

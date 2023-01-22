@@ -17,7 +17,19 @@
           [(ngModel)]="nomeInput"
           name="nome"
           placeholder="{{ 'insertText' | translate }}"
-        ></ion-input>
+        >
+        </ion-input>
+      </ion-item>
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="floating">Tipo de Intervenção</ion-label>
+        <ion-select [(ngModel)]="tipoInput" name="tipo" interface="popover">
+          <ion-select-option
+            *ngFor="let item of interventionType"
+            value="{{ item.idInterventionType }}"
+          >
+            {{ item.interventionType }}
+          </ion-select-option>
+        </ion-select>
       </ion-item>
       <ion-item class="ion-margin-bottom">
         <ion-label position="floating">{{ "desc" | translate }}</ion-label>
@@ -55,14 +67,6 @@
           <ion-icon name="logo-euro"></ion-icon>
         </ion-input>
       </ion-item>
-      <!-- <ion-item class="ion-margin-bottom">
-        <ion-label position="floating">Tipo de Intervenção</ion-label>
-        <ion-select [(ngModel)]="tipoInput" name="tipo" interface="popover">
-          <ion-select-option value="apples">intervenção1</ion-select-option>
-          <ion-select-option value="oranges">intervenção2</ion-select-option>
-          <ion-select-option value="bananas">intervenção3</ion-select-option>
-        </ion-select>
-      </ion-item> -->
 
       <ion-button type="submit" expand="block" color="success">
         <ion-icon name="save"></ion-icon>
