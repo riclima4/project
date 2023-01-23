@@ -45,6 +45,7 @@ import {
 import {
   deleteModelo,
   getAllModelos,
+  getModeloByMacra,
   newModelo,
   updateModelo,
 } from "../controllers/modelo.js";
@@ -107,6 +108,7 @@ routes.put("/updateYear/:idYear", updateYear);
 routes.delete("/deleteYear/:idYear", deleteYear);
 //Modelos
 routes.get("/modelos", getAllModelos);
+routes.get("/modelo/:idMarca", getModeloByMacra);
 routes.post("/newModelo", newModelo);
 routes.put("/updateModelo/:idModelo", updateModelo);
 routes.delete("/deleteModelo/:idModelo", deleteModelo);

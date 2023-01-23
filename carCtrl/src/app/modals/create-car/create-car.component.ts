@@ -24,6 +24,9 @@ export class CreateCarComponent implements OnInit {
 
   gasType: any;
   years: any;
+  marcas: any;
+  modelos: any;
+  idMarca: any;
   constructor(
     private modalCtrl: ModalController,
     private crudService: CrudService,
@@ -35,6 +38,7 @@ export class CreateCarComponent implements OnInit {
   ngOnInit() {
     this.loadGasType();
     this.loadYears();
+    this.loadMarcas();
   }
 
   dismissModal() {
@@ -79,6 +83,20 @@ export class CreateCarComponent implements OnInit {
     this.crudService.getYear('years').subscribe((res) => {
       this.years = res.years;
       console.log(this.years);
+    });
+  }
+  async loadMarcas() {
+    this.crudService.getMarca('marcas').subscribe((res) => {
+      this.marcas = res.marca;
+      console.log(this.marcas);
+    });
+  }
+  async loadModelo($event: any) {
+    this.idMarca = $event.target.value;
+    console.log(this.idMarca);
+    this.crudService.getModelo('modelo', this.idMarca).subscribe((res) => {
+      this.modelos = res.modelo;
+      console.log(this.modelos);
     });
   }
 

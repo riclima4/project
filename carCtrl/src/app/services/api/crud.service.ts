@@ -21,6 +21,12 @@ export interface YearType {
 export interface InterventionType {
   interventionType: [idInterventionType: number, interventionType: string];
 }
+export interface MarcaType {
+  marca: [idMarca: number, marca: string];
+}
+export interface ModeloType {
+  modelo: [idModelo: number, idMarca: number, modelo: string];
+}
 export interface Intervencao {
   intervencao: [
     idIntervencao: number,
@@ -67,7 +73,12 @@ export class CrudService {
   getInterventionType(controller: string): Observable<InterventionType> {
     return this.http.get<InterventionType>(`${this.url}/api/${controller}`);
   }
-
+  getMarca(controller: string): Observable<MarcaType> {
+    return this.http.get<MarcaType>(`${this.url}/api/${controller}`);
+  }
+  getModelo(controller: string, id: number): Observable<ModeloType> {
+    return this.http.get<ModeloType>(`${this.url}/api/${controller}/${id}`);
+  }
   getIntervencao(controller: string, id: number): Observable<Intervencao> {
     return this.http.get<Intervencao>(`${this.url}/api/${controller}/${id}`);
   }

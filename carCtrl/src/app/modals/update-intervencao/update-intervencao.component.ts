@@ -45,6 +45,8 @@ export class UpdateIntervencaoComponent implements OnInit {
   ngOnInit() {
     this.loadCarroById();
     this.loadInterventionType();
+  }
+  ionViewDidEnter() {
     this.carroInput = this.item.carro.nome;
     this.nomeInput = this.item.nome;
     this.descInput = this.item.description;
