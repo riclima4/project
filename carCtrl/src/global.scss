@@ -64,3 +64,21 @@ ion-content ion-img {
   // --padding-top: 5px;
   // --padding-bottom: 5px;
 }
+
+ion-split-pane {
+  --side-max-width: 300px;
+  --border: none;
+  ion-menu {
+    --background: var(--ion-color-primary) !important;
+    ion-content {
+      --background: var(--ion-color-primary) !important;
+      ion-item {
+        --background: var(--ion-color-primary-) !important;
+        --color: #ffffff !important;
+        ion-icon {
+          padding-right: 10px !important;
+        }
+      }
+    }
+  }
+}

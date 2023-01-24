@@ -39,7 +39,14 @@ const routes: Routes = [
     path: 'tab3',
     redirectTo: 'tabs/tab3',
   },
-
+  {
+    path: 'adminDashboard',
+    loadChildren: () =>
+      import('./admin-dashboard/admin-dashboard.module').then(
+        (m) => m.AdminDashboardPageModule
+      ),
+    canLoad: [AuthGuard],
+  },
   {
     path: '**',
     loadChildren: () =>

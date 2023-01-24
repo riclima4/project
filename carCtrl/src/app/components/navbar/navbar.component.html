@@ -1,7 +1,15 @@
 <ion-toolbar mode="md" color="primary">
-  <ion-buttons slot="end">
+  <ion-buttons slot="end" *ngIf="userType !== 100">
     <ion-button fill="solid" color="primary" (click)="openModalHelp()">
       <ion-icon name="help-circle"></ion-icon>
+    </ion-button>
+    <ion-button (click)="logout()" fill="solid" color="primary">
+      <ion-icon name="log-out"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+  <ion-buttons slot="end" *ngIf="userType == 100">
+    <ion-button fill="solid" color="primary" (click)="adminDashboard()">
+      <ion-icon name="settings"></ion-icon>
     </ion-button>
     <ion-button (click)="logout()" fill="solid" color="primary">
       <ion-icon name="log-out"></ion-icon>

@@ -28,13 +28,11 @@ const CarsModel = dbInstance.define("cars", {
   marca: {
     type: Sequelize.INTEGER,
     allowNull: false,
-
     references: {
       model: MarcasModel,
       key: "idMarca",
     },
   },
-
   modelo: {
     type: Sequelize.INTEGER,
     allowNull: false,
@@ -53,11 +51,7 @@ const CarsModel = dbInstance.define("cars", {
     allowNull: false,
     defaultValue: 0,
   },
-  ano: {
-    type: Sequelize.INTEGER(4),
-    allowNull: false,
-    defaultValue: 0,
-  },
+
   ano: {
     type: Sequelize.INTEGER,
     allowNull: false,
@@ -97,7 +91,5 @@ CarsModel.belongsTo(ModeloModel, {
   foreignKey: "modelo",
   as: "modeloType",
 });
-// CarsModel.hasOne(YearModel, { foreignKey: "idYear" });
-// CarsModel.hasOne(GastTypeModel, { foreignKey: "idGasType" });
 
 export { CarsModel };

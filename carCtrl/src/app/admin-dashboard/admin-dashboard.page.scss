@@ -1,0 +1,39 @@
+#main-content ion-toolbar {
+  --background: var(--ion-color-primary);
+  --color: white;
+}
+.menoIcon {
+  color: white;
+}
+.breadcrumbs {
+  padding: 10px;
+  box-shadow: 5px 10px 50px 9px rgba(112, 112, 112, 0.1);
+  border-radius: 5px;
+}
+ion-card {
+  height: 150px;
+}
+ion-accordion ion-list {
+  background-color: var(--ion-color-primary);
+}
+ion-accordion::part(content) {
+  padding-top: 10px;
+  padding-left: 10px;
+  background: var(--ion-color-primary);
+  border: none;
+  color: white;
+}
+ion-accordion::part(header) {
+  background: var(--ion-color-primary);
+  border: none;
+  color: white;
+}
+@media only screen and (min-width: 992px) {
+  /* For mobile phones: */
+  .logoNavbar1 {
+    display: none;
+  }
+  #main-content ion-toolbar {
+    --background: var(--ion-color-primary);
+  }
+}

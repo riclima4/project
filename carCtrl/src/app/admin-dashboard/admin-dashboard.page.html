@@ -1,0 +1,196 @@
+<ion-split-pane contentId="main-content">
+  <ion-menu
+    type="overlay"
+    class="sideMenu"
+    contentId="main-content"
+    swipe-gesture
+  >
+    <ion-toolbar color="primary">
+      <ion-title>
+        <ion-icon
+          class="logoNavbar2"
+          size="large"
+          name="car-sport-outline"
+        ></ion-icon>
+      </ion-title>
+      <ion-menu-toggle slot="end">
+        <ion-button fill="clear">
+          <ion-icon
+            slot="icon-only"
+            class="menoIcon"
+            name="arrow-back-outline"
+          ></ion-icon>
+        </ion-button>
+      </ion-menu-toggle>
+    </ion-toolbar>
+
+    <ion-content class="ion-padding">
+      <ion-text class="menoIcon ion-margin-bottom"><h1>Dashboard</h1></ion-text>
+      <ion-item button (click)="changeContent(1)" value="stats" lines="full">
+        <ion-icon
+          class="menoIcon"
+          slot="start"
+          name="stats-chart-outline"
+        ></ion-icon>
+        <ion-label>
+          <h1>Estatisticas</h1>
+        </ion-label>
+      </ion-item>
+      <ion-item button (click)="changeContent(2)" value="users" lines="full">
+        <ion-icon class="menoIcon" slot="start" name="people"></ion-icon>
+        <ion-label>
+          <h1>Utilizadores</h1>
+        </ion-label>
+      </ion-item>
+      <ion-item
+        button
+        (click)="changeContent(3)"
+        value="interventions"
+        lines="full"
+      >
+        <ion-icon class="menoIcon" slot="start" name="build"></ion-icon>
+        <ion-label>
+          <h1>Intervenções</h1>
+        </ion-label>
+      </ion-item>
+      <ion-item button (click)="changeContent(4)" lines="full">
+        <ion-icon class="menoIcon" slot="start" name="car"></ion-icon>
+        <ion-label>
+          <h1>Carros</h1>
+        </ion-label>
+      </ion-item>
+
+      <!-- Dropdown on sidemenu -->
+      <!-- <ion-accordion-group>
+        <ion-accordion>
+          <ion-item slot="header">
+            <ion-icon class="menoIcon" slot="start" name="key"></ion-icon>
+            <ion-label>
+              <h1>Outros</h1>
+            </ion-label>
+          </ion-item>
+          <ion-list slot="content" color="primary">
+            <ion-item color="primary">
+              <ion-icon class="menoIcon" slot="start" name="car"></ion-icon>
+              <ion-label>
+                <h1>Carros</h1>
+              </ion-label>
+            </ion-item>
+            <ion-item color="primary">
+              <ion-icon class="menoIcon" slot="start" name="car"></ion-icon>
+              <ion-label>
+                <h1>Carros</h1>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-accordion>
+      </ion-accordion-group> -->
+    </ion-content>
+  </ion-menu>
+  <div class="ion-page" id="main-content">
+    <ion-toolbar mode="md">
+      <ion-menu-toggle slot="start">
+        <ion-button fill="clear">
+          <ion-icon
+            class="menoIcon"
+            slot="icon-only"
+            name="menu-outline"
+          ></ion-icon>
+        </ion-button>
+      </ion-menu-toggle>
+      <ion-buttons slot="end">
+        <ion-text>{{username}}</ion-text>
+        <ion-button (click)="logout()" fill="clear">
+          <ion-icon name="log-out"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title class="logoNavbar1">
+        <ion-icon size="large" name="car-sport-outline"></ion-icon>
+      </ion-title>
+    </ion-toolbar>
+
+    <ion-content [ngSwitch]="contentSegment">
+      <!-- STATS PAGE -->
+      <div *ngSwitchCase="1" class="ion-padding">
+        <div class="breadcrumbs">
+          <ion-breadcrumbs>
+            <ion-breadcrumb>Dashboard</ion-breadcrumb>
+            <ion-breadcrumb>Estatistícas</ion-breadcrumb>
+          </ion-breadcrumbs>
+        </div>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12" size-lg="6" size-md="6" size-xl="4">
+              <ion-card mode="ios" color="dark">
+                <ion-card-header>
+                  <ion-card-title class="ion-text-center">
+                    Total de Utilizadores
+                  </ion-card-title>
+                </ion-card-header>
+                <ion-card-content class="ion-text-center">
+                  200
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col size="12" size-lg="6" size-md="6" size-xl="4">
+              <ion-card mode="ios" color="dark">
+                <ion-card-header>
+                  <ion-card-title class="ion-text-center">
+                    Total de Carros
+                  </ion-card-title>
+                </ion-card-header>
+                <ion-card-content class="ion-text-center">
+                  200
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col size="12" size-lg="6" size-md="6" size-xl="4">
+              <ion-card mode="ios" color="dark">
+                <ion-card-header>
+                  <ion-card-title class="ion-text-center">
+                    Total de Intervenções
+                  </ion-card-title>
+                </ion-card-header>
+                <ion-card-content class="ion-text-center">
+                  200
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <!-- END STATS PAGE -->
+      <!-- USERS PAGE -->
+      <div *ngSwitchCase="2" class="ion-padding">
+        <div class="breadcrumbs">
+          <ion-breadcrumbs>
+            <ion-breadcrumb>Dashboard</ion-breadcrumb>
+            <ion-breadcrumb>Utilizadores</ion-breadcrumb>
+          </ion-breadcrumbs>
+        </div>
+      </div>
+      <!-- END USERS PAGE -->
+      <!-- INTERVENTIONS PAGE -->
+      <div *ngSwitchCase="3" class="ion-padding">
+        <div class="breadcrumbs">
+          <ion-breadcrumbs>
+            <ion-breadcrumb>Dashboard</ion-breadcrumb>
+            <ion-breadcrumb>Intervenções</ion-breadcrumb>
+          </ion-breadcrumbs>
+        </div>
+      </div>
+      <!-- END INTERVENTIONS PAGE -->
+      <!-- CARS PAGE -->
+      <div *ngSwitchCase="4" class="ion-padding">
+        <div class="breadcrumbs">
+          <ion-breadcrumbs>
+            <ion-breadcrumb>Dashboard</ion-breadcrumb>
+            <ion-breadcrumb>Carros</ion-breadcrumb>
+          </ion-breadcrumbs>
+        </div>
+      </div>
+      <!-- END CARS PAGE -->
+    </ion-content>
+  </div>
+</ion-split-pane>

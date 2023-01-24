@@ -39,10 +39,19 @@
     </div> -->
   </ion-list>
 
+  <!-- Definições -->
   <ion-text class="ion-text-center ion-padding">
     <h3 class="ion-text-center">{{ 'Def' | translate}}</h3>
+    <!-- Admin -->
 
+    <!-- /Admin -->
     <div class="ion-padding">
+      <div class="admin" *ngIf="type==100">
+        <h5>Dashboard Admin</h5>
+        <ion-button (click)="adminDashboard()" color="success"
+          >Dashboard Admin</ion-button
+        >
+      </div>
       <div class="darkmode">
         <h5>{{'darkmode'| translate}}</h5>
         <ion-toggle
@@ -59,9 +68,9 @@
       </div>
     </div>
   </ion-text>
+  <!-- Despesas -->
   <ion-text class="ion-text-center ion-padding">
     <h3 class="ion-text-center">{{ 'expenses' | translate}}</h3>
-
     <div class="ion-padding">
       <div *ngFor="let item of carAndPrice">
         <div class="linhaGastosCarro">
