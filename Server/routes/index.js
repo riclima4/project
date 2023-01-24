@@ -18,8 +18,8 @@ import {
 } from "../controllers/car.js";
 import {
   deleteIntervencao,
-  getAllIntervencao,
   getAllIntervencaoByCar,
+  getAllIntervencaoByUser,
   newIntervencao,
   updateIntervencao,
 } from "../controllers/intervencao.js";
@@ -77,7 +77,7 @@ routes.put("/updateCar/:idCarro", updateCar);
 routes.delete("/removeCar/:idCarro", deleteCar);
 
 //Intervenções
-routes.get("/intervencoes/:idUser", getAllIntervencao);
+routes.get("/intervencoes/:idUser", getAllIntervencaoByUser);
 routes.get("/intervencao/:idCarro", getAllIntervencaoByCar);
 routes.post("/newIntervencao", newIntervencao);
 routes.delete("/deleteIntervencao/:idIntervencao", deleteIntervencao);

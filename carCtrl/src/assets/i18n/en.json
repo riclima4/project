@@ -48,5 +48,8 @@
   "insertKM": "Insert the kilometers",
   "insertText": "Insert Text",
   "insertPrice": "Insert the price",
-  "type": "Type"
+  "type": "Type",
+  "carInfoText": "Details of the vehicle",
+  "interInfoText": "Details about the intervention",
+  "Cost": "Cost"
 }

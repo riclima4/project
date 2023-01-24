@@ -1,7 +1,6 @@
 import { IntervencaoModel } from "../models/intervencao.js";
-import { InterventionTypeModel } from "../models/interventionType.js";
 
-export const getAllIntervencao = async (req, res) => {
+export const getAllIntervencaoByUser = async (req, res) => {
   const idUser = req.params.idUser;
   const intervencao = await IntervencaoModel.findAll({
     where: { idUser: idUser },
