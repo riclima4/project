@@ -49,5 +49,9 @@
   "insertText": "Insert Text",
   "insertPrice": "Insert the price",
   "insertType": "Insert Type",
-  "type": "Type"
+  "type": "Type",
+  "carInfoText": "Details of the vehicle",
+  "interInfoText": "Details about the intervention",
+  "Cost": "Cost"
+
 }
