@@ -66,8 +66,7 @@ routes.get("/userCount", getUserCount);
 routes.get("/user/:idUser", getUserid);
 routes.post("/newUser", newUser);
 routes.post("/login", login);
-// routes.get("/logout/:token", logout);
-routes.post("/updateUser/:idUser", updateUser);
+routes.put("/updateUser/:idUser", updateUser);
 routes.delete("/removeUser/:idUser", deleteUser);
 
 //Carro

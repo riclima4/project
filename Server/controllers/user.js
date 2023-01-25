@@ -57,7 +57,7 @@ export const updateUser = async (req, res) => {
   const idUser = req.params.idUser;
   const userUpdated = {
     username: req.body.username,
-    password: req.body.password,
+    // password: req.body.password,
     email: req.body.email,
     type: req.body.type,
   };
