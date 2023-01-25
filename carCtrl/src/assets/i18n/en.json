@@ -52,6 +52,6 @@
   "type": "Type",
   "carInfoText": "Details of the vehicle",
   "interInfoText": "Details about the intervention",
-  "Cost": "Cost"
-
+  "Cost": "Cost",
+  "update": "Update"
 }

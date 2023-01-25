@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Preferences } from '@capacitor/preferences';
 import {
   ActionSheetController,
+  AlertController,
   LoadingController,
   ToastController,
 } from '@ionic/angular';
@@ -38,13 +39,19 @@ export class AdminDashboardPage implements OnInit {
   passwordConfInput: any;
   typeInput: any;
   hideCreateUser = true;
+  hideUpdateUser = true;
+  nomeUpdateInput: any;
+  emailUpdateInput: any;
+  typeUpdateInput: any;
+  idUserUpdateInput: any;
   constructor(
     private translateService: TranslateService,
     private toastController: ToastController,
     private crudService: CrudService,
     private router: Router,
     private loadingCtrl: LoadingController,
-    private actionSheetCtrl: ActionSheetController
+    private actionSheetCtrl: ActionSheetController,
+    private alertController: AlertController
   ) {}
 
   ngOnInit() {
@@ -165,12 +172,13 @@ export class AdminDashboardPage implements OnInit {
     const darkmode = await Preferences.get({ key: 'color-theme' });
 
     if (darkmode.value == 'dark') {
-      document.body.setAttribute('color-theme', 'dark');
       this.toggleDarkMode = true;
+      document.body.setAttribute('color-theme', 'dark');
+
       return;
     } else if (darkmode.value == 'light' || darkmode.value == null) {
-      document.body.setAttribute('color-theme', 'light');
       this.toggleDarkMode = false;
+      document.body.setAttribute('color-theme', 'light');
       return;
     }
   };
@@ -220,15 +228,16 @@ export class AdminDashboardPage implements OnInit {
     }
   }
   async toggleTheme(event: any) {
-    // console.log(event);
-    if (event.detail.checked) {
-      document.body.setAttribute('color-theme', 'dark');
-      await Preferences.set({ key: 'color-theme', value: 'dark' });
-      this.toggleDarkMode = true;
-    } else {
+    console.log(event);
+    const dark = await Preferences.get({ key: 'color-theme' });
+    if (dark.value == 'dark') {
       document.body.setAttribute('color-theme', 'light');
       await Preferences.set({ key: 'color-theme', value: 'light' });
       this.toggleDarkMode = false;
+    } else if (dark.value == 'light' || !dark.value) {
+      document.body.setAttribute('color-theme', 'dark');
+      await Preferences.set({ key: 'color-theme', value: 'dark' });
+      this.toggleDarkMode = true;
     }
   }
   async presentToast(position: 'top' | 'middle' | 'bottom', nome: string) {
@@ -267,6 +276,39 @@ export class AdminDashboardPage implements OnInit {
       });
 
       await toast.present();
+    }
+  }
+  updateUserInput(item: any) {
+    this.hideUpdateUser = false;
+    this.nomeUpdateInput = item.username;
+    this.emailUpdateInput = item.email;
+    this.typeUpdateInput = item.type.toString();
+    this.hideCreateUser = true;
+    this.idUserUpdateInput = item.idUser;
+  }
+  updateUser() {
+    if (this.nomeUpdateInput && this.emailUpdateInput && this.typeUpdateInput) {
+      const updatedUser = {
+        username: this.nomeUpdateInput,
+        email: this.emailUpdateInput,
+        type: this.typeUpdateInput,
+      };
+      console.log(this.idUserUpdateInput);
+
+      this.crudService
+        .update('updateUser', this.idUserUpdateInput, updatedUser)
+        .subscribe((res) => {
+          console.log(res);
+        });
+      this.loadingSpinner();
+
+      setTimeout(() => {
+        this.presentToast2('top');
+        this.loadUsers();
+        this.hideUpdateUser = true;
+      }, 2000);
+    } else {
+      this.presentAlert();
     }
   }
   newUser(form: NgForm) {
@@ -365,5 +407,24 @@ export class AdminDashboardPage implements OnInit {
     setTimeout(() => {
       loading.dismiss();
     }, 2000);
+  }
+  async presentToast2(position: 'top' | 'middle' | 'bottom') {
+    const toast = await this.toastController.create({
+      message: 'Utilizador editado com sucesso',
+      duration: 2000,
+      position: position,
+      color: 'success',
+    });
+
+    await toast.present();
+  }
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Erro',
+      subHeader: 'Dados Inválidos',
+      mode: 'ios',
+      buttons: ['OK'],
+    });
+    await alert.present();
   }
 }
