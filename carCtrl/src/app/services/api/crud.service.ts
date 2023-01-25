@@ -39,13 +39,7 @@ export interface Intervencao {
   ];
 }
 export interface Users {
-  users: [
-    idUser: number,
-    username: string,
-    email: string,
-    password: string,
-    type: number
-  ];
+  users: [idUser: number, username: string, email: string, type: number];
 }
 
 export interface RootObject {}
@@ -61,7 +55,19 @@ export class CrudService {
     return this.http.get<Car>(`${this.url}/api/${controller}/${id}`);
   }
 
-  getUsers(controller: string): Observable<Users> {
+  // getUsers(controller: string): Observable<Users> {
+  //   return this.http.get<Users>(`${this.url}/api/${controller}`);
+  // }
+  getUsers(
+    controller: string,
+    page: number,
+    resultsCount: number
+  ): Observable<Users> {
+    return this.http.get<Users>(
+      `${this.url}/api/${controller}?page=${page}&results=${resultsCount}`
+    );
+  }
+  getUserCount(controller: string): Observable<Users> {
     return this.http.get<Users>(`${this.url}/api/${controller}`);
   }
   getGasType(controller: string): Observable<GasType> {

@@ -2,6 +2,7 @@ import Router from "express";
 import {
   deleteUser,
   getAllUsers,
+  getUserCount,
   getUserid,
   login,
   newUser,
@@ -61,6 +62,7 @@ routes.post("/auth", authRequired);
 
 //Utilizadores
 routes.get("/users", getAllUsers);
+routes.get("/userCount", getUserCount);
 routes.get("/user/:idUser", getUserid);
 routes.post("/newUser", newUser);
 routes.post("/login", login);

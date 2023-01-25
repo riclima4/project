@@ -30,6 +30,7 @@
     "cookie-parser": "^1.4.6",
     "ionicons": "^6.0.3",
     "jwt-decode": "^3.1.2",
+    "ng2-search-filter": "^0.5.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
