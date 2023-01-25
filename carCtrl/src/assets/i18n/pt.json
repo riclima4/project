@@ -48,5 +48,8 @@
   "insertKM": "Insere a Kilometragem",
   "insertText": "Insere texto",
   "insertPrice": "Insere o preço",
-  "type": "Tipo"
+  "type": "Tipo",
+  "carInfoText": "Informações sobre o veiculo",
+  "interInfoText": "Informações sobre a intervenção",
+  "Cost": "Custo"
 }
