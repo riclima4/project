@@ -50,8 +50,20 @@ export class Tab3Page {
       // console.log(this.user);
     }
   };
+  async adminDashboard() {
+    const token = await Preferences.get({ key: 'token' });
+    if (token.value !== null) {
+      const user = jwt_decode(token.value);
+      const userType = this.user.type;
+      // console.log(this.userID);
+      if (userType !== 100) {
+        return;
+      }
+      this.router.navigateByUrl('/adminDashboard', { replaceUrl: true });
+    }
+  }
   async toggleTheme(event: any) {
-    console.log(event);
+    // console.log(event);
     if (event.detail.checked) {
       document.body.setAttribute('color-theme', 'dark');
       await Preferences.set({ key: 'color-theme', value: 'dark' });

@@ -1,7 +1,14 @@
 import { ModeloModel } from "../models/modelos.js";
 
 export const getAllModelos = async (req, res) => {
-  const modelo = await ModeloModel.findAll();
+  const modelo = await ModeloModel.findAll({
+    include: [{ association: "marcaType" }],
+  });
+  return res.send({ modelo });
+};
+export const getModeloByMacra = async (req, res) => {
+  const idMarca = req.params.idMarca;
+  const modelo = await ModeloModel.findAll({ where: { idMarca: idMarca } });
   return res.send({ modelo });
 };
 

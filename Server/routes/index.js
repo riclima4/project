@@ -2,6 +2,7 @@ import Router from "express";
 import {
   deleteUser,
   getAllUsers,
+  getUserCount,
   getUserid,
   login,
   newUser,
@@ -45,6 +46,7 @@ import {
 import {
   deleteModelo,
   getAllModelos,
+  getModeloByMacra,
   newModelo,
   updateModelo,
 } from "../controllers/modelo.js";
@@ -60,6 +62,7 @@ routes.post("/auth", authRequired);
 
 //Utilizadores
 routes.get("/users", getAllUsers);
+routes.get("/userCount", getUserCount);
 routes.get("/user/:idUser", getUserid);
 routes.post("/newUser", newUser);
 routes.post("/login", login);
@@ -107,6 +110,7 @@ routes.put("/updateYear/:idYear", updateYear);
 routes.delete("/deleteYear/:idYear", deleteYear);
 //Modelos
 routes.get("/modelos", getAllModelos);
+routes.get("/modelo/:idMarca", getModeloByMacra);
 routes.post("/newModelo", newModelo);
 routes.put("/updateModelo/:idModelo", updateModelo);
 routes.delete("/deleteModelo/:idModelo", deleteModelo);

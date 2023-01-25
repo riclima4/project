@@ -5,8 +5,20 @@ import { createToken } from "../utils/jwt.js";
 import bcrypt from "bcrypt";
 
 export const getAllUsers = async (req, res) => {
+  const pageSize = req.query.results;
+  const page = req.query.page;
+  const users = await UserModel.findAll({
+    offset: parseInt(page) * pageSize,
+    limit: parseInt(pageSize),
+    subQuery: false,
+  });
+  // console.log(pageSize);
+  res.send({ users });
+};
+export const getUserCount = async (req, res) => {
   const users = await UserModel.findAll();
-  return res.send({ users });
+  // console.log(pageSize);
+  res.send({ users });
 };
 
 export const getUserid = async (req, res) => {
@@ -25,6 +37,7 @@ export const newUser = async (req, res) => {
     username: req.body.username,
     password: hash,
     email: req.body.email,
+    type: req.body.type,
   };
   const findUser = await UserModel.findOne({ where: { email: newUser.email } });
   if (!findUser) {
@@ -70,7 +83,9 @@ export const deleteUser = async (req, res) => {
     });
   }
   if (carro !== null) {
-    carro.destroy({ where: { idUser: idUser } });
+    carro.forEach((item) => {
+      item.destroy({ where: { idUser: idUser } });
+    });
   }
   if (user !== null) {
     user.destroy({ where: { idUser: idUser } });

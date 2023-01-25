@@ -20,9 +20,10 @@
       <ion-card-content>
         <ion-text>
           <div class="lineCarCard">
-            <p>{{'brand'| translate}}: {{item.marca}} /</p>
-            <p>{{'model'| translate}}: {{item.modelo}}</p>
+            <p>{{'brand'| translate}}: {{item.marcaType.marca}}</p>
+            <p>{{item.modeloType.modelo}}</p>
           </div>
+
           <p>{{'engine'| translate}}: {{item.motor}}</p>
           <p>{{'year'| translate}}: {{item.yearType.year}}</p>
           <p>{{'Killometers'| translate}}: {{item.kilometragem}} KM</p>

@@ -24,6 +24,9 @@ export class UpdateCarComponent implements OnInit {
 
   gasType: any;
   years: any;
+  marcas: any;
+  idMarca: any;
+  modelos: any;
 
   constructor(
     private modalCtrl: ModalController,
@@ -36,13 +39,15 @@ export class UpdateCarComponent implements OnInit {
   ngOnInit() {
     this.loadGasType();
     this.loadYears();
-    this.nomeInput = this.item.nome;
-    this.marcaInput = this.item.marca;
-    this.kilometragemInput = this.item.kilometragem;
+    this.loadMarcas();
+  }
+  ionViewDidEnter() {
+    this.marcaInput = this.item.marca.toString();
     this.yearInput = this.item.ano.toString();
-    this.motorInput = this.item.motor;
-    this.modeloInput = this.item.modelo;
     this.fuelInput = this.item.gas.toString();
+    this.nomeInput = this.item.nome;
+    this.kilometragemInput = this.item.kilometragem;
+    this.motorInput = this.item.motor;
   }
 
   dismissModal() {
@@ -76,7 +81,6 @@ export class UpdateCarComponent implements OnInit {
     });
     await loading.present();
   }
-
   async loadGasType() {
     this.crudService.getGasType('combustivel').subscribe((res) => {
       this.gasType = res.gasType;
@@ -87,6 +91,21 @@ export class UpdateCarComponent implements OnInit {
     this.crudService.getYear('years').subscribe((res) => {
       this.years = res.years;
       console.log(this.years);
+    });
+  }
+  async loadMarcas() {
+    this.crudService.getMarca('marcas').subscribe((res) => {
+      this.marcas = res.marca;
+      console.log(this.marcas);
+    });
+  }
+  async loadModelo($event: any) {
+    this.idMarca = $event.target.value;
+    console.log(this.idMarca);
+    this.crudService.getModelo('modelo', this.idMarca).subscribe((res) => {
+      this.modelos = res.modelo;
+      console.log(this.modelos);
+      this.modeloInput = this.item.modelo.toString();
     });
   }
 

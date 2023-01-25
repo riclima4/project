@@ -36,7 +36,12 @@ export const getCarsByUser = async (req, res) => {
   const idUser = req.params.idUser;
   const cars = await CarsModel.findAll({
     where: { idUser: idUser },
-    include: [{ association: "gasType" }, { association: "yearType" }],
+    include: [
+      { association: "gasType" },
+      { association: "yearType" },
+      { association: "marcaType" },
+      { association: "modeloType" },
+    ],
   });
   return res.send({ cars });
 };

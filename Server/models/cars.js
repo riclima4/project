@@ -2,6 +2,8 @@ import Sequelize from "sequelize";
 import { dbInstance } from "../config/db.js";
 import { YearModel } from "./anos.js";
 import { GastTypeModel } from "./gasType.js";
+import { MarcasModel } from "./marcas.js";
+import { ModeloModel } from "./modelos.js";
 import { UserModel } from "./users.js";
 
 const CarsModel = dbInstance.define("cars", {
@@ -24,12 +26,21 @@ const CarsModel = dbInstance.define("cars", {
     allowNull: false,
   },
   marca: {
-    type: Sequelize.STRING(100),
+    type: Sequelize.INTEGER,
     allowNull: false,
+    references: {
+      model: MarcasModel,
+      key: "idMarca",
+    },
   },
   modelo: {
-    type: Sequelize.STRING(100),
+    type: Sequelize.INTEGER,
     allowNull: false,
+
+    references: {
+      model: ModeloModel,
+      key: "idModelo",
+    },
   },
   motor: {
     type: Sequelize.STRING(100),
@@ -40,11 +51,7 @@ const CarsModel = dbInstance.define("cars", {
     allowNull: false,
     defaultValue: 0,
   },
-  ano: {
-    type: Sequelize.INTEGER(4),
-    allowNull: false,
-    defaultValue: 0,
-  },
+
   ano: {
     type: Sequelize.INTEGER,
     allowNull: false,
@@ -76,7 +83,13 @@ CarsModel.belongsTo(YearModel, {
   foreignKey: "ano",
   as: "yearType",
 });
-// CarsModel.hasOne(YearModel, { foreignKey: "idYear" });
-// CarsModel.hasOne(GastTypeModel, { foreignKey: "idGasType" });
+CarsModel.belongsTo(MarcasModel, {
+  foreignKey: "marca",
+  as: "marcaType",
+});
+CarsModel.belongsTo(ModeloModel, {
+  foreignKey: "modelo",
+  as: "modeloType",
+});
 
 export { CarsModel };

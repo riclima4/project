@@ -1,0 +1,457 @@
+<ion-split-pane contentId="main-content">
+  <!-- Menu lateral -->
+  <ion-menu
+    type="overlay"
+    class="sideMenu"
+    contentId="main-content"
+    swipe-gesture
+  >
+    <ion-toolbar color="primary">
+      <ion-icon
+        slot="start"
+        class="logoNavbar2 ion-margin-start"
+        size="large"
+        name="car-sport-outline"
+      ></ion-icon>
+
+      <ion-title> DASHBOARD </ion-title>
+      <ion-menu-toggle slot="end">
+        <ion-button fill="clear">
+          <ion-icon
+            slot="icon-only"
+            class="menoIcon"
+            name="arrow-back-outline"
+          ></ion-icon>
+        </ion-button>
+      </ion-menu-toggle>
+    </ion-toolbar>
+
+    <ion-content class="ion-padding">
+      <ion-item button (click)="changeContent(1)" value="stats" lines="full">
+        <ion-icon
+          class="menoIcon"
+          slot="start"
+          name="stats-chart-outline"
+        ></ion-icon>
+        <ion-label>
+          <h2>Estatisticas</h2>
+        </ion-label>
+      </ion-item>
+      <ion-item button (click)="changeContent(2)" value="users" lines="full">
+        <ion-icon class="menoIcon" slot="start" name="people"></ion-icon>
+        <ion-label>
+          <h2>Utilizadores</h2>
+        </ion-label>
+      </ion-item>
+      <ion-item
+        button
+        (click)="changeContent(3)"
+        value="interventions"
+        lines="full"
+      >
+        <ion-icon class="menoIcon" slot="start" name="build"></ion-icon>
+        <ion-label>
+          <h2>Intervenções</h2>
+        </ion-label>
+      </ion-item>
+      <ion-item button (click)="changeContent(4)" lines="full">
+        <ion-icon class="menoIcon" slot="start" name="car"></ion-icon>
+        <ion-label>
+          <h2>Carros</h2>
+        </ion-label>
+      </ion-item>
+
+      <ion-accordion-group>
+        <ion-accordion>
+          <ion-item slot="header">
+            <ion-icon
+              class="menoIcon"
+              slot="start"
+              name="compass-outline"
+            ></ion-icon>
+
+            <ion-label>
+              <h2>Navegar</h2>
+            </ion-label>
+          </ion-item>
+          <ion-list slot="content">
+            <ion-item button>
+              <ion-label> Página Intervenções </ion-label>
+            </ion-item>
+            <ion-item button>
+              <ion-label> Página Carros </ion-label>
+            </ion-item>
+            <ion-item button>
+              <ion-label> Página Conta </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-accordion>
+      </ion-accordion-group>
+      <div class="bottomIcon ion-padding">
+        <ion-buttons>
+          <ion-button (click)="changeLanguage('en')" class="menoIcon">
+            EN
+          </ion-button>
+          <ion-button (click)="changeLanguage('pt')" class="menoIcon">
+            PT
+          </ion-button>
+        </ion-buttons>
+      </div>
+      <div class="bottomIconLeft ion-padding">
+        <ion-text>
+          <ion-icon class="menoIcon moon" name="moon"></ion-icon>
+        </ion-text>
+
+        <ion-toggle
+          checked="{{toggleDarkMode}}"
+          (ionChange)="toggleTheme($event)"
+        ></ion-toggle>
+      </div>
+    </ion-content>
+  </ion-menu>
+  <!-- content MAIN -->
+  <div class="ion-page" id="main-content">
+    <!-- Menu main content -->
+    <ion-toolbar mode="md">
+      <ion-menu-toggle slot="start">
+        <ion-button fill="clear">
+          <ion-icon
+            class="menoIcon"
+            slot="icon-only"
+            name="menu-outline"
+          ></ion-icon>
+        </ion-button>
+      </ion-menu-toggle>
+      <ion-buttons slot="end">
+        <ion-text>{{username}}</ion-text>
+        <ion-button (click)="logout()" fill="clear">
+          <ion-icon name="log-out"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title class="logoNavbar1">
+        <ion-icon size="large" name="car-sport-outline"></ion-icon>
+      </ion-title>
+    </ion-toolbar>
+
+    <ion-content [ngSwitch]="contentSegment">
+      <!-- STATS PAGE -->
+      <div *ngSwitchCase="1" class="ion-padding">
+        <div class="breadcrumbs">
+          <ion-breadcrumbs>
+            <ion-breadcrumb>Dashboard</ion-breadcrumb>
+            <ion-breadcrumb>Estatistícas</ion-breadcrumb>
+          </ion-breadcrumbs>
+        </div>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12" size-lg="6" size-md="6" size-xl="4">
+              <ion-card mode="ios" color="dark">
+                <ion-card-header>
+                  <ion-card-title class="ion-text-center">
+                    Total <br />
+                    Utilizadores
+                  </ion-card-title>
+                </ion-card-header>
+                <ion-card-content class="ion-text-center">
+                  200
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col size="12" size-lg="6" size-md="6" size-xl="4">
+              <ion-card mode="ios" color="dark">
+                <ion-card-header>
+                  <ion-card-title class="ion-text-center">
+                    Total <br />
+                    Carros
+                  </ion-card-title>
+                </ion-card-header>
+                <ion-card-content class="ion-text-center">
+                  200
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <ion-col size="12" size-lg="6" size-md="6" size-xl="4">
+              <ion-card mode="ios" color="dark">
+                <ion-card-header>
+                  <ion-card-title class="ion-text-center">
+                    Total <br />
+                    Intervenções
+                  </ion-card-title>
+                </ion-card-header>
+                <ion-card-content class="ion-text-center">
+                  200
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <!-- USERS PAGE -->
+      <div *ngSwitchCase="2" class="ion-padding">
+        <div class="breadcrumbs">
+          <ion-breadcrumbs>
+            <ion-breadcrumb>Dashboard</ion-breadcrumb>
+            <ion-breadcrumb>Utilizadores</ion-breadcrumb>
+          </ion-breadcrumbs>
+        </div>
+        <!-- SECÇÂO ADD USER -->
+        <div class="adicionaUsers">
+          <h1>Adicionar Utilizadores</h1>
+          <ion-button
+            color="success"
+            (click)="hideCreateUser=!hideCreateUser"
+            expand="block"
+            class="ion-aling-center"
+          >
+            Adicionar Utilizador
+            <ion-icon name="person-add" slot="end"></ion-icon>
+          </ion-button>
+          <form
+            *ngIf="!hideCreateUser"
+            #myForm="ngForm"
+            class="registerForm"
+            (ngSubmit)="newUser(myForm)"
+          >
+            <ion-list class="formCss">
+              <ion-item class="ion-margin-bottom">
+                <ion-label position="fixed">{{'name'| translate}}</ion-label>
+                <ion-input
+                  [(ngModel)]="nomeInput"
+                  Name
+                  required
+                  name="nome"
+                  type="text"
+                  placeholder="{{'nameText'| translate}}"
+                ></ion-input>
+              </ion-item>
+              <ion-item class="ion-margin-bottom">
+                <ion-label position="fixed">Email</ion-label>
+                <ion-input
+                  [(ngModel)]="emailInput"
+                  email
+                  required
+                  name="email"
+                  type="email"
+                  placeholder="{{'emailText'| translate}}"
+                >
+                </ion-input>
+              </ion-item>
+
+              <ion-item class="ion-margin-bottom">
+                <ion-label position="fixed">Password</ion-label>
+                <ion-input
+                  [(ngModel)]="passwordInput"
+                  password
+                  required
+                  minlength="4"
+                  name="password"
+                  type="password"
+                  placeholder="{{'passwordText'| translate}}"
+                >
+                </ion-input>
+              </ion-item>
+              <ion-item class="ion-margin-bottom">
+                <ion-label position="fixed">
+                  {{'confirm'| translate}}
+                  <br />
+                  Password
+                </ion-label>
+                <ion-input
+                  [(ngModel)]="passwordConfInput"
+                  password
+                  minlength="4"
+                  required
+                  name="confpassword"
+                  type="password"
+                  placeholder="{{'passwordTextConfirm'| translate}}"
+                >
+                </ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="fixed"> {{'type' | translate}} </ion-label>
+                <ion-select
+                  placeholder="{{'insertType' | translate}}"
+                  [(ngModel)]="typeInput"
+                >
+                  <ion-select-option value="1">Normal</ion-select-option>
+                  <ion-select-option value="100">Admin</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-list>
+            <ion-button type="submit" expand="block">
+              {{'signup'| translate}}
+            </ion-button>
+          </form>
+        </div>
+
+        <!-- SECÇÂO ALL USERS-->
+        <div class="AllUtilizadores">
+          <h1>Todos os Utilizadores</h1>
+          <ion-searchbar
+            mode="ios"
+            show-clear-button="always"
+            [(ngModel)]="searchTerm"
+            animated
+            placeholder="Procurar"
+          ></ion-searchbar>
+          <!-- tabela Users -->
+          <div class="userDataGrid">
+            <ion-row class="header-row ion-padding-top ion-padding-bottom">
+              <ion-col
+                size="4"
+                size-md="4"
+                size-lg="4"
+                class="ion-hide-sm-down"
+              >
+                Username
+              </ion-col>
+              <ion-col
+                size="10"
+                size-sm="6"
+                size-md="4"
+                size-lg="4"
+                tappable
+                (click)="sortBy('email')"
+              >
+                Email
+                <ion-icon
+                  name="arrow-down"
+                  *ngIf="sortDirection ==1"
+                ></ion-icon>
+                <ion-icon name="arrow-up" *ngIf="sortDirection ==2"></ion-icon>
+              </ion-col>
+              <ion-col
+                size-lg="2"
+                class="ion-hide-md-down"
+                tappable
+                (click)="sortByType('type')"
+              >
+                Tipo
+                <ion-icon
+                  name="arrow-down"
+                  *ngIf="sortDirection2 ==1"
+                ></ion-icon>
+                <ion-icon name="arrow-up" *ngIf="sortDirection2 ==2"></ion-icon>
+              </ion-col>
+              <ion-col size="2" size-md="2" size-lg="2"> Ação </ion-col>
+            </ion-row>
+            <!-- usersRow -->
+            <ion-row
+              *ngFor="let row of usersArr | filter:searchTerm"
+              class="data-row"
+            >
+              <ion-col
+                size="4"
+                size-md="4"
+                size-lg="4"
+                class="ion-hide-sm-down"
+              >
+                {{row.username}}
+              </ion-col>
+              <ion-col size="10" size-sm="6" size-md="4" size-lg="4">
+                {{row.email}}
+              </ion-col>
+              <ion-col size-lg="2" class="ion-hide-md-down">
+                <span *ngIf="row.type==100">Admin ({{row.type}})</span>
+                <span *ngIf="row.type==1">Normal ({{row.type}})</span>
+              </ion-col>
+              <ion-col size="2" size-md="2" size-lg="2" class="ion-text-center">
+                <ion-button
+                  (click)="deleteUserActionSheet(row.idUser)"
+                  size="small"
+                  color="danger"
+                >
+                  <ion-icon name="trash"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+            <ion-row class="ion-margin-top">
+              <ion-col size="12" class="ion-text-center">
+                {{page + 1}} of {{totalPages}}
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="2">
+                <ion-button
+                  fill="clear"
+                  [disabled]="disabledBack"
+                  (click)="goFirst()"
+                >
+                  <ion-icon name="play-back" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-col>
+              <ion-col size="2">
+                <ion-button
+                  [disabled]="disabledBack"
+                  fill="clear"
+                  (click)="prevPage()"
+                >
+                  <ion-icon name="chevron-back" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-col>
+              <ion-col size="4" class="ion-text-center">
+                <ion-select
+                  interface="popover"
+                  [(ngModel)]="resultsCount"
+                  (ionChange)="loadUsersCount();loadUsers();this.disableBtn();"
+                >
+                  <ion-select-option [value]="5"
+                    >5 por página</ion-select-option
+                  >
+                  <ion-select-option [value]="10"
+                    >10 por página</ion-select-option
+                  >
+                  <ion-select-option [value]="25"
+                    >25 por página</ion-select-option
+                  >
+                  <ion-select-option [value]="50"
+                    >50 por página</ion-select-option
+                  >
+                </ion-select>
+              </ion-col>
+              <ion-col size="2">
+                <ion-button
+                  [disabled]="disabledForward"
+                  fill="clear"
+                  (click)="nextPage()"
+                >
+                  <ion-icon name="chevron-forward" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-col>
+              <ion-col size="2">
+                <ion-button
+                  [disabled]="disabledForward"
+                  fill="clear"
+                  (click)="goLast()"
+                >
+                  <ion-icon name="play-forward" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+      </div>
+
+      <!-- INTERVENTIONS PAGE -->
+      <div *ngSwitchCase="3" class="ion-padding">
+        <div class="breadcrumbs">
+          <ion-breadcrumbs>
+            <ion-breadcrumb>Dashboard</ion-breadcrumb>
+            <ion-breadcrumb>Intervenções</ion-breadcrumb>
+          </ion-breadcrumbs>
+        </div>
+      </div>
+      <!-- CARS PAGE -->
+      <div *ngSwitchCase="4" class="ion-padding">
+        <div class="breadcrumbs">
+          <ion-breadcrumbs>
+            <ion-breadcrumb>Dashboard</ion-breadcrumb>
+            <ion-breadcrumb>Carros</ion-breadcrumb>
+          </ion-breadcrumbs>
+        </div>
+      </div>
+      <!-- END CARS PAGE -->
+    </ion-content>
+  </div>
+</ion-split-pane>

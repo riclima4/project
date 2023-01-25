@@ -108,21 +108,7 @@ export class Tab1Page {
       this.presentToastDelete('top');
     }, 2000);
   }
-  // async loadIntervencoes() {
-  //   // console.log(this.userID);
-  //   this.crudService
-  //     .getIntervencao('intervencoes', this.userID)
-  //     .subscribe((res) => {
-  //       this.intervencoes = res.intervencao;
-  //       if (this.intervencoes.length > 0) {
-  //         this.haveInterventions = true;
-  //         // console.log(this.haveCars);
-  //         return;
-  //       }
-  //       this.haveInterventions = false;
-  //       // console.log(this.haveCars);
-  //     });
-  // }
+
   async loadIntervencoes() {
     // console.log(this.userID);
     this.crudService

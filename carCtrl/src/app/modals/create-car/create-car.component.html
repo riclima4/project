@@ -21,21 +21,29 @@
       </ion-item>
       <ion-item class="ion-margin-bottom">
         <ion-label position="floating">{{ "brand" | translate }}</ion-label>
-        <ion-input
+        <ion-select
           [(ngModel)]="marcaInput"
           name="marca"
-          placeholder="{{ 'insertText' | translate }}"
+          (ionChange)="loadModelo($event)"
         >
-        </ion-input>
+          <ion-select-option
+            *ngFor="let item of marcas"
+            value="{{ item.idMarca }}"
+          >
+            {{ item.marca }}
+          </ion-select-option>
+        </ion-select>
       </ion-item>
       <ion-item class="ion-margin-bottom">
         <ion-label position="floating">{{ "model" | translate }}</ion-label>
-        <ion-input
-          [(ngModel)]="modeloInput"
-          name="modelo"
-          placeholder="{{ 'insertText' | translate }}"
-        >
-        </ion-input>
+        <ion-select [(ngModel)]="modeloInput" name="modelo">
+          <ion-select-option
+            *ngFor="let item of modelos"
+            value="{{ item.idModelo }}"
+          >
+            {{ item.modelo }}
+          </ion-select-option>
+        </ion-select>
       </ion-item>
       <ion-item class="ion-margin-bottom">
         <ion-label position="floating">{{ "engine" | translate }}</ion-label>
