@@ -54,7 +54,6 @@ export class CrudService {
   getCars(controller: string, id: number): Observable<Car> {
     return this.http.get<Car>(`${this.url}/api/${controller}/${id}`);
   }
-
   // getUsers(controller: string): Observable<Users> {
   //   return this.http.get<Users>(`${this.url}/api/${controller}`);
   // }
@@ -87,6 +86,15 @@ export class CrudService {
   }
   getIntervencao(controller: string, id: number): Observable<Intervencao> {
     return this.http.get<Intervencao>(`${this.url}/api/${controller}/${id}`);
+  }
+  getIntType(
+    controller: string,
+    page: number,
+    resultsCount: number
+  ): Observable<InterventionType> {
+    return this.http.get<InterventionType>(
+      `${this.url}/api/${controller}?page=${page}&results=${resultsCount}`
+    );
   }
 
   create(controller: string, model: any) {

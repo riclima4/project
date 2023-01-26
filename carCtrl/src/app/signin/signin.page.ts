@@ -72,7 +72,10 @@ export class SigninPage implements OnInit {
       this.authService.login(login).subscribe(
         async (res) => {
           // console.log(res);
-          await this.router.navigateByUrl('/tabs', { replaceUrl: true });
+          this.loadingSpinner();
+          setTimeout(async () => {
+            await this.router.navigateByUrl('/tabs', { replaceUrl: true });
+          }, 2000);
         },
         async (error) => {
           this.loadingSpinner();

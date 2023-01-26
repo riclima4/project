@@ -34,6 +34,7 @@ import {
 import {
   deleteInterventionType,
   getAllInterventionType,
+  getIntType,
   newInterventionType,
   updateInterventionType,
 } from "../controllers/interventionType.js";
@@ -66,8 +67,7 @@ routes.get("/userCount", getUserCount);
 routes.get("/user/:idUser", getUserid);
 routes.post("/newUser", newUser);
 routes.post("/login", login);
-// routes.get("/logout/:token", logout);
-routes.post("/updateUser/:idUser", updateUser);
+routes.put("/updateUser/:idUser", updateUser);
 routes.delete("/removeUser/:idUser", deleteUser);
 
 //Carro
@@ -89,20 +89,15 @@ routes.put("/updateIntervencao/:idIntervencao", updateIntervencao);
 //Tipo Combustivel
 routes.get("/combustivel", getAllGasType);
 routes.post("/newCombustivel", newGasType);
-routes.put("updateGasType/:idGasType", updateGasType);
+routes.put("/updateGasType/:idGasType", updateGasType);
 routes.delete("/deleteGasType/:idGasType", deleteGasType);
 
 //Tipo de Intervenção
 routes.get("/interventionType", getAllInterventionType);
-routes.post("/newInterventionType", newInterventionType);
-routes.put(
-  "/updateInterventionType/:idInterventionType",
-  updateInterventionType
-);
-routes.delete(
-  "/deleteInterventionType/:idInterventionType",
-  deleteInterventionType
-);
+routes.get("/intType", getIntType);
+routes.post("/newIntType", newInterventionType);
+routes.put("/updateIntType/:idInterventionType", updateInterventionType);
+routes.delete("/deleteIntType/:idInterventionType", deleteInterventionType);
 //lista anos
 routes.get("/years", getAllyears);
 routes.post("/newYear", newYear);
