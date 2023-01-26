@@ -42,7 +42,7 @@
 .moon {
   font-size: 20px;
 }
-.userDataGrid {
+.dataGrid {
   box-shadow: 0 0 5px var(--ion-color-medium);
   padding: 10px;
   border-radius: 5px;
@@ -50,6 +50,13 @@
 .header-row {
   border-bottom: 2px solid black;
   background-color: #ffd95d;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: black;
+}
+.header-rowInt {
+  border-bottom: 2px solid black;
+  background-color: var(--ion-color-success);
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   color: black;
