@@ -21,42 +21,57 @@ export class AdminDashboardPage implements OnInit {
   user: any;
   username: any;
   toggleDarkMode: any;
-  contentSegment = 2; //volta para 1 when finished
+  contentSegment = 3; //volta para 1 when finished
   usersArr: any;
   allUsers: any;
   page = 0;
+  pageInt = 0;
   resultsCount = 10;
+  resultsCountInt = 10;
   sortDirection = 0;
   sortDirection2 = 0;
+  sortDirection3 = 0;
   sortKey = null;
   totalPages: number;
+  totalPagesInt: number;
   disabledBack: any;
   disabledForward: any;
+  disabledBackInt: any;
+  disabledForwardInt: any;
   searchTerm: string;
+  searchTerm2: string;
   nomeInput: any;
   emailInput: any;
   passwordInput: any;
   passwordConfInput: any;
   typeInput: any;
+  typeIntUpdateInput: any;
   hideCreateUser = true;
   hideUpdateUser = true;
+  hideCreateInt = true;
+  hideUpdateInt = true;
   nomeUpdateInput: any;
   emailUpdateInput: any;
   typeUpdateInput: any;
   idUserUpdateInput: any;
+  typeIntInput: any;
+  intTypeArr: any;
+  allInt: number;
+  idIntTypeInput: any;
+
   constructor(
     private translateService: TranslateService,
     private toastController: ToastController,
     private crudService: CrudService,
     private router: Router,
     private loadingCtrl: LoadingController,
-    private actionSheetCtrl: ActionSheetController,
-    private alertController: AlertController
+    private actionSheetCtrl: ActionSheetController
   ) {}
 
   ngOnInit() {
     this.getToken();
     this.loadUsersCount();
+    this.loadIntCount();
     this.checkDarkmode();
   }
   ionViewWillEnter() {
@@ -64,7 +79,9 @@ export class AdminDashboardPage implements OnInit {
       return this.router.navigateByUrl('/', { replaceUrl: true });
     }
     this.loadUsers();
+    this.loadInt();
   }
+  // USER LOGIC
   async loadUsers() {
     this.crudService
       .getUsers('users', this.page, this.resultsCount)
@@ -77,8 +94,88 @@ export class AdminDashboardPage implements OnInit {
       this.allUsers = res.users.length;
       this.totalPages = Math.ceil(this.allUsers / this.resultsCount);
       console.log(this.totalPages);
-      this.disableBtn();
+      this.disableBtn('user');
     });
+  }
+  updateUserInput(item: any) {
+    this.hideUpdateUser = false;
+    this.nomeUpdateInput = item.username;
+    this.emailUpdateInput = item.email;
+    this.typeUpdateInput = item.type.toString();
+    this.hideCreateUser = true;
+    this.idUserUpdateInput = item.idUser;
+  }
+  updateUser() {
+    if (this.nomeUpdateInput && this.emailUpdateInput && this.typeUpdateInput) {
+      const updatedUser = {
+        username: this.nomeUpdateInput,
+        email: this.emailUpdateInput,
+        type: this.typeUpdateInput,
+      };
+      console.log(this.idUserUpdateInput);
+
+      this.crudService
+        .update('updateUser', this.idUserUpdateInput, updatedUser)
+        .subscribe((res) => {
+          console.log(res);
+        });
+      this.loadingSpinner();
+
+      setTimeout(() => {
+        this.presentToast('top', 'userEdit');
+        this.loadUsers();
+        this.hideUpdateUser = true;
+      }, 2000);
+    } else {
+      this.presentToast('top', 'input');
+    }
+  }
+  newUser(form: NgForm) {
+    if (
+      !this.nomeInput ||
+      !this.emailInput ||
+      !this.passwordInput ||
+      !this.passwordConfInput ||
+      !this.typeInput ||
+      this.nomeInput == '' ||
+      this.emailInput == '' ||
+      this.passwordInput == '' ||
+      this.passwordConfInput == '' ||
+      this.typeInput == ''
+    ) {
+      return this.presentToast('top', 'input');
+    }
+    if (this.passwordInput != this.passwordConfInput) {
+      return this.presentToast('top', 'password');
+    }
+    const newUser = {
+      username: this.nomeInput,
+      email: this.emailInput,
+      password: this.passwordInput,
+      type: this.typeInput,
+    };
+    this.crudService.create('newUser', newUser).subscribe((res) => {
+      console.log(res);
+      if (res == true) {
+        return this.presentToast('top', 'user');
+      } else {
+        this.presentToast('top', 'success');
+        setTimeout(() => {
+          form.reset();
+          this.loadUsersCount();
+          this.loadUsers();
+        }, 2000);
+      }
+    });
+  }
+  async deleteUser(id: number) {
+    this.crudService.delete('removeUser', id).subscribe((res) => {});
+    this.loadingSpinner();
+    setTimeout(() => {
+      this.loadUsers();
+      this.presentToast('top', 'userDelete');
+      this.searchTerm = '';
+    }, 2000);
   }
   sortBy(key: any) {
     this.sortKey = key;
@@ -116,6 +213,7 @@ export class AdminDashboardPage implements OnInit {
         const valA = a[this.sortKey];
         const valB = b[this.sortKey];
         this.sortDirection = 0;
+        this.sortDirection3 = 0;
         return valA.toString().localeCompare(valB);
       });
     } else if (this.sortDirection2 == 2) {
@@ -123,6 +221,7 @@ export class AdminDashboardPage implements OnInit {
         const valA = a[this.sortKey];
         const valB = b[this.sortKey];
         this.sortDirection = 0;
+        this.sortDirection3 = 0;
         return valB.toString().localeCompare(valA.toString());
       });
     } else {
@@ -130,45 +229,221 @@ export class AdminDashboardPage implements OnInit {
       this.sortKey = null;
     }
   }
-  disableBtn() {
-    if (this.page <= 0) {
+  // INTERVENTION LOGIC
+  loadInt() {
+    this.crudService
+      .getIntType('intType', this.pageInt, this.resultsCountInt)
+      .subscribe((res) => {
+        this.intTypeArr = res.interventionType;
+      });
+  }
+  loadIntCount() {
+    this.crudService
+      .getInterventionType('interventionType')
+      .subscribe((res) => {
+        this.allInt = res.interventionType.length;
+        this.totalPagesInt = Math.ceil(this.allInt / this.resultsCountInt);
+        console.log(this.totalPagesInt);
+        this.disableBtn('int');
+      });
+  }
+  updateIntInput(item: any) {
+    this.hideUpdateInt = false;
+    this.typeIntUpdateInput = item.interventionType;
+    this.idIntTypeInput = item.idInterventionType;
+    this.hideCreateInt = true;
+  }
+  updateIntType() {
+    if (this.typeIntUpdateInput) {
+      const updatedIntType = {
+        idInterventionType: this.idIntTypeInput,
+        interventionType: this.typeIntUpdateInput,
+      };
+      console.log(updatedIntType);
+
+      this.crudService
+        .update('updateIntType', this.idIntTypeInput, updatedIntType)
+        .subscribe((res) => {
+          if (res == '401') {
+            this.loadingSpinner();
+            setTimeout(() => {
+              this.presentToast('top', 'intUpdateError');
+            }, 2000);
+            return;
+          }
+          this.loadingSpinner();
+          setTimeout(() => {
+            this.presentToast('top', 'intEdit');
+            this.loadInt();
+            this.hideUpdateInt = true;
+          }, 2000);
+        });
+    } else {
+      this.presentToast('top', 'input');
+    }
+  }
+  newIntType(form: NgForm) {
+    if (
+      !this.typeIntInput ||
+      this.typeIntInput == '' ||
+      this.typeIntInput == ' '
+    ) {
+      return this.presentToast('top', 'input');
+    }
+    const newType = {
+      interventionType: this.typeIntInput,
+    };
+    this.crudService.create('newIntType', newType).subscribe((res) => {
+      console.log(res);
+
+      this.loadingSpinner();
+      setTimeout(() => {
+        form.reset();
+        this.presentToast('top', 'successInt');
+        this.loadIntCount();
+        this.loadInt();
+      }, 2000);
+    });
+  }
+  async deleteIntType(id: number) {
+    this.crudService.delete('deleteIntType', id).subscribe((res) => {
+      if (res == '401') {
+        this.loadingSpinner();
+        setTimeout(() => {
+          this.presentToast('top', 'intDeleteError');
+        }, 2000);
+        return;
+      } else {
+        this.loadingSpinner();
+        setTimeout(() => {
+          this.loadInt();
+          this.presentToast('top', 'intDelete');
+          this.searchTerm2 = '';
+        }, 2000);
+      }
+    });
+  }
+  sortByInt(key: any) {
+    this.sortKey = key;
+    this.sortDirection3++;
+    this.sortInt();
+  }
+  sortInt() {
+    if (this.sortDirection3 == 1) {
+      this.intTypeArr = this.intTypeArr.sort((a, b) => {
+        const valA = a[this.sortKey];
+        const valB = b[this.sortKey];
+        this.sortDirection2 = 0;
+        this.sortDirection = 0;
+        return valA.localeCompare(valB);
+      });
+    } else if (this.sortDirection3 == 2) {
+      this.intTypeArr = this.intTypeArr.sort((a, b) => {
+        const valA = a[this.sortKey];
+        const valB = b[this.sortKey];
+        this.sortDirection2 = 0;
+        this.sortDirection = 0;
+        return valB.localeCompare(valA);
+      });
+    } else {
+      this.sortDirection3 = 0;
+      this.sortKey = null;
+    }
+  }
+  // GENERAL LOGIC
+  disableBtn(tabela: any) {
+    if (tabela == 'user') {
+      if (this.page <= 0) {
+        this.page = 0;
+        this.disabledBack = true;
+      } else {
+        this.disabledBack = false;
+      }
+      if (this.page + 1 >= this.totalPages) {
+        this.page = this.totalPages - 1;
+        this.disabledForward = true;
+      } else {
+        this.disabledForward = false;
+      }
+      return;
+    }
+    if (tabela == 'int') {
+      if (this.pageInt <= 0) {
+        this.pageInt = 0;
+        this.disabledBackInt = true;
+      } else {
+        this.disabledBackInt = false;
+      }
+      if (this.pageInt + 1 >= this.totalPagesInt) {
+        this.pageInt = this.totalPagesInt - 1;
+        this.disabledForwardInt = true;
+      } else {
+        this.disabledForwardInt = false;
+      }
+      return;
+    }
+  }
+  nextPage(tabela: any) {
+    if (tabela == 'user') {
+      this.page++;
+      this.disableBtn('user');
+      this.loadUsers();
+      return;
+    }
+    if (tabela == 'int') {
+      this.pageInt++;
+      this.disableBtn('int');
+      this.loadInt();
+      return;
+    }
+  }
+  prevPage(tabela: any) {
+    if (tabela == 'user') {
+      this.page--;
+      this.disableBtn('user');
+      this.loadUsers();
+      return;
+    }
+    if (tabela == 'int') {
+      this.pageInt--;
+      this.disableBtn('int');
+      this.loadInt();
+      return;
+    }
+  }
+  goFirst(tabela: any) {
+    if (tabela == 'user') {
       this.page = 0;
-      this.disabledBack = true;
-    } else {
-      this.disabledBack = false;
+      this.disableBtn('user');
+      this.loadUsers();
+      return;
     }
-    if (this.page + 1 >= this.totalPages) {
+    if (tabela == 'int') {
+      this.pageInt = 0;
+      this.disableBtn('int');
+      this.loadInt();
+      return;
+    }
+  }
+  goLast(tabela: any) {
+    if (tabela == 'user') {
       this.page = this.totalPages - 1;
-      this.disabledForward = true;
-    } else {
-      this.disabledForward = false;
+      this.disableBtn('user');
+      this.loadUsers();
+      return;
     }
-  }
-  nextPage() {
-    this.page++;
-    this.disableBtn();
-    this.loadUsers();
-  }
-  prevPage() {
-    this.page--;
-    this.disableBtn();
-    this.loadUsers();
-  }
-  goFirst() {
-    this.page = 0;
-    this.disableBtn();
-    this.loadUsers();
-  }
-  goLast() {
-    this.page = this.totalPages - 1;
-    this.disableBtn();
-    this.loadUsers();
+    if (tabela == 'int') {
+      this.pageInt = this.totalPagesInt - 1;
+      this.disableBtn('int');
+      this.loadInt();
+      return;
+    }
   }
   changeContent(value: any) {
     this.contentSegment = value;
     console.log(this.contentSegment);
   }
-  checkDarkmode = async () => {
+  async checkDarkmode() {
     const darkmode = await Preferences.get({ key: 'color-theme' });
 
     if (darkmode.value == 'dark') {
@@ -181,8 +456,8 @@ export class AdminDashboardPage implements OnInit {
       document.body.setAttribute('color-theme', 'light');
       return;
     }
-  };
-  getToken = async () => {
+  }
+  async getToken() {
     const token = await Preferences.get({ key: 'token' });
 
     // console.log(token.value !== null);
@@ -192,8 +467,8 @@ export class AdminDashboardPage implements OnInit {
       this.username = this.user.username;
       // console.log(this.userID);
     }
-  };
-  logout = async () => {
+  }
+  async logout() {
     const token = await Preferences.get({ key: 'token' });
 
     // console.log(token.value !== null);
@@ -201,7 +476,7 @@ export class AdminDashboardPage implements OnInit {
       Preferences.remove({ key: 'token' });
       window.location.reload();
     }
-  };
+  }
   async changeLanguage(language: string) {
     await Preferences.set({ key: 'user-lang', value: language });
 
@@ -276,127 +551,136 @@ export class AdminDashboardPage implements OnInit {
       });
 
       await toast.present();
-    }
-  }
-  updateUserInput(item: any) {
-    this.hideUpdateUser = false;
-    this.nomeUpdateInput = item.username;
-    this.emailUpdateInput = item.email;
-    this.typeUpdateInput = item.type.toString();
-    this.hideCreateUser = true;
-    this.idUserUpdateInput = item.idUser;
-  }
-  updateUser() {
-    if (this.nomeUpdateInput && this.emailUpdateInput && this.typeUpdateInput) {
-      const updatedUser = {
-        username: this.nomeUpdateInput,
-        email: this.emailUpdateInput,
-        type: this.typeUpdateInput,
-      };
-      console.log(this.idUserUpdateInput);
+    } else if (nome == 'successInt') {
+      const toast = await this.toastController.create({
+        message: 'Tipo de Intervenção criada com sucesso',
+        duration: 2000,
+        position: position,
+        color: 'success',
+      });
 
-      this.crudService
-        .update('updateUser', this.idUserUpdateInput, updatedUser)
-        .subscribe((res) => {
-          console.log(res);
-        });
-      this.loadingSpinner();
+      await toast.present();
+    } else if (nome == 'userDelete') {
+      const toast = await this.toastController.create({
+        message: 'Utilizador eliminado com sucesso',
+        duration: 2000,
+        position: position,
+        color: 'success',
+      });
 
-      setTimeout(() => {
-        this.presentToast2('top');
-        this.loadUsers();
-        this.hideUpdateUser = true;
-      }, 2000);
-    } else {
-      this.presentAlert();
+      await toast.present();
+    } else if (nome == 'userEdit') {
+      const toast = await this.toastController.create({
+        message: 'Utilizador editado com sucesso',
+        duration: 2000,
+        position: position,
+        color: 'success',
+      });
+
+      await toast.present();
+    } else if (nome == 'intDelete') {
+      const toast = await this.toastController.create({
+        message: 'Tipo de Intervenção eliminada com sucesso',
+        duration: 2000,
+        position: position,
+        color: 'success',
+      });
+
+      await toast.present();
+    } else if (nome == 'intEdit') {
+      const toast = await this.toastController.create({
+        message: 'Tipo de Intervenção editado com sucesso',
+        duration: 2000,
+        position: position,
+        color: 'success',
+      });
+
+      await toast.present();
+    } else if (nome == 'intDeleteError') {
+      const toast = await this.toastController.create({
+        message:
+          'Tipo de Intervenção não pode ser eliminada pois é usada em alguma intervenção',
+        duration: 2000,
+        position: position,
+        color: 'danger',
+      });
+
+      await toast.present();
+    } else if (nome == 'intUpdateError') {
+      const toast = await this.toastController.create({
+        message:
+          'Tipo de Intervenção não pode ser editada pois é usada em alguma intervenção',
+        duration: 2000,
+        position: position,
+        color: 'danger',
+      });
+
+      await toast.present();
     }
   }
-  newUser(form: NgForm) {
-    if (
-      !this.nomeInput ||
-      !this.emailInput ||
-      !this.passwordInput ||
-      !this.passwordConfInput ||
-      !this.typeInput ||
-      this.nomeInput == '' ||
-      this.emailInput == '' ||
-      this.passwordInput == '' ||
-      this.passwordConfInput == '' ||
-      this.typeInput == ''
-    ) {
-      return this.presentToast('top', 'input');
-    }
-    if (this.passwordInput != this.passwordConfInput) {
-      return this.presentToast('top', 'password');
-    }
-    const newUser = {
-      username: this.nomeInput,
-      email: this.emailInput,
-      password: this.passwordInput,
-      type: this.typeInput,
-    };
-    this.crudService.create('newUser', newUser).subscribe((res) => {
-      console.log(res);
-      if (res == true) {
-        return this.presentToast('top', 'user');
-      } else {
-        this.presentToast('top', 'success');
-        setTimeout(() => {
-          form.reset();
-          this.loadUsersCount();
-          this.loadUsers();
-        }, 2000);
+  async deleteActionSheet(id: number, nome: string) {
+    if (nome == 'user') {
+      const actionSheet = await this.actionSheetCtrl.create({
+        mode: 'ios',
+        header: 'O Utilizador e todas as suas informações vão ser removidas',
+        subHeader: 'Pretende continuar?',
+        buttons: [
+          {
+            text: 'Delete',
+            role: 'destructive',
+            data: {
+              action: 'delete',
+            },
+          },
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            data: {
+              action: 'cancel',
+            },
+          },
+        ],
+      });
+
+      await actionSheet.present();
+
+      const result = await actionSheet.onDidDismiss();
+      if (result.data.action == 'delete') {
+        this.deleteUser(id);
       }
-    });
-  }
-  async deleteUserActionSheet(id: number) {
-    const actionSheet = await this.actionSheetCtrl.create({
-      mode: 'ios',
-      header: 'O Utilizador e todas as suas informações vão ser removidas',
-      subHeader: 'Pretende continuar?',
-      buttons: [
-        {
-          text: 'Delete',
-          role: 'destructive',
-          data: {
-            action: 'delete',
+      return;
+    } else if (nome == 'intType') {
+      const actionSheet = await this.actionSheetCtrl.create({
+        mode: 'ios',
+        header:
+          'O Tipo de intervenção e todas as suas informações vão ser removidas',
+        subHeader: 'Pretende continuar?',
+        buttons: [
+          {
+            text: 'Delete',
+            role: 'destructive',
+            data: {
+              action: 'delete',
+            },
           },
-        },
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          data: {
-            action: 'cancel',
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            data: {
+              action: 'cancel',
+            },
           },
-        },
-      ],
-    });
+        ],
+      });
 
-    await actionSheet.present();
+      await actionSheet.present();
 
-    const result = await actionSheet.onDidDismiss();
-    if (result.data.action == 'delete') {
-      this.deleteUser(id);
+      const result = await actionSheet.onDidDismiss();
+      if (result.data.action == 'delete') {
+        this.deleteIntType(id);
+      }
+      return;
     }
-  }
-  async presentToastDelete(position: 'top' | 'middle' | 'bottom') {
-    const toast = await this.toastController.create({
-      message: 'Utilizador eliminado com sucesso',
-      duration: 2000,
-      position: position,
-      color: 'success',
-    });
-
-    await toast.present();
-  }
-  async deleteUser(id: number) {
-    this.crudService.delete('removeUser', id).subscribe((res) => {});
-    this.loadingSpinner();
-    setTimeout(() => {
-      this.loadUsers();
-      this.presentToastDelete('top');
-      this.searchTerm = '';
-    }, 2000);
   }
   async loadingSpinner() {
     const loading = await this.loadingCtrl.create({
@@ -407,24 +691,5 @@ export class AdminDashboardPage implements OnInit {
     setTimeout(() => {
       loading.dismiss();
     }, 2000);
-  }
-  async presentToast2(position: 'top' | 'middle' | 'bottom') {
-    const toast = await this.toastController.create({
-      message: 'Utilizador editado com sucesso',
-      duration: 2000,
-      position: position,
-      color: 'success',
-    });
-
-    await toast.present();
-  }
-  async presentAlert() {
-    const alert = await this.alertController.create({
-      header: 'Erro',
-      subHeader: 'Dados Inválidos',
-      mode: 'ios',
-      buttons: ['OK'],
-    });
-    await alert.present();
   }
 }
