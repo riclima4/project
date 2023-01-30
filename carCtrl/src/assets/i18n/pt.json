@@ -53,5 +53,26 @@
   "carInfoText": "Informações sobre o veiculo",
   "interInfoText": "Informações sobre a intervenção",
   "Cost": "Custo",
-  "update": "Editar"
+  "update": "Editar",
+
+  "users": "Utilizadores",
+  "interventions": "Intervenções",
+  "cars": "Carros",
+  "navigate": "Navegar",
+  "pagInt": "Página de Intervenções",
+  "pagCar": "Página de Carros",
+  "pagAcount": "Página Conta",
+  "statistics": "Estatistícas",
+  "AddUser": "Adicionar Utilizador",
+  "Normal": "Normal",
+  "Admin": "Administrador",
+  "editUser": "Editar Utilizador",
+  "allUsers": "Todos os Utilizadores",
+  "username": "Nome de Utilizador",
+  "action": "Ação",
+  "of": "de",
+  "perPage": "por página",
+  "AddInterventionType": "Adicionar Tipo de Intervenção",
+  "editInterventionType": "Editar Tipo de Intervenção",
+  "interventionTypes": "Tipos de Intervenção"
 }

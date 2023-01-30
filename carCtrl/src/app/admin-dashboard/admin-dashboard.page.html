@@ -34,13 +34,13 @@
           name="stats-chart-outline"
         ></ion-icon>
         <ion-label>
-          <h2>Estatisticas</h2>
+          <h2>{{ "statistics" | translate }}</h2>
         </ion-label>
       </ion-item>
       <ion-item button (click)="changeContent(2)" value="users" lines="full">
         <ion-icon class="menoIcon" slot="start" name="people"></ion-icon>
         <ion-label>
-          <h2>Utilizadores</h2>
+          <h2>{{ "users" | translate }}</h2>
         </ion-label>
       </ion-item>
       <ion-item
@@ -51,13 +51,13 @@
       >
         <ion-icon class="menoIcon" slot="start" name="build"></ion-icon>
         <ion-label>
-          <h2>Intervenções</h2>
+          <h2>{{ "interventios" | translate }}</h2>
         </ion-label>
       </ion-item>
       <ion-item button (click)="changeContent(4)" lines="full">
         <ion-icon class="menoIcon" slot="start" name="car"></ion-icon>
         <ion-label>
-          <h2>Carros</h2>
+          <h2>{{ "cars" | translate }}</h2>
         </ion-label>
       </ion-item>
 
@@ -71,21 +71,21 @@
             ></ion-icon>
 
             <ion-label>
-              <h2>Navegar</h2>
+              <h2>{{ "navigate" | translate }}</h2>
             </ion-label>
           </ion-item>
           <ion-list slot="content">
             <ion-item button href="#/tabs/tab1">
               <ion-icon class="menoIcon" name="arrow-redo-outline"></ion-icon>
-              <ion-label> Página Intervenções </ion-label>
+              <ion-label> {{ "pagInt" | translate }}</ion-label>
             </ion-item>
             <ion-item button href="#/tabs/tab2">
               <ion-icon class="menoIcon" name="arrow-redo-outline"></ion-icon>
-              <ion-label> Página Carros </ion-label>
+              <ion-label> {{ "pagCar" | translate }} </ion-label>
             </ion-item>
             <ion-item button href="#/tabs/tab3">
               <ion-icon class="menoIcon" name="arrow-redo-outline"></ion-icon>
-              <ion-label> Página Conta </ion-label>
+              <ion-label> {{ "pagAcount" | translate }} </ion-label>
             </ion-item>
           </ion-list>
         </ion-accordion>
@@ -151,7 +151,7 @@
         <div class="breadcrumbs">
           <ion-breadcrumbs>
             <ion-breadcrumb>Dashboard</ion-breadcrumb>
-            <ion-breadcrumb>Estatistícas</ion-breadcrumb>
+            <ion-breadcrumb>{{ "statistics" | translate }}</ion-breadcrumb>
           </ion-breadcrumbs>
         </div>
 
@@ -162,7 +162,7 @@
                 <ion-card-header>
                   <ion-card-title class="ion-text-center">
                     Total <br />
-                    Utilizadores
+                    {{ "users" | translate }}
                   </ion-card-title>
                 </ion-card-header>
                 <ion-card-content class="ion-text-center">
@@ -176,7 +176,7 @@
                 <ion-card-header>
                   <ion-card-title class="ion-text-center">
                     Total <br />
-                    Intervenções
+                    {{ "interventions" | translate }}
                   </ion-card-title>
                 </ion-card-header>
                 <ion-card-content class="ion-text-center">
@@ -189,7 +189,7 @@
                 <ion-card-header>
                   <ion-card-title class="ion-text-center">
                     Total <br />
-                    Carros
+                    {{ "cars" | translate }}
                   </ion-card-title>
                 </ion-card-header>
                 <ion-card-content class="ion-text-center">
@@ -205,19 +205,19 @@
         <div class="breadcrumbs">
           <ion-breadcrumbs>
             <ion-breadcrumb>Dashboard</ion-breadcrumb>
-            <ion-breadcrumb>Utilizadores</ion-breadcrumb>
+            <ion-breadcrumb>{{ "users" | translate }}</ion-breadcrumb>
           </ion-breadcrumbs>
         </div>
         <!-- SECÇÂO ADD USER -->
         <div class="adicionaUsers">
-          <h1>Adicionar Utilizadores</h1>
+          <h1>{{ "AddUser" | translate }}</h1>
           <ion-button
             color="success"
             (click)="hideCreateUser=!hideCreateUser; hideUpdateUser=true"
             expand="block"
             class="ion-aling-center"
           >
-            Adicionar Utilizador
+            {{ "AddUser" | translate }}
             <ion-icon name="add" slot="end"></ion-icon>
           </ion-button>
           <form
@@ -239,7 +239,9 @@
                 ></ion-input>
               </ion-item>
               <ion-item class="ion-margin-bottom">
-                <ion-label position="fixed">Email</ion-label>
+                <ion-label position="fixed"
+                  >{{ "email" | translate }}</ion-label
+                >
                 <ion-input
                   [(ngModel)]="emailInput"
                   email
@@ -252,7 +254,9 @@
               </ion-item>
 
               <ion-item class="ion-margin-bottom">
-                <ion-label position="fixed">Password</ion-label>
+                <ion-label position="fixed"
+                  >{{ "password" | translate }}</ion-label
+                >
                 <ion-input
                   [(ngModel)]="passwordInput"
                   password
@@ -268,7 +272,7 @@
                 <ion-label position="fixed">
                   {{'confirm'| translate}}
                   <br />
-                  Password
+                  {{ "password" | translate }}
                 </ion-label>
                 <ion-input
                   [(ngModel)]="passwordConfInput"
@@ -287,8 +291,12 @@
                   placeholder="{{'insertType' | translate}}"
                   [(ngModel)]="typeInput"
                 >
-                  <ion-select-option value="1">Normal</ion-select-option>
-                  <ion-select-option value="100">Admin</ion-select-option>
+                  <ion-select-option value="1"
+                    >{{ "Normal" | translate }}</ion-select-option
+                  >
+                  <ion-select-option value="100"
+                    >{{ "Admin" | translate }}</ion-select-option
+                  >
                 </ion-select>
               </ion-item>
             </ion-list>
@@ -299,7 +307,7 @@
         </div>
         <!-- SECÇÃO UPDATE USER -->
         <div class="updateUsers" *ngIf="!hideUpdateUser">
-          <h1>Editar Utilizador</h1>
+          <h1>{{ "editUser" | translate }}</h1>
           <form class="registerForm" (ngSubmit)="updateUser()">
             <ion-list class="formCss">
               <ion-input [(ngModel)]="idUserUpdateInput" hidden></ion-input>
@@ -315,7 +323,9 @@
                 ></ion-input>
               </ion-item>
               <ion-item class="ion-margin-bottom">
-                <ion-label position="fixed">Email</ion-label>
+                <ion-label position="fixed"
+                  >{{ "email" | translate }}</ion-label
+                >
                 <ion-input
                   [(ngModel)]="emailUpdateInput"
                   email
@@ -333,8 +343,12 @@
                   placeholder="{{'insertType' | translate}}"
                   [(ngModel)]="typeUpdateInput"
                 >
-                  <ion-select-option value="1">Normal</ion-select-option>
-                  <ion-select-option value="100">Admin</ion-select-option>
+                  <ion-select-option value="1"
+                    >{{ "Normal" | translate }}</ion-select-option
+                  >
+                  <ion-select-option value="100"
+                    >{{ "Admin" | translate }}</ion-select-option
+                  >
                 </ion-select>
               </ion-item>
             </ion-list>
@@ -345,7 +359,7 @@
         </div>
         <!-- SECÇÂO ALL USERS-->
         <div class="AllUtilizadores">
-          <h1>Todos os Utilizadores</h1>
+          <h1>{{ "allUsers" | translate }}</h1>
           <ion-searchbar
             mode="ios"
             show-clear-button="always"
@@ -362,7 +376,7 @@
                 size-lg="4"
                 class="ion-hide-sm-down"
               >
-                Username
+                {{ "username" | translate }}
               </ion-col>
               <ion-col
                 size="10"
@@ -372,7 +386,7 @@
                 tappable
                 (click)="sortBy('email')"
               >
-                Email
+                {{ "email" | translate }}
                 <ion-icon
                   name="arrow-down"
                   *ngIf="sortDirection ==1"
@@ -385,14 +399,16 @@
                 tappable
                 (click)="sortByType('type')"
               >
-                Tipo
+                {{ "type" | translate }}
                 <ion-icon
                   name="arrow-down"
                   *ngIf="sortDirection2 ==1"
                 ></ion-icon>
                 <ion-icon name="arrow-up" *ngIf="sortDirection2 ==2"></ion-icon>
               </ion-col>
-              <ion-col size="2" size-md="2" size-lg="2"> Ação </ion-col>
+              <ion-col size="2" size-md="2" size-lg="2">
+                {{ "action" | translate }}
+              </ion-col>
             </ion-row>
             <!-- usersRow -->
             <ion-row
@@ -411,8 +427,12 @@
                 {{row.email}}
               </ion-col>
               <ion-col size-lg="2" class="ion-hide-md-down">
-                <span *ngIf="row.type==100">Admin ({{row.type}})</span>
-                <span *ngIf="row.type==1">Normal ({{row.type}})</span>
+                <span *ngIf="row.type==100"
+                  >{{ "Admin" | translate }} ({{row.type}})</span
+                >
+                <span *ngIf="row.type==1"
+                  >{{ "Normal" | translate }} ({{row.type}})</span
+                >
               </ion-col>
               <ion-col size="2" size-md="2" size-lg="2" class="ion-text-center">
                 <ion-button
@@ -433,7 +453,7 @@
             </ion-row>
             <ion-row class="ion-margin-top">
               <ion-col size="12" class="ion-text-center">
-                {{page + 1}} of {{totalPages}}
+                {{page + 1}} {{ "of" | translate }} {{totalPages}}
               </ion-col>
             </ion-row>
             <ion-row>
@@ -462,16 +482,16 @@
                   (ionChange)="loadUsersCount();loadUsers();this.disableBtn('user');"
                 >
                   <ion-select-option [value]="5"
-                    >5 por página</ion-select-option
+                    >5 {{ "perPage" | translate }}</ion-select-option
                   >
                   <ion-select-option [value]="10"
-                    >10 por página</ion-select-option
+                    >10 {{ "perPage" | translate }}</ion-select-option
                   >
                   <ion-select-option [value]="25"
-                    >25 por página</ion-select-option
+                    >25 {{ "perPage" | translate }}</ion-select-option
                   >
                   <ion-select-option [value]="50"
-                    >50 por página</ion-select-option
+                    >50 {{ "perPage" | translate }}</ion-select-option
                   >
                 </ion-select>
               </ion-col>
@@ -502,16 +522,16 @@
         <div class="breadcrumbs">
           <ion-breadcrumbs>
             <ion-breadcrumb>Dashboard</ion-breadcrumb>
-            <ion-breadcrumb>Intervenções</ion-breadcrumb>
+            <ion-breadcrumb>{{ "interventios" | translate }}</ion-breadcrumb>
           </ion-breadcrumbs>
         </div>
-        <h1>Adicionar Tipos</h1>
+        <h1>{{ "AddInterventionType" | translate }}</h1>
         <ion-button
           (click)="hideCreateInt=!hideCreateInt;this.hideUpdateInt = true;"
           expand="block"
           color="success"
         >
-          Adicionar tipo
+          {{ "AddInterventionType" | translate }}
           <ion-icon name="add" slot="end"></ion-icon>
         </ion-button>
         <div class="addIntervencao" *ngIf="!hideCreateInt">
@@ -540,7 +560,7 @@
         </div>
 
         <div class="updateIntervencao" *ngIf="!hideUpdateInt">
-          <h1>Editar Tipo</h1>
+          <h1>{{ "editInterventionType" | translate }}</h1>
           <form class="registerForm" (ngSubmit)="updateIntType()">
             <ion-list class="formCss">
               <ion-input [(ngModel)]="idIntTypeInput" hidden></ion-input>
@@ -563,7 +583,7 @@
         </div>
         <!-- tabela -->
         <div class="intTypeSection">
-          <h1>Tipos de Intervenção</h1>
+          <h1>{{ "interventionTypes" | translate }}</h1>
           <ion-searchbar
             mode="ios"
             show-clear-button="always"
@@ -585,7 +605,7 @@
                 tappable
                 (click)="sortByInt('interventionType')"
               >
-                Tipo
+                {{ "type" | translate }}
                 <ion-icon
                   name="arrow-down"
                   *ngIf="sortDirection3 ==1"
@@ -593,7 +613,7 @@
                 <ion-icon name="arrow-up" *ngIf="sortDirection3 ==2"></ion-icon>
               </ion-col>
               <ion-col size="2" size-xs="4" size-sm="4" size-md="4">
-                Ação
+                {{ "action" | translate }}
               </ion-col>
             </ion-row>
             <!-- IntTypeRow -->
@@ -632,7 +652,7 @@
             </ion-row>
             <ion-row class="ion-margin-top">
               <ion-col size="12" class="ion-text-center">
-                {{pageInt + 1}} of {{totalPagesInt}}
+                {{pageInt + 1}} {{ "of" | translate }} {{totalPagesInt}}
               </ion-col>
             </ion-row>
             <ion-row>
@@ -661,16 +681,16 @@
                   (ionChange)="loadIntCount();loadInt();this.disableBtn('int');"
                 >
                   <ion-select-option [value]="5"
-                    >5 por página</ion-select-option
+                    >5 {{ "perPage" | translate }}</ion-select-option
                   >
                   <ion-select-option [value]="10">
-                    10 por página
+                    10 {{ "perPage" | translate }}
                   </ion-select-option>
                   <ion-select-option [value]="25">
-                    25 por página
+                    25 {{ "perPage" | translate }}
                   </ion-select-option>
                   <ion-select-option [value]="50">
-                    50 por página
+                    50 {{ "perPage" | translate }}
                   </ion-select-option>
                 </ion-select>
               </ion-col>
@@ -701,7 +721,7 @@
         <div class="breadcrumbs">
           <ion-breadcrumbs>
             <ion-breadcrumb>Dashboard</ion-breadcrumb>
-            <ion-breadcrumb>Carros</ion-breadcrumb>
+            <ion-breadcrumb>{{ "cars" | translate }}</ion-breadcrumb>
           </ion-breadcrumbs>
         </div>
       </div>
