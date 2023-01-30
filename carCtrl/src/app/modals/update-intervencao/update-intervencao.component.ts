@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
 import {
   AlertController,
@@ -29,7 +30,8 @@ export class UpdateIntervencaoComponent implements OnInit {
     private crudService: CrudService,
     private alertController: AlertController,
     private toastController: ToastController,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private TranslateService: TranslateService
   ) {}
   compareWith(item1: any, item2: any) {
     return item1 && item2 ? item1.idCarro === item2.idCarro : item1 === item2;
@@ -91,7 +93,7 @@ export class UpdateIntervencaoComponent implements OnInit {
   }
   async presentToast(position: 'top' | 'middle' | 'bottom') {
     const toast = await this.toastController.create({
-      message: 'Intervenção editada com sucesso',
+      message: this.TranslateService.instant('toastIntUpdate'),
       duration: 2000,
       position: position,
       color: 'success',

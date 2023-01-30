@@ -74,5 +74,29 @@
   "perPage": "per page",
   "AddInterventionType": "Add Intervention Type",
   "editInterventionType": "Edit Intervention Type",
-  "interventionTypes": "Intervention Types"
+  "interventionTypes": "Intervention Types",
+
+  "toastCred": "Incorrect credentials please try again",
+  "toastData": "Invalid data please try again",
+  "toastPassword": "Passwords don't match please try again",
+  "toastSuccess": "User created successfully",
+  "toastEmail": "This email is already being used",
+  "toastCar": "Car created successfully",
+  "toastInt": "Intervention created successfully",
+  "toasIntType": "Intervention type created successfully",
+  "toastCarUpdate": "Car updated successfully",
+  "toastIntUpdate": "Intervention updated successfully",
+  "toastUserUpdate": "User updated successfully",
+  "toastIntTypeUpdate": "Intervention type updated successfully",
+  "toastIntTypeUpdateError": "This intervention type can't be updated because it is being used by an intervention",
+  "toastIntDelete": "Intervention deleted successfully",
+  "toastCarDelete": "Car deleted successfully",
+  "toastUserDelete": "User deleted successfully",
+  "toastIntTypeDelete": "Intervention type deleted successfully",
+  "toastIntTypeDeleteError": "This intervention type can't be deleted because it is being used by an intervention",
+
+  "headerDeleteUser": "The user and all its data will be deleted",
+  "subHeaderDeleteUser": "Do you want to continue?",
+  "headerDeleteInt": "The intervention and all its data will be deleted",
+  "subHeaderDeleteInt": "Do you want to continue?"
 }

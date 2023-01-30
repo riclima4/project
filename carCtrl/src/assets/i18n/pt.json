@@ -53,8 +53,8 @@
   "carInfoText": "Informações sobre o veiculo",
   "interInfoText": "Informações sobre a intervenção",
   "Cost": "Custo",
-  "update": "Editar",
 
+  "update": "Editar",
   "users": "Utilizadores",
   "interventions": "Intervenções",
   "cars": "Carros",
@@ -74,5 +74,29 @@
   "perPage": "por página",
   "AddInterventionType": "Adicionar Tipo de Intervenção",
   "editInterventionType": "Editar Tipo de Intervenção",
-  "interventionTypes": "Tipos de Intervenção"
+  "interventionTypes": "Tipos de Intervenção",
+
+  "toastCred": "Credenciais erradas tente novamente",
+  "toastData": "Dados inválidos tenta outra vez",
+  "toastPassword": "As passwords não coincidem tenta outra vez",
+  "toastSuccess": "Utilizador criado com sucesso",
+  "toastEmail": "O email já está a ser utilizado",
+  "toastCar": "Carro criado com sucesso",
+  "toastInt": "Intervenção criada com sucesso",
+  "toastIntType": "Tipo de intervenção criado com sucesso",
+  "toastCarUpdate": "Carro editado com sucesso",
+  "toastIntUpdate": "Intervenção editada com sucesso",
+  "toastUserUpdate": "Utilizador editado com sucesso",
+  "toastIntTypeUpdate": "Tipo de intervenção editado com sucesso",
+  "toastIntTypeUpdateError": "Tipo de Intervenção não pode ser editado pois é usada em alguma intervenção",
+  "toastIntDelete": "Intervenção eliminada com sucesso",
+  "toastCarDelete": "Carro eliminado com sucesso",
+  "toastUserDelete": "Utilizador eliminado com sucesso",
+  "toastIntTypeDelete": "Tipo de intervenção eliminado com sucesso",
+  "toastIntTypeDeleteError": "Tipo de Intervenção não pode ser eliminada pois é usada em alguma intervenção",
+
+  "headerDeleteUser": "O Utilizador e todas as suas informações vão ser removidas",
+  "subHeaderDeleteUser": "Pretende continuar?",
+  "headerDeleteInt": "A Intervenção e todas as suas informações vão ser removidas",
+  "subHeaderDeleteInt": "Pretende continuar?"
 }

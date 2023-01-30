@@ -518,7 +518,7 @@ export class AdminDashboardPage implements OnInit {
   async presentToast(position: 'top' | 'middle' | 'bottom', nome: string) {
     if (nome == 'input') {
       const toast = await this.toastController.create({
-        message: 'Dados inválidos tenta outra vez',
+        message: this.translateService.instant('toastData'),
         duration: 2000,
         position: position,
         color: 'danger',
@@ -526,7 +526,7 @@ export class AdminDashboardPage implements OnInit {
       await toast.present();
     } else if (nome == 'password') {
       const toast = await this.toastController.create({
-        message: 'As passwords não coincidem tenta outra vez',
+        message: this.translateService.instant('toastPassword'),
         duration: 2000,
         position: position,
         color: 'danger',
@@ -535,7 +535,7 @@ export class AdminDashboardPage implements OnInit {
       await toast.present();
     } else if (nome == 'success') {
       const toast = await this.toastController.create({
-        message: 'Utilizador criado com sucesso',
+        message: this.translateService.instant('toastSuccess'),
         duration: 2000,
         position: position,
         color: 'success',
@@ -544,7 +544,7 @@ export class AdminDashboardPage implements OnInit {
       await toast.present();
     } else if (nome == 'user') {
       const toast = await this.toastController.create({
-        message: 'O email já está a ser utilizado',
+        message: this.translateService.instant('toastEmail'),
         duration: 2000,
         position: position,
         color: 'warning',
@@ -553,7 +553,7 @@ export class AdminDashboardPage implements OnInit {
       await toast.present();
     } else if (nome == 'successInt') {
       const toast = await this.toastController.create({
-        message: 'Tipo de Intervenção criada com sucesso',
+        message: this.translateService.instant('toasIntType'),
         duration: 2000,
         position: position,
         color: 'success',
@@ -562,7 +562,7 @@ export class AdminDashboardPage implements OnInit {
       await toast.present();
     } else if (nome == 'userDelete') {
       const toast = await this.toastController.create({
-        message: 'Utilizador eliminado com sucesso',
+        message: this.translateService.instant('toastUserDelete'),
         duration: 2000,
         position: position,
         color: 'success',
@@ -571,7 +571,7 @@ export class AdminDashboardPage implements OnInit {
       await toast.present();
     } else if (nome == 'userEdit') {
       const toast = await this.toastController.create({
-        message: 'Utilizador editado com sucesso',
+        message: this.translateService.instant('toastUserUpdate'),
         duration: 2000,
         position: position,
         color: 'success',
@@ -580,7 +580,7 @@ export class AdminDashboardPage implements OnInit {
       await toast.present();
     } else if (nome == 'intDelete') {
       const toast = await this.toastController.create({
-        message: 'Tipo de Intervenção eliminada com sucesso',
+        message: this.translateService.instant('toastIntTypeDelete'),
         duration: 2000,
         position: position,
         color: 'success',
@@ -589,7 +589,7 @@ export class AdminDashboardPage implements OnInit {
       await toast.present();
     } else if (nome == 'intEdit') {
       const toast = await this.toastController.create({
-        message: 'Tipo de Intervenção editado com sucesso',
+        message: this.translateService.instant('toastIntTypeUpdate'),
         duration: 2000,
         position: position,
         color: 'success',
@@ -598,8 +598,7 @@ export class AdminDashboardPage implements OnInit {
       await toast.present();
     } else if (nome == 'intDeleteError') {
       const toast = await this.toastController.create({
-        message:
-          'Tipo de Intervenção não pode ser eliminada pois é usada em alguma intervenção',
+        message: this.translateService.instant('toastIntTypeDeleteError'),
         duration: 2000,
         position: position,
         color: 'danger',
@@ -608,8 +607,7 @@ export class AdminDashboardPage implements OnInit {
       await toast.present();
     } else if (nome == 'intUpdateError') {
       const toast = await this.toastController.create({
-        message:
-          'Tipo de Intervenção não pode ser editada pois é usada em alguma intervenção',
+        message: this.translateService.instant('toastIntTypeUpdateError'),
         duration: 2000,
         position: position,
         color: 'danger',
@@ -622,8 +620,8 @@ export class AdminDashboardPage implements OnInit {
     if (nome == 'user') {
       const actionSheet = await this.actionSheetCtrl.create({
         mode: 'ios',
-        header: 'O Utilizador e todas as suas informações vão ser removidas',
-        subHeader: 'Pretende continuar?',
+        header: this.translateService.instant('headerDeleteUser'),
+        subHeader: this.translateService.instant('subHeaderDeleteUser'),
         buttons: [
           {
             text: 'Delete',
@@ -652,9 +650,8 @@ export class AdminDashboardPage implements OnInit {
     } else if (nome == 'intType') {
       const actionSheet = await this.actionSheetCtrl.create({
         mode: 'ios',
-        header:
-          'O Tipo de intervenção e todas as suas informações vão ser removidas',
-        subHeader: 'Pretende continuar?',
+        header: this.translateService.instant('headerDeleteIntType'),
+        subHeader: this.translateService.instant('subHeaderDeleteIntType'),
         buttons: [
           {
             text: 'Delete',
