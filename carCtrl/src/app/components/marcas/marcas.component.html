@@ -1,0 +1,187 @@
+<div class="breadcrumbs">
+  <ion-breadcrumbs>
+    <ion-breadcrumb>Dashboard</ion-breadcrumb>
+    <ion-breadcrumb>Carros</ion-breadcrumb>
+  </ion-breadcrumbs>
+</div>
+<ion-button
+  *ngIf="!hideBtn"
+  (click)="hideCreate = !hideCreate; this.hideUpdate = true; hideBtn = !hideBtn"
+  expand="block"
+  color="success"
+  class="ion-margin-top"
+>
+  Adicionar Marca
+  <ion-icon name="add" slot="end"></ion-icon>
+</ion-button>
+<div class="addMarca" *ngIf="!hideCreate">
+  <div class="marcaTitle">
+    <h1>Adicionar Marca</h1>
+    <ion-button
+      fill="clear"
+      (click)="hideCreate = true; hideBtn = false"
+      color="dark"
+      >X</ion-button
+    >
+  </div>
+  <form #myForm="ngForm" class="registerForm" (ngSubmit)="newMarca(myForm)">
+    <ion-list class="formCss">
+      <ion-item>
+        <ion-label position="fixed">Marca</ion-label>
+        <ion-input
+          required
+          name="marca"
+          type="text"
+          placeholder="Insere a Marca"
+          [(ngModel)]="marcaInput"
+        ></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-button type="submit" expand="block">
+      {{ "add" | translate }}
+    </ion-button>
+  </form>
+</div>
+
+<div class="updateMarca" *ngIf="!hideUpdate">
+  <div class="marcaTitle">
+    <h1>Editar Marca</h1>
+    <ion-button fill="clear" (click)="hideUpdate = true" color="dark"
+      >X</ion-button
+    >
+  </div>
+
+  <form class="registerForm" (ngSubmit)="updateMarca()">
+    <ion-list class="formCss">
+      <ion-input
+        type="number"
+        hidden
+        [(ngModel)]="idMarcaUpdateInput"
+      ></ion-input>
+      <ion-item>
+        <ion-label position="fixed">Marca</ion-label>
+        <ion-input
+          required
+          name="marca"
+          type="text"
+          placeholder="Insere a Marca"
+          [(ngModel)]="marcaUpdateInput"
+        ></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-button type="submit" expand="block">
+      {{ "update" | translate }}
+    </ion-button>
+  </form>
+</div>
+<div class="marcasSection">
+  <h1>Marcas</h1>
+  <ion-searchbar
+    mode="ios"
+    show-clear-button="always"
+    placeholder="Procurar"
+    [(ngModel)]="searchTerm"
+    (ionChange)="getAllMarcas()"
+  ></ion-searchbar>
+  <!-- tabela-->
+  <div class="dataGrid">
+    <ion-row class="header-row ion-padding-top ion-padding-bottom">
+      <ion-col ssize="2" size-md="2" class="ion-hide-sm-down"> ID </ion-col>
+      <ion-col
+        size="8"
+        size-xs="8"
+        size-sm="6"
+        size-md="6"
+        tappable
+        (click)="sortBy('marca')"
+      >
+        Marca
+        <ion-icon name="arrow-down" *ngIf="sortDirection == 1"></ion-icon>
+        <ion-icon name="arrow-up" *ngIf="sortDirection == 2"></ion-icon>
+      </ion-col>
+      <ion-col size="2" size-xs="4" size-sm="4" size-md="4"> Ação </ion-col>
+    </ion-row>
+    <!-- data -->
+    <ion-row
+      class="data-row"
+      *ngFor="let row of marcasArr | filter : searchTerm"
+    >
+      <ion-col size="2" size-md="2" class="ion-hide-sm-down">
+        {{ row.idMarca }}
+      </ion-col>
+      <ion-col size="8" size-xs="8" size-sm="6" size-md="6">
+        {{ row.marca }}
+      </ion-col>
+      <ion-col
+        size="2"
+        size-xs="4"
+        size-sm="4"
+        size-md="4"
+        class="ion-text-center"
+      >
+        <ion-button
+          size="small"
+          color="primary"
+          (click)="updateInputMarca(row)"
+        >
+          <ion-icon name="create"></ion-icon>
+        </ion-button>
+        <ion-button
+          size="small"
+          color="danger"
+          (click)="deleteActionSheet(row.idMarca)"
+        >
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-margin-top">
+      <ion-col size="12" class="ion-text-center">
+        {{ page + 1 }} of {{ totalPages }}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="2">
+        <ion-button fill="clear" [disabled]="disabledBack" (click)="goFirst()">
+          <ion-icon name="play-back" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button fill="clear" [disabled]="disabledBack" (click)="prevPage()">
+          <ion-icon name="chevron-back" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="4" class="ion-text-center">
+        <ion-select
+          interface="popover"
+          [(ngModel)]="resultsCount"
+          (ionChange)="loadMarcasCount(); loadMarcas(); this.disableBtn()"
+        >
+          <ion-select-option [value]="5">5 por página</ion-select-option>
+          <ion-select-option [value]="10"> 10 por página </ion-select-option>
+          <ion-select-option [value]="25"> 25 por página </ion-select-option>
+          <ion-select-option [value]="50"> 50 por página </ion-select-option>
+          <ion-select-option [value]="100"> 100 por página </ion-select-option>
+        </ion-select>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button
+          fill="clear"
+          [disabled]="disabledForward"
+          (click)="nextPage()"
+        >
+          <ion-icon name="chevron-forward" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button
+          fill="clear"
+          [disabled]="disabledForward"
+          (click)="goLast()"
+        >
+          <ion-icon name="play-forward" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+</div>

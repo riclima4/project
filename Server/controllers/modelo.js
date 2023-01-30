@@ -11,6 +11,14 @@ export const getModeloByMacra = async (req, res) => {
   const modelo = await ModeloModel.findAll({ where: { idMarca: idMarca } });
   return res.send({ modelo });
 };
+export const getModeloByID = async (req, res) => {
+  const idModelo = req.params.idModelo;
+  const modelo = await ModeloModel.findAll({
+    where: { idModelo: idModelo },
+    include: [{ association: "marcaType" }],
+  });
+  return res.send({ modelo });
+};
 
 export const newModelo = async (req, res) => {
   const newModelo = {
