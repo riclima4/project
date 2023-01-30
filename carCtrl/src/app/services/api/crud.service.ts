@@ -81,6 +81,15 @@ export class CrudService {
   getMarca(controller: string): Observable<MarcaType> {
     return this.http.get<MarcaType>(`${this.url}/api/${controller}`);
   }
+  getMarcaTable(
+    controller: string,
+    page: number,
+    resultsCount: number
+  ): Observable<MarcaType> {
+    return this.http.get<MarcaType>(
+      `${this.url}/api/${controller}?page=${page}&results=${resultsCount}`
+    );
+  }
   getModelo(controller: string, id: number): Observable<ModeloType> {
     return this.http.get<ModeloType>(`${this.url}/api/${controller}/${id}`);
   }

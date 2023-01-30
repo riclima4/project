@@ -8,6 +8,7 @@ import { AdminDashboardPageRoutingModule } from './admin-dashboard-routing.modul
 
 import { AdminDashboardPage } from './admin-dashboard.page';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     AdminDashboardPageRoutingModule,
     TranslateModule,
     Ng2SearchPipeModule,
+    ComponentsModule,
   ],
   declarations: [AdminDashboardPage],
 })

@@ -21,7 +21,7 @@ export class AdminDashboardPage implements OnInit {
   user: any;
   username: any;
   toggleDarkMode: any;
-  contentSegment = 3; //volta para 1 when finished
+  contentSegment = 4; //volta para 1 when finished
   usersArr: any;
   allUsers: any;
   page = 0;

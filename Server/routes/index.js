@@ -47,6 +47,7 @@ import {
 import {
   deleteModelo,
   getAllModelos,
+  getModeloByID,
   getModeloByMacra,
   newModelo,
   updateModelo,
@@ -54,6 +55,7 @@ import {
 import {
   deleteMarca,
   getAllMarcas,
+  getAllMarcasTable,
   newMarca,
   updateMarca,
 } from "../controllers/marcas.js";
@@ -106,12 +108,14 @@ routes.delete("/deleteYear/:idYear", deleteYear);
 //Modelos
 routes.get("/modelos", getAllModelos);
 routes.get("/modelo/:idMarca", getModeloByMacra);
+routes.get("/modeloByID/:idModelo", getModeloByID);
 routes.post("/newModelo", newModelo);
 routes.put("/updateModelo/:idModelo", updateModelo);
 routes.delete("/deleteModelo/:idModelo", deleteModelo);
 
 //marcas
 routes.get("/marcas", getAllMarcas);
+routes.get("/marcasTable", getAllMarcasTable);
 routes.post("/newMarca", newMarca);
 routes.put("/updateMarca/:idMarca", updateMarca);
 routes.delete("/deleteMarca/:idMarca", deleteMarca);
