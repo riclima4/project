@@ -36,7 +36,7 @@ export class SignupPage implements OnInit {
   async presentToast(position: 'top' | 'middle' | 'bottom', nome: string) {
     if (nome == 'input') {
       const toast = await this.toastController.create({
-        message: 'Dados inválidos tenta outra vez',
+        message: this.translateService.instant('toastData'),
         duration: 2000,
         position: position,
         color: 'danger',
@@ -44,7 +44,7 @@ export class SignupPage implements OnInit {
       await toast.present();
     } else if (nome == 'password') {
       const toast = await this.toastController.create({
-        message: 'As passwords não coincidem tenta outra vez',
+        message: this.translateService.instant('toastPassword'),
         duration: 2000,
         position: position,
         color: 'danger',
@@ -53,7 +53,7 @@ export class SignupPage implements OnInit {
       await toast.present();
     } else if (nome == 'success') {
       const toast = await this.toastController.create({
-        message: 'Utilizador criado com sucesso',
+        message: this.translateService.instant('toastSuccess'),
         duration: 2000,
         position: position,
         color: 'success',
@@ -62,7 +62,7 @@ export class SignupPage implements OnInit {
       await toast.present();
     } else if (nome == 'user') {
       const toast = await this.toastController.create({
-        message: 'O email já está a ser utilizado',
+        message: this.translateService.instant('toastEmail'),
         duration: 2000,
         position: position,
         color: 'warning',

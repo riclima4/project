@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { InfoCarComponent } from './../modals/info-car/info-car.component';
 import { CrudService, Car } from './../services/api/crud.service';
 import { Component } from '@angular/core';
@@ -30,7 +31,8 @@ export class Tab2Page {
     private loadingCtrl: LoadingController,
     private toastController: ToastController,
     private actionSheetCtrl: ActionSheetController,
-    private router: Router
+    private router: Router,
+    private TranslateService: TranslateService
   ) {}
   ngOnInit() {
     this.checkToken();
@@ -156,7 +158,7 @@ export class Tab2Page {
   }
   async presentToastDelete(position: 'top' | 'middle' | 'bottom') {
     const toast = await this.toastController.create({
-      message: 'Carro eliminado com sucesso',
+      message: this.TranslateService.instant('toastCarDelete'),
       duration: 2000,
       position: position,
     });

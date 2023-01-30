@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
 import {
   AlertController,
@@ -33,7 +34,8 @@ export class UpdateCarComponent implements OnInit {
     private crudService: CrudService,
     private alertController: AlertController,
     private toastController: ToastController,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private TranslateService: TranslateService
   ) {}
 
   ngOnInit() {
@@ -65,7 +67,7 @@ export class UpdateCarComponent implements OnInit {
   }
   async presentToast(position: 'top' | 'middle' | 'bottom') {
     const toast = await this.toastController.create({
-      message: 'Carro editado com sucesso',
+      message: this.TranslateService.instant('toastCarUpdate'),
       duration: 2000,
       position: position,
       color: 'success',
