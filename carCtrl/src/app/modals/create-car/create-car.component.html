@@ -22,6 +22,7 @@
       <ion-item class="ion-margin-bottom">
         <ion-label position="floating">{{ "brand" | translate }}</ion-label>
         <ion-select
+          mode="ios"
           [(ngModel)]="marcaInput"
           name="marca"
           (ionChange)="loadModelo($event)"
@@ -36,7 +37,7 @@
       </ion-item>
       <ion-item class="ion-margin-bottom">
         <ion-label position="floating">{{ "model" | translate }}</ion-label>
-        <ion-select [(ngModel)]="modeloInput" name="modelo">
+        <ion-select [(ngModel)]="modeloInput" name="modelo" mode="ios">
           <ion-select-option
             *ngFor="let item of modelos"
             value="{{ item.idModelo }}"
@@ -56,7 +57,7 @@
       </ion-item>
       <ion-item class="ion-margin-bottom">
         <ion-label position="floating">{{ "fuel" | translate }}</ion-label>
-        <ion-select [(ngModel)]="fuelInput" name="fuel" interface="popover">
+        <ion-select [(ngModel)]="fuelInput" name="fuel" mode="ios">
           <ion-select-option
             *ngFor="let item of gasType"
             value="{{ item.idGasType }}"
@@ -67,7 +68,7 @@
       </ion-item>
       <ion-item class="ion-margin-bottom">
         <ion-label position="floating">{{ "year" | translate }}</ion-label>
-        <ion-select [(ngModel)]="yearInput" name="year">
+        <ion-select [(ngModel)]="yearInput" name="year" mode="ios">
           <ion-select-option
             *ngFor="let item of years"
             value="{{ item.idYear }}"

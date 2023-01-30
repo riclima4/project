@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import { InfoIntComponent } from './../modals/info-int/info-int.component';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
@@ -33,7 +34,8 @@ export class Tab1Page {
     private loadingCtrl: LoadingController,
     private toastController: ToastController,
     private actionSheetCtrl: ActionSheetController,
-    private router: Router
+    private router: Router,
+    private TranslateService: TranslateService
   ) {}
   ngOnInit() {
     this.checkToken();
@@ -176,7 +178,7 @@ export class Tab1Page {
   }
   async presentToastDelete(position: 'top' | 'middle' | 'bottom') {
     const toast = await this.toastController.create({
-      message: 'Intervencao eliminada com sucesso',
+      message: this.TranslateService.instant('toastIntDelete'),
       duration: 2000,
       position: position,
       color: 'success',

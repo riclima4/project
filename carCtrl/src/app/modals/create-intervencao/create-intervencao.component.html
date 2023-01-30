@@ -20,8 +20,10 @@
         ></ion-input>
       </ion-item>
       <ion-item class="ion-margin-bottom">
-        <ion-label position="floating">Tipo de Intervenção</ion-label>
-        <ion-select [(ngModel)]="tipoInput" name="tipo" interface="popover">
+        <ion-label position="floating">{{
+          "insertType" | translate
+        }}</ion-label>
+        <ion-select [(ngModel)]="tipoInput" name="tipo" mode="ios">
           <ion-select-option
             *ngFor="let item of interventionType"
             value="{{ item.idInterventionType }}"
@@ -51,7 +53,7 @@
       </ion-item>
       <ion-item class="ion-margin-bottom">
         <ion-label position="floating">{{ "Car" | translate }}</ion-label>
-        <ion-select [(ngModel)]="carInput" name="car" interface="popover">
+        <ion-select [(ngModel)]="carInput" name="car" mode="ios">
           <ion-select-option
             *ngFor="let item of carros"
             value="{{ item.idCarro }}"

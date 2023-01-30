@@ -49,7 +49,7 @@ export class SigninPage implements OnInit {
   };
   async presentToast(position: 'top' | 'middle' | 'bottom') {
     const toast = await this.toastController.create({
-      message: 'Credenciais erradas tente novamente',
+      message: this.translateService.instant('toastCred'),
       duration: 2000,
       position: position,
       color: 'danger',
