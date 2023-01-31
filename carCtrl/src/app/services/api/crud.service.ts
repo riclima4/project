@@ -93,6 +93,18 @@ export class CrudService {
   getModelo(controller: string, id: number): Observable<ModeloType> {
     return this.http.get<ModeloType>(`${this.url}/api/${controller}/${id}`);
   }
+  getAllModelos(controller: string): Observable<ModeloType> {
+    return this.http.get<ModeloType>(`${this.url}/api/${controller}`);
+  }
+  getModeloTable(
+    controller: string,
+    page: number,
+    resultsCount: number
+  ): Observable<ModeloType> {
+    return this.http.get<ModeloType>(
+      `${this.url}/api/${controller}?page=${page}&results=${resultsCount}`
+    );
+  }
   getIntervencao(controller: string, id: number): Observable<Intervencao> {
     return this.http.get<Intervencao>(`${this.url}/api/${controller}/${id}`);
   }

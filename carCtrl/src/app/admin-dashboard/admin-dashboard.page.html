@@ -51,7 +51,7 @@
       >
         <ion-icon class="menoIcon" slot="start" name="build"></ion-icon>
         <ion-label>
-          <h2>{{ "interventios" | translate }}</h2>
+          <h2>{{ "interventions" | translate }}</h2>
         </ion-label>
       </ion-item>
       <ion-item button (click)="changeContent(4)" lines="full">
@@ -718,9 +718,22 @@
       </div>
       <!-- CARS PAGE -->
       <div *ngSwitchCase="4" class="ion-padding">
-
-        <app-marcas></app-marcas>
-
+        <ion-segment [(ngModel)]="type" mode="md" class="segmentos">
+          <ion-segment-button value="marcas">
+            <ion-label>Marcas</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="modelos">
+            <ion-label>Modelos</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="outros">
+            <ion-label>Outros</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+        <div [ngSwitch]="type">
+          <app-marcas *ngSwitchCase="'marcas'"></app-marcas>
+          <app-modelos *ngSwitchCase="'modelos'"></app-modelos>
+          <app-car-others *ngSwitchCase="'outros'"></app-car-others>
+        </div>
       </div>
       <!-- END CARS PAGE -->
     </ion-content>
