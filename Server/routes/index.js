@@ -47,6 +47,7 @@ import {
 import {
   deleteModelo,
   getAllModelos,
+  getAllModelosTable,
   getModeloByID,
   getModeloByMacra,
   newModelo,
@@ -107,6 +108,7 @@ routes.put("/updateYear/:idYear", updateYear);
 routes.delete("/deleteYear/:idYear", deleteYear);
 //Modelos
 routes.get("/modelos", getAllModelos);
+routes.get("/modelosTable", getAllModelosTable);
 routes.get("/modelo/:idMarca", getModeloByMacra);
 routes.get("/modeloByID/:idModelo", getModeloByID);
 routes.post("/newModelo", newModelo);

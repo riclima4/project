@@ -1,7 +1,7 @@
 <div class="breadcrumbs">
   <ion-breadcrumbs>
     <ion-breadcrumb>Carros</ion-breadcrumb>
-    <ion-breadcrumb>Marcas</ion-breadcrumb>
+    <ion-breadcrumb>Modelos</ion-breadcrumb>
   </ion-breadcrumbs>
 </div>
 <ion-button
@@ -11,12 +11,12 @@
   color="success"
   class="ion-margin-top"
 >
-  Adicionar Marca
+  Adicionar Modelo
   <ion-icon name="add" slot="end"></ion-icon>
 </ion-button>
-<div class="addMarca" *ngIf="!hideCreate">
+<div class="addModelo" *ngIf="!hideCreate">
   <div class="marcaTitle">
-    <h1>Adicionar Marca</h1>
+    <h1>Adicionar Modelo</h1>
     <ion-button
       fill="clear"
       (click)="hideCreate = true; hideBtn = false"
@@ -25,16 +25,32 @@
       <ion-icon name="close" slot="icon-only"></ion-icon>
     </ion-button>
   </div>
-  <form #myForm="ngForm" class="registerForm" (ngSubmit)="newMarca(myForm)">
+  <form #myForm="ngForm" class="registerForm" (ngSubmit)="newModelo(myForm)">
     <ion-list class="formCss">
       <ion-item>
         <ion-label position="fixed">Marca</ion-label>
+        <ion-select
+          mode="ios"
+          required
+          placeholder="Insere uma marca"
+          [(ngModel)]="marcaInput"
+        >
+          <ion-select-option
+            *ngFor="let item of marcasArr"
+            value="{{ item.idMarca }}"
+          >
+            {{ item.marca }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed">Modelo</ion-label>
         <ion-input
           required
-          name="marca"
+          name="modelo"
           type="text"
-          placeholder="Insere a Marca"
-          [(ngModel)]="marcaInput"
+          placeholder="Insere o Modelo"
+          [(ngModel)]="modeloInput"
         ></ion-input>
       </ion-item>
     </ion-list>
@@ -44,29 +60,41 @@
   </form>
 </div>
 
-<div class="updateMarca" *ngIf="!hideUpdate">
+<div class="updateModelo" *ngIf="!hideUpdate">
   <div class="marcaTitle">
-    <h1>Editar Marca</h1>
+    <h1>Editar Modelo</h1>
     <ion-button fill="clear" (click)="hideUpdate = true" color="dark">
       <ion-icon name="close" slot="icon-only"></ion-icon>
     </ion-button>
   </div>
 
-  <form class="registerForm" (ngSubmit)="updateMarca()">
+  <form class="registerForm" (ngSubmit)="updateModelo()">
     <ion-list class="formCss">
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="fixed">Marca</ion-label>
+        <ion-select mode="ios" required [(ngModel)]="marcaUpdateInput">
+          <ion-select-option
+            *ngFor="let item of marcasArr"
+            value="{{ item.idMarca }}"
+          >
+            {{ item.marca }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
       <ion-input
         type="number"
         hidden
-        [(ngModel)]="idMarcaUpdateInput"
+        [(ngModel)]="idModeloUpdateInput"
       ></ion-input>
       <ion-item>
-        <ion-label position="fixed">Marca</ion-label>
+        <ion-label position="fixed">Modelo</ion-label>
         <ion-input
           required
-          name="marca"
+          name="modelo"
           type="text"
-          placeholder="Insere a Marca"
-          [(ngModel)]="marcaUpdateInput"
+          placeholder="Insere o Modelo"
+          [(ngModel)]="modeloUpdateInput"
         ></ion-input>
       </ion-item>
     </ion-list>
@@ -75,62 +103,49 @@
     </ion-button>
   </form>
 </div>
-<div class="marcasSection">
-  <h1>Marcas</h1>
+<div class="modelosSection">
+  <h1>Modelos</h1>
   <ion-searchbar
     mode="ios"
     show-clear-button="always"
     placeholder="Procurar"
     [(ngModel)]="searchTerm"
-    (ionChange)="getAllMarcas()"
+    (ionChange)="getAllModelos()"
   ></ion-searchbar>
   <!-- tabela-->
   <div class="dataGrid">
     <ion-row class="header-row ion-padding-top ion-padding-bottom">
-      <ion-col ssize="2" size-md="2" class="ion-hide-sm-down"> ID </ion-col>
-      <ion-col
-        size="8"
-        size-xs="8"
-        size-sm="6"
-        size-md="6"
-        tappable
-        (click)="sortBy('marca')"
-      >
-        Marca
+      <ion-col size="4"> Marca </ion-col>
+      <ion-col size="4" tappable (click)="sortBy('modelo')">
+        Modelo
         <ion-icon name="arrow-down" *ngIf="sortDirection == 1"></ion-icon>
         <ion-icon name="arrow-up" *ngIf="sortDirection == 2"></ion-icon>
       </ion-col>
-      <ion-col size="2" size-xs="4" size-sm="4" size-md="4"> Ação </ion-col>
+      <ion-col size="4"> Ação </ion-col>
     </ion-row>
     <!-- data -->
     <ion-row
       class="data-row"
-      *ngFor="let row of marcasArr | filter : searchTerm"
+      *ngFor="let row of modelosArr | filter : searchTerm"
     >
-      <ion-col size="2" size-md="2" class="ion-hide-sm-down">
-        {{ row.idMarca }}
+      <ion-col size="4">
+        {{ row.marcaType.marca }}
       </ion-col>
-      <ion-col size="8" size-xs="8" size-sm="6" size-md="6">
-        {{ row.marca }}
+      <ion-col size="4">
+        {{ row.modelo }}
       </ion-col>
-      <ion-col
-        size="2"
-        size-xs="4"
-        size-sm="4"
-        size-md="4"
-        class="ion-text-center"
-      >
+      <ion-col size="4" class="ion-text-center">
         <ion-button
           size="small"
           color="primary"
-          (click)="updateInputMarca(row)"
+          (click)="updateInputModelo(row)"
         >
           <ion-icon name="create"></ion-icon>
         </ion-button>
         <ion-button
           size="small"
           color="danger"
-          (click)="deleteActionSheet(row.idMarca)"
+          (click)="deleteActionSheet(row.idModelo)"
         >
           <ion-icon name="trash"></ion-icon>
         </ion-button>
@@ -156,7 +171,7 @@
         <ion-select
           interface="popover"
           [(ngModel)]="resultsCount"
-          (ionChange)="loadMarcasCount(); loadMarcas(); this.disableBtn()"
+          (ionChange)="loadModelosCount(); loadModelos(); this.disableBtn()"
         >
           <ion-select-option [value]="5">5 por página</ion-select-option>
           <ion-select-option [value]="10"> 10 por página </ion-select-option>

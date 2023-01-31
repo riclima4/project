@@ -58,6 +58,7 @@ export class AdminDashboardPage implements OnInit {
   intTypeArr: any;
   allInt: number;
   idIntTypeInput: any;
+  type = 'marcas';
 
   constructor(
     private translateService: TranslateService,
