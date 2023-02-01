@@ -9,6 +9,7 @@ import { AdminDashboardPageRoutingModule } from './admin-dashboard-routing.modul
 import { AdminDashboardPage } from './admin-dashboard.page';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ComponentsModule } from '../components/components.module';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { ComponentsModule } from '../components/components.module';
     TranslateModule,
     Ng2SearchPipeModule,
     ComponentsModule,
+    NgChartsModule,
   ],
   declarations: [AdminDashboardPage],
 })

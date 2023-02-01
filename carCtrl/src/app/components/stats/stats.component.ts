@@ -10,6 +10,7 @@ export class StatsComponent implements OnInit {
   usersCount: any;
   intCount: any;
   carsCount: any;
+  intArr: any;
   constructor(private crudService: CrudService) {}
 
   ngOnInit() {
@@ -23,11 +24,9 @@ export class StatsComponent implements OnInit {
     });
   }
   async loadIntCount() {
-    this.crudService
-      .getInterventionType('interventionType')
-      .subscribe((res) => {
-        this.intCount = res.interventionType.length;
-      });
+    this.crudService.getAllIntervencao('allIntervencoes').subscribe((res) => {
+      this.intCount = res.intervencao.length;
+    });
   }
   async loadCarsCount() {
     this.crudService.getAllCars('cars').subscribe((res) => {

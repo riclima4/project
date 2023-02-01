@@ -174,6 +174,7 @@ export class ModelosComponent implements OnInit {
     });
   }
   async loadModelos() {
+    this.page = 0;
     this.crudService
       .getModeloTable('modelosTable', this.page, this.resultsCount)
       .subscribe((res) => {
