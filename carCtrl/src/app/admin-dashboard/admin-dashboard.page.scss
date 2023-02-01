@@ -80,6 +80,18 @@ ion-accordion::part(header) {
 .tabelasCarroOutros app-gas-type {
   width: 100%;
 }
+.grafico {
+  box-shadow: 0 0px 5px var(--ion-color-medium);
+  border-radius: 5px;
+  margin-bottom: 20px;
+  background-color: var(--ion-color-light);
+}
+.flexGraph {
+  display: flex;
+}
+.IntTypeGraph {
+  width: 100%;
+}
 @media only screen and (min-width: 992px) {
   .logoNavbar1 {
     display: none;

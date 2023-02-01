@@ -165,6 +165,7 @@ export class GasTypeComponent implements OnInit {
     return;
   }
   async loadGasType() {
+    this.page = 0;
     this.crudService
       .getGasTypeTable('combustivelTable', this.page, this.resultsCount)
       .subscribe((res) => {

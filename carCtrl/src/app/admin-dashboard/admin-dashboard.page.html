@@ -143,6 +143,30 @@
       <!-- STATS PAGE -->
       <div *ngSwitchCase="1" class="ion-padding">
         <app-stats></app-stats>
+        <div class="flexGraph">
+          <div class="ion-padding IntTypeGraph">
+            <h1>Intervenções por Tipo</h1>
+            <canvas
+              class="grafico ion-padding"
+              baseChart
+              [data]="barChartData"
+              [options]="barChartOptions"
+              [type]="barChartType"
+            >
+            </canvas>
+          </div>
+          <div class="ion-padding IntTypeGraph">
+            <h1>Intervenções por Marca</h1>
+            <canvas
+              class="grafico ion-padding"
+              baseChart
+              [data]="barChartDataMarca"
+              [options]="barChartOptions"
+              [type]="pieChartType"
+            >
+            </canvas>
+          </div>
+        </div>
       </div>
       <!-- USERS PAGE -->
       <div *ngSwitchCase="2" class="ion-padding">

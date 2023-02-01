@@ -21,6 +21,8 @@ import {
   deleteIntervencao,
   getAllIntervencaoByCar,
   getAllIntervencaoByUser,
+  getAllIntervencoes,
+  getAllIntervencoesByType,
   newIntervencao,
   updateIntervencao,
 } from "../controllers/intervencao.js";
@@ -85,6 +87,8 @@ routes.put("/updateCar/:idCarro", updateCar);
 routes.delete("/removeCar/:idCarro", deleteCar);
 
 //Intervenções
+routes.get("/allIntervencoes", getAllIntervencoes);
+routes.get("/intervencoesByType/:idType", getAllIntervencoesByType);
 routes.get("/intervencoes/:idUser", getAllIntervencaoByUser);
 routes.get("/intervencao/:idCarro", getAllIntervencaoByCar);
 routes.post("/newIntervencao", newIntervencao);

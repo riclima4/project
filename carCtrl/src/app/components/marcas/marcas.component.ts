@@ -165,6 +165,7 @@ export class MarcasComponent implements OnInit {
     return;
   }
   async loadMarcas() {
+    this.page = 0;
     this.crudService
       .getMarcaTable('marcasTable', this.page, this.resultsCount)
       .subscribe((res) => {
@@ -196,6 +197,7 @@ export class MarcasComponent implements OnInit {
         this.loadMarcasCount();
         this.loadMarcas();
         this.hideCreate = true;
+        this.hideBtn = false;
       }, 2000);
     });
   }

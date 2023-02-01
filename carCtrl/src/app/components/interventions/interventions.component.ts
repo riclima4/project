@@ -139,6 +139,7 @@ export class InterventionsComponent implements OnInit {
       });
   }
   loadInt() {
+    this.page = 0;
     this.crudService
       .getIntType('intType', this.page, this.resultsCount)
       .subscribe((res) => {

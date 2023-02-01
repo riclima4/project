@@ -3,7 +3,14 @@ import { Router } from '@angular/router';
 import { Preferences } from '@capacitor/preferences';
 import { ToastController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import { ChartDataset, LabelItem } from 'chart.js';
+import {
+  ChartConfiguration,
+  ChartData,
+  ChartType,
+} from 'chart.js/dist/types/index';
 import jwt_decode from 'jwt-decode';
+import { CrudService } from '../services/api/crud.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -16,16 +23,23 @@ export class AdminDashboardPage implements OnInit {
   toggleDarkMode: any;
   contentSegment = 1; //volta para 1 when finished
   type = 'marcas';
-
+  intCount: any;
+  marcaCount: any;
+  intTypeArr: any;
+  marcaArr: any;
   constructor(
     private translateService: TranslateService,
     private toastController: ToastController,
-    private router: Router
+    private router: Router,
+    private crudService: CrudService
   ) {}
 
   ngOnInit() {
     this.getToken();
     this.checkDarkmode();
+
+    this.loadCountIntbyType();
+    this.loadCountIntbyMarca();
   }
   ionViewWillEnter() {
     if (this.user.type != 100) {
@@ -34,6 +48,10 @@ export class AdminDashboardPage implements OnInit {
   }
   changeContent(value: any) {
     this.contentSegment = value;
+    if (value == 1) {
+      this.loadCountIntbyType();
+      this.loadCountIntbyMarca();
+    }
     // console.log(this.contentSegment);
   }
   async checkDarkmode() {
@@ -107,5 +125,66 @@ export class AdminDashboardPage implements OnInit {
       await Preferences.set({ key: 'color-theme', value: 'dark' });
       this.toggleDarkMode = true;
     }
+  }
+
+  public barChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    // We use these empty structures as placeholders for dynamic theming.
+  };
+  public barChartType: ChartType = 'bar';
+  public barChartData: ChartData<'bar'> = {
+    labels: [],
+    datasets: [{ data: [], label: 'Intervenções' }],
+  };
+
+  async loadCountIntbyType() {
+    this.barChartData.labels = [];
+    this.barChartData.datasets[0].data = [];
+    this.crudService
+      .getInterventionType('interventionType')
+      .subscribe((res) => {
+        this.intTypeArr = res.interventionType;
+        for (let type of this.intTypeArr) {
+          this.barChartData.labels.push(type.interventionType);
+          this.crudService
+            .getIntervencao('intervencoesByType', type.idInterventionType)
+            .subscribe((res) => {
+              this.intCount = res.intervencao.length;
+              this.barChartData.datasets[0].data.push(this.intCount);
+            });
+        }
+      });
+    // console.log(this.barChartData.labels);
+    // console.log(this.barChartData.datasets[0].data);
+  }
+  public barChartDataMarca: ChartData<'bar'> = {
+    labels: [],
+    datasets: [{ data: [], label: 'Intervenções' }],
+  };
+  public pieChartType: ChartType = 'pie';
+  async loadCountIntbyMarca() {
+    this.barChartDataMarca.labels = [];
+    this.barChartDataMarca.datasets[0].data = [];
+    this.crudService.getMarca('marcas').subscribe((res) => {
+      this.marcaArr = res.marca;
+      console.log(this.marcaArr);
+      for (let item of this.marcaArr) {
+        this.barChartDataMarca.labels.push(item.marca);
+        // aqui
+        this.loadIntbyCars(item);
+      }
+    });
+    console.log(this.barChartDataMarca.labels);
+    console.log(this.barChartDataMarca.datasets[0].data);
+  }
+  loadIntbyCars(item: any) {
+    this.crudService
+      .getIntervencao('intervencao', item.idMarca)
+      .subscribe((res) => {
+        this.marcaCount = res.intervencao.length;
+        // console.log(this.marcaCount);
+
+        this.barChartDataMarca.datasets[0].data.push(this.marcaCount);
+      });
   }
 }

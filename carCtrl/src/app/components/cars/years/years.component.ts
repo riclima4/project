@@ -165,6 +165,7 @@ export class YearsComponent implements OnInit {
     return;
   }
   async loadYears() {
+    this.page = 0;
     this.crudService
       .getYearTable('yearsTable', this.page, this.resultsCount)
       .subscribe((res) => {

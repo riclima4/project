@@ -127,6 +127,9 @@ export class CrudService {
   getIntervencao(controller: string, id: number): Observable<Intervencao> {
     return this.http.get<Intervencao>(`${this.url}/api/${controller}/${id}`);
   }
+  getAllIntervencao(controller: string): Observable<Intervencao> {
+    return this.http.get<Intervencao>(`${this.url}/api/${controller}`);
+  }
   getIntType(
     controller: string,
     page: number,
