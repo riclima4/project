@@ -161,6 +161,10 @@ export class AdminDashboardPage implements OnInit {
     labels: [],
     datasets: [{ data: [], label: 'Intervenções' }],
   };
+  public pieChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    // We use these empty structures as placeholders for dynamic theming.
+  };
   public pieChartType: ChartType = 'pie';
   async loadCountIntbyMarca() {
     this.barChartDataMarca.labels = [];
