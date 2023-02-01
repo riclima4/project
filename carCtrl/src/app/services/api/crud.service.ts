@@ -54,9 +54,10 @@ export class CrudService {
   getCars(controller: string, id: number): Observable<Car> {
     return this.http.get<Car>(`${this.url}/api/${controller}/${id}`);
   }
-  // getUsers(controller: string): Observable<Users> {
-  //   return this.http.get<Users>(`${this.url}/api/${controller}`);
-  // }
+  getAllCars(controller: string): Observable<Car> {
+    return this.http.get<Car>(`${this.url}/api/${controller}/`);
+  }
+
   getUsers(
     controller: string,
     page: number,
@@ -72,8 +73,26 @@ export class CrudService {
   getGasType(controller: string): Observable<GasType> {
     return this.http.get<GasType>(`${this.url}/api/${controller}`);
   }
+  getGasTypeTable(
+    controller: string,
+    page: number,
+    resultsCount: number
+  ): Observable<GasType> {
+    return this.http.get<GasType>(
+      `${this.url}/api/${controller}?page=${page}&results=${resultsCount}`
+    );
+  }
   getYear(controller: string): Observable<YearType> {
     return this.http.get<YearType>(`${this.url}/api/${controller}`);
+  }
+  getYearTable(
+    controller: string,
+    page: number,
+    resultsCount: number
+  ): Observable<YearType> {
+    return this.http.get<YearType>(
+      `${this.url}/api/${controller}?page=${page}&results=${resultsCount}`
+    );
   }
   getInterventionType(controller: string): Observable<InterventionType> {
     return this.http.get<InterventionType>(`${this.url}/api/${controller}`);

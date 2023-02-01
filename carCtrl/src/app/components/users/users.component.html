@@ -1,0 +1,292 @@
+<div class="breadcrumbs">
+  <ion-breadcrumbs>
+    <ion-breadcrumb>Dashboard</ion-breadcrumb>
+    <ion-breadcrumb>{{ "users" | translate }}</ion-breadcrumb>
+  </ion-breadcrumbs>
+</div>
+<ion-button
+  color="success"
+  *ngIf="!hideBtn"
+  (click)="hideCreate = !hideCreate; this.hideUpdate = true; hideBtn = !hideBtn"
+  expand="block"
+  class="ion-margin-top"
+>
+  {{ "AddUser" | translate }}
+  <ion-icon name="add" slot="end"></ion-icon>
+</ion-button>
+<div class="adicionaUsers" *ngIf="!hideCreate">
+  <div class="marcaTitle">
+    <h1>{{ "AddUser" | translate }}</h1>
+    <ion-button
+      fill="clear"
+      (click)="hideCreate = true; hideBtn = false"
+      color="dark"
+    >
+      <ion-icon name="close" slot="icon-only"></ion-icon>
+    </ion-button>
+  </div>
+  <form
+    *ngIf="!hideCreate"
+    #myForm="ngForm"
+    class="registerForm"
+    (ngSubmit)="newUser(myForm)"
+  >
+    <ion-list class="formCss">
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="fixed">{{ "name" | translate }}</ion-label>
+        <ion-input
+          [(ngModel)]="nomeInput"
+          Name
+          required
+          name="nome"
+          type="text"
+          placeholder="{{ 'nameText' | translate }}"
+        ></ion-input>
+      </ion-item>
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="fixed">{{ "email" | translate }}</ion-label>
+        <ion-input
+          [(ngModel)]="emailInput"
+          email
+          required
+          name="email"
+          type="email"
+          placeholder="{{ 'emailText' | translate }}"
+        >
+        </ion-input>
+      </ion-item>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="fixed">{{ "password" | translate }}</ion-label>
+        <ion-input
+          [(ngModel)]="passwordInput"
+          password
+          required
+          minlength="4"
+          name="password"
+          type="password"
+          placeholder="{{ 'passwordText' | translate }}"
+        >
+        </ion-input>
+      </ion-item>
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="fixed">
+          {{ "confirm" | translate }}
+          <br />
+          {{ "password" | translate }}
+        </ion-label>
+        <ion-input
+          [(ngModel)]="passwordConfInput"
+          password
+          minlength="4"
+          required
+          name="confpassword"
+          type="password"
+          placeholder="{{ 'passwordTextConfirm' | translate }}"
+        >
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed"> {{ "type" | translate }} </ion-label>
+        <ion-select
+          placeholder="{{ 'insertType' | translate }}"
+          [(ngModel)]="typeInput"
+        >
+          <ion-select-option value="1">{{
+            "Normal" | translate
+          }}</ion-select-option>
+          <ion-select-option value="100">{{
+            "Admin" | translate
+          }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <ion-button type="submit" expand="block">
+      {{ "signup" | translate }}
+    </ion-button>
+  </form>
+</div>
+<div class="updateUsers" *ngIf="!hideUpdate">
+  <div class="marcaTitle">
+    <h1>{{ "editUser" | translate }}</h1>
+    <ion-button fill="clear" (click)="hideUpdate = true" color="dark">
+      <ion-icon name="close" slot="icon-only"></ion-icon>
+    </ion-button>
+  </div>
+  <form class="registerForm" (ngSubmit)="updateUser()">
+    <ion-list class="formCss">
+      <ion-input [(ngModel)]="idUserUpdateInput" hidden></ion-input>
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="fixed">{{ "name" | translate }}</ion-label>
+        <ion-input
+          [(ngModel)]="nomeUpdateInput"
+          Name
+          required
+          name="nome"
+          type="text"
+          placeholder="{{ 'nameText' | translate }}"
+        ></ion-input>
+      </ion-item>
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="fixed">{{ "email" | translate }}</ion-label>
+        <ion-input
+          [(ngModel)]="emailUpdateInput"
+          email
+          required
+          name="email"
+          type="email"
+          placeholder="{{ 'emailText' | translate }}"
+        >
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="fixed"> {{ "type" | translate }} </ion-label>
+        <ion-select
+          placeholder="{{ 'insertType' | translate }}"
+          [(ngModel)]="typeUpdateInput"
+        >
+          <ion-select-option value="1">{{
+            "Normal" | translate
+          }}</ion-select-option>
+          <ion-select-option value="100">{{
+            "Admin" | translate
+          }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <ion-button type="submit" expand="block">
+      {{ "update" | translate }}
+    </ion-button>
+  </form>
+</div>
+<div class="AllUtilizadores">
+  <h1>{{ "allUsers" | translate }}</h1>
+  <ion-searchbar
+    mode="ios"
+    show-clear-button="always"
+    [(ngModel)]="searchTerm"
+    animated
+    placeholder="Procurar"
+    (ionChange)="getAll()"
+  ></ion-searchbar>
+  <div class="dataGrid">
+    <ion-row class="header-row ion-padding-top ion-padding-bottom">
+      <ion-col size="4" size-md="4" size-lg="4" class="ion-hide-sm-down">
+        {{ "username" | translate }}
+      </ion-col>
+      <ion-col
+        size="10"
+        size-sm="6"
+        size-md="4"
+        size-lg="4"
+        tappable
+        (click)="sortBy('email')"
+      >
+        {{ "email" | translate }}
+        <ion-icon name="arrow-down" *ngIf="sortDirection == 1"></ion-icon>
+        <ion-icon name="arrow-up" *ngIf="sortDirection == 2"></ion-icon>
+      </ion-col>
+      <ion-col
+        size-lg="2"
+        class="ion-hide-md-down"
+        tappable
+        (click)="sortBy('type')"
+      >
+        {{ "type" | translate }}
+        <ion-icon name="arrow-down" *ngIf="sortDirection2 == 1"></ion-icon>
+        <ion-icon name="arrow-up" *ngIf="sortDirection2 == 2"></ion-icon>
+      </ion-col>
+      <ion-col size="2" size-md="2" size-lg="2">
+        {{ "action" | translate }}
+      </ion-col>
+    </ion-row>
+    <!-- usersRow -->
+    <ion-row
+      *ngFor="let row of usersArr | filter : searchTerm"
+      class="data-row"
+    >
+      <ion-col size="4" size-md="4" size-lg="4" class="ion-hide-sm-down">
+        {{ row.username }}
+      </ion-col>
+      <ion-col size="10" size-sm="6" size-md="4" size-lg="4">
+        {{ row.email }}
+      </ion-col>
+      <ion-col size-lg="2" class="ion-hide-md-down">
+        <span *ngIf="row.type == 100"
+          >{{ "Admin" | translate }} ({{ row.type }})</span
+        >
+        <span *ngIf="row.type == 1"
+          >{{ "Normal" | translate }} ({{ row.type }})</span
+        >
+      </ion-col>
+      <ion-col size="2" size-md="2" size-lg="2" class="ion-text-center">
+        <ion-button (click)="updateUserInput(row)" size="small" color="primary">
+          <ion-icon name="create"></ion-icon>
+        </ion-button>
+        <ion-button
+          (click)="deleteActionSheet(row.idUser)"
+          size="small"
+          color="danger"
+        >
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-margin-top">
+      <ion-col size="12" class="ion-text-center">
+        {{ page + 1 }} {{ "of" | translate }} {{ totalPages }}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="2">
+        <ion-button fill="clear" [disabled]="disabledBack" (click)="goFirst()">
+          <ion-icon name="play-back" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button [disabled]="disabledBack" fill="clear" (click)="prevPage()">
+          <ion-icon name="chevron-back" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="4" class="ion-text-center">
+        <ion-select
+          interface="popover"
+          [(ngModel)]="resultsCount"
+          (ionChange)="loadUsersCount(); loadUsers(); this.disableBtn()"
+        >
+          <ion-select-option [value]="5"
+            >5 {{ "perPage" | translate }}</ion-select-option
+          >
+          <ion-select-option [value]="10"
+            >10 {{ "perPage" | translate }}</ion-select-option
+          >
+          <ion-select-option [value]="25"
+            >25 {{ "perPage" | translate }}</ion-select-option
+          >
+          <ion-select-option [value]="50"
+            >50 {{ "perPage" | translate }}</ion-select-option
+          >
+        </ion-select>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button
+          [disabled]="disabledForward"
+          fill="clear"
+          (click)="nextPage()"
+        >
+          <ion-icon name="chevron-forward" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button
+          [disabled]="disabledForward"
+          fill="clear"
+          (click)="goLast()"
+        >
+          <ion-icon name="play-forward" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+</div>

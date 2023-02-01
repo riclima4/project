@@ -1,9 +1,3 @@
-<div class="breadcrumbs">
-  <ion-breadcrumbs>
-    <ion-breadcrumb>Carros</ion-breadcrumb>
-    <ion-breadcrumb>Modelos</ion-breadcrumb>
-  </ion-breadcrumbs>
-</div>
 <ion-button
   *ngIf="!hideBtn"
   (click)="hideCreate = !hideCreate; this.hideUpdate = true; hideBtn = !hideBtn"
@@ -11,12 +5,12 @@
   color="success"
   class="ion-margin-top"
 >
-  Adicionar Modelo
+  Adicionar Anos
   <ion-icon name="add" slot="end"></ion-icon>
 </ion-button>
-<div class="addModelo" *ngIf="!hideCreate">
+<div class="addGasType" *ngIf="!hideCreate">
   <div class="marcaTitle">
-    <h1>Adicionar Modelo</h1>
+    <h1>Adicionar Ano</h1>
     <ion-button
       fill="clear"
       (click)="hideCreate = true; hideBtn = false"
@@ -25,32 +19,17 @@
       <ion-icon name="close" slot="icon-only"></ion-icon>
     </ion-button>
   </div>
-  <form #myForm="ngForm" class="registerForm" (ngSubmit)="newModelo(myForm)">
+  <form #myForm="ngForm" class="registerForm" (ngSubmit)="newYear(myForm)">
     <ion-list class="formCss">
       <ion-item>
-        <ion-label position="fixed">Marca</ion-label>
-        <ion-select
-          mode="ios"
-          required
-          placeholder="Insere uma marca"
-          [(ngModel)]="marcaInput"
-        >
-          <ion-select-option
-            *ngFor="let item of marcasArr"
-            value="{{ item.idMarca }}"
-          >
-            {{ item.marca }}
-          </ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label position="fixed">Modelo</ion-label>
+        <ion-label position="fixed">Ano</ion-label>
         <ion-input
           required
-          name="modelo"
-          type="text"
-          placeholder="Insere o Modelo"
-          [(ngModel)]="modeloInput"
+          name="ano"
+          type="number"
+          min="0"
+          placeholder="Insere um Ano"
+          [(ngModel)]="yearInput"
         ></ion-input>
       </ion-item>
     </ion-list>
@@ -59,41 +38,31 @@
     </ion-button>
   </form>
 </div>
-<div class="updateModelo" *ngIf="!hideUpdate">
+
+<div class="updateGasType" *ngIf="!hideUpdate">
   <div class="marcaTitle">
-    <h1>Editar Modelo</h1>
+    <h1>Editar Ano</h1>
     <ion-button fill="clear" (click)="hideUpdate = true" color="dark">
       <ion-icon name="close" slot="icon-only"></ion-icon>
     </ion-button>
   </div>
 
-  <form class="registerForm" (ngSubmit)="updateModelo()">
+  <form class="registerForm" (ngSubmit)="updateYear()">
     <ion-list class="formCss">
-      <ion-item class="ion-margin-bottom">
-        <ion-label position="fixed">Marca</ion-label>
-        <ion-select mode="ios" required [(ngModel)]="marcaUpdateInput">
-          <ion-select-option
-            *ngFor="let item of marcasArr"
-            value="{{ item.idMarca }}"
-          >
-            {{ item.marca }}
-          </ion-select-option>
-        </ion-select>
-      </ion-item>
-
       <ion-input
         type="number"
         hidden
-        [(ngModel)]="idModeloUpdateInput"
+        [(ngModel)]="idYearUpdateInput"
       ></ion-input>
       <ion-item>
-        <ion-label position="fixed">Modelo</ion-label>
+        <ion-label position="fixed">Ano</ion-label>
         <ion-input
           required
-          name="modelo"
-          type="text"
-          placeholder="Insere o Modelo"
-          [(ngModel)]="modeloUpdateInput"
+          name="ano"
+          type="number"
+          min="0"
+          placeholder="Insere um Ano"
+          [(ngModel)]="yearUpdateInput"
         ></ion-input>
       </ion-item>
     </ion-list>
@@ -102,49 +71,55 @@
     </ion-button>
   </form>
 </div>
-<div class="modelosSection">
-  <h1>Modelos</h1>
+<div class="gasTypeSection">
+  <h1>Anos</h1>
   <ion-searchbar
     mode="ios"
     show-clear-button="always"
     placeholder="Procurar"
     [(ngModel)]="searchTerm"
-    (ionChange)="getAllModelos()"
+    (ionChange)="getAll()"
   ></ion-searchbar>
   <!-- tabela-->
   <div class="dataGrid">
     <ion-row class="header-row ion-padding-top ion-padding-bottom">
-      <ion-col size="4"> Marca </ion-col>
-      <ion-col size="4" tappable (click)="sortBy('modelo')">
-        Modelo
+      <ion-col ssize="2" size-md="2" class="ion-hide-sm-down"> ID </ion-col>
+      <ion-col
+        size="8"
+        size-xs="8"
+        size-sm="6"
+        size-md="6"
+        tappable
+        (click)="sortBy('year')"
+      >
+        Ano
         <ion-icon name="arrow-down" *ngIf="sortDirection == 1"></ion-icon>
         <ion-icon name="arrow-up" *ngIf="sortDirection == 2"></ion-icon>
       </ion-col>
-      <ion-col size="4"> Ação </ion-col>
+      <ion-col size="2" size-xs="4" size-sm="4" size-md="4"> Ação </ion-col>
     </ion-row>
     <!-- data -->
-    <ion-row
-      class="data-row"
-      *ngFor="let row of modelosArr | filter : searchTerm"
-    >
-      <ion-col size="4">
-        {{ row.marcaType.marca }}
+    <ion-row class="data-row" *ngFor="let row of yearArr | filter : searchTerm">
+      <ion-col size="2" size-md="2" class="ion-hide-sm-down">
+        {{ row.idYear }}
       </ion-col>
-      <ion-col size="4">
-        {{ row.modelo }}
+      <ion-col size="8" size-xs="8" size-sm="6" size-md="6">
+        {{ row.year }}
       </ion-col>
-      <ion-col size="4" class="ion-text-center">
-        <ion-button
-          size="small"
-          color="primary"
-          (click)="updateInputModelo(row)"
-        >
+      <ion-col
+        size="2"
+        size-xs="4"
+        size-sm="4"
+        size-md="4"
+        class="ion-text-center"
+      >
+        <ion-button size="small" color="primary" (click)="updateInputYear(row)">
           <ion-icon name="create"></ion-icon>
         </ion-button>
         <ion-button
           size="small"
           color="danger"
-          (click)="deleteActionSheet(row.idModelo)"
+          (click)="deleteActionSheet(row.idYear)"
         >
           <ion-icon name="trash"></ion-icon>
         </ion-button>
@@ -170,7 +145,7 @@
         <ion-select
           interface="popover"
           [(ngModel)]="resultsCount"
-          (ionChange)="loadModelosCount(); loadModelos(); this.disableBtn()"
+          (ionChange)="loadYearsCount(); loadYears(); this.disableBtn()"
         >
           <ion-select-option [value]="5">5 por página</ion-select-option>
           <ion-select-option [value]="10"> 10 por página </ion-select-option>

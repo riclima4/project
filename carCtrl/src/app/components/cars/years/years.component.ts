@@ -9,30 +9,27 @@ import { CrudService } from 'src/app/services/api/crud.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-modelos',
-  templateUrl: './modelos.component.html',
-  styleUrls: ['./modelos.component.scss'],
+  selector: 'app-years',
+  templateUrl: './years.component.html',
+  styleUrls: ['./years.component.scss'],
 })
-export class ModelosComponent implements OnInit {
+export class YearsComponent implements OnInit {
+  yearArr: any;
   page = 0;
   resultsCount = 10;
   totalPages: number;
   sortDirection = 0;
   sortKey = null;
-  allModelos: any;
+  allYears: any;
   disabledBack: any;
   disabledForward: any;
   searchTerm: string;
-  marcaInput: any;
-  modeloInput: any;
-  modeloUpdateInput: any;
-  marcaUpdateInput: any;
+  yearInput: any;
+  yearUpdateInput: any;
+  idYearUpdateInput: any;
   hideUpdate = true;
   hideCreate = true;
   hideBtn = false;
-  idModeloUpdateInput: any;
-  modelosArr: any;
-  marcasArr: any;
 
   constructor(
     private translateService: TranslateService,
@@ -43,9 +40,8 @@ export class ModelosComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadModelosCount();
-    this.loadModelos();
-    this.loadMarcas();
+    this.loadYearsCount();
+    this.loadYears();
   }
   // ionViewWillEnter() {}
   async loadingSpinner() {
@@ -61,7 +57,7 @@ export class ModelosComponent implements OnInit {
   async presentToast(position: 'top' | 'middle' | 'bottom', nome: string) {
     if (nome == 'success') {
       const toast = await this.toastController.create({
-        message: 'Modelo adicionado com sucesso',
+        message: 'Ano adicionado com sucesso',
         duration: 2000,
         position: position,
         color: 'success',
@@ -77,7 +73,7 @@ export class ModelosComponent implements OnInit {
       await toast.present();
     } else if (nome == 'edit') {
       const toast = await this.toastController.create({
-        message: 'Modelo editado com sucesso',
+        message: 'Ano editado com sucesso',
         duration: 2000,
         position: position,
         color: 'success',
@@ -86,7 +82,7 @@ export class ModelosComponent implements OnInit {
       await toast.present();
     } else if (nome == 'delete') {
       const toast = await this.toastController.create({
-        message: 'Modelo eliminado com sucesso',
+        message: 'Ano eliminado com sucesso',
         duration: 2000,
         position: position,
         color: 'success',
@@ -96,7 +92,7 @@ export class ModelosComponent implements OnInit {
     } else if (nome == 'deleteError') {
       const toast = await this.toastController.create({
         message:
-          'O Modelo não pode ser eliminado pois contem intervenções com ele adicionado ',
+          'O Ano não pode ser eliminado pois contem carros adicionados com este ano. ',
         duration: 2000,
         position: position,
         color: 'danger',
@@ -112,13 +108,13 @@ export class ModelosComponent implements OnInit {
   }
   sort() {
     if (this.sortDirection == 1) {
-      this.modelosArr = this.modelosArr.sort((a, b) => {
+      this.yearArr = this.yearArr.sort((a, b) => {
         const valA = a[this.sortKey];
         const valB = b[this.sortKey];
         return valA.localeCompare(valB);
       });
     } else if (this.sortDirection == 2) {
-      this.modelosArr = this.modelosArr.sort((a, b) => {
+      this.yearArr = this.yearArr.sort((a, b) => {
         const valA = a[this.sortKey];
         const valB = b[this.sortKey];
 
@@ -147,109 +143,98 @@ export class ModelosComponent implements OnInit {
   nextPage() {
     this.page++;
     this.disableBtn();
-    this.loadModelos();
+    this.loadYears();
     return;
   }
   prevPage() {
     this.page--;
     this.disableBtn();
-    this.loadModelos();
+    this.loadYears();
     return;
   }
   goFirst() {
     this.page = 0;
     this.disableBtn();
-    this.loadModelos();
+    this.loadYears();
     return;
   }
   goLast() {
     this.page = this.totalPages - 1;
     this.disableBtn();
-    this.loadModelos();
+    this.loadYears();
     return;
   }
-  async loadMarcas() {
-    this.crudService.getMarca('marcas').subscribe((res) => {
-      this.marcasArr = res.marca;
-    });
-  }
-  async loadModelos() {
+  async loadYears() {
     this.crudService
-      .getModeloTable('modelosTable', this.page, this.resultsCount)
+      .getYearTable('yearsTable', this.page, this.resultsCount)
       .subscribe((res) => {
-        this.modelosArr = res.modelo;
-        console.log(this.modelosArr);
+        this.yearArr = res.years;
+        console.log(this.yearArr);
       });
   }
-  async loadModelosCount() {
-    this.crudService.getAllModelos('modelos').subscribe((res) => {
-      this.allModelos = res.modelo.length;
-      this.totalPages = Math.ceil(this.allModelos / this.resultsCount);
+  async loadYearsCount() {
+    this.crudService.getYear('years').subscribe((res) => {
+      this.allYears = res.years.length;
+      this.totalPages = Math.ceil(this.allYears / this.resultsCount);
+      console.log(this.totalPages);
       this.disableBtn();
     });
   }
-  newModelo(form: NgForm) {
+  newYear(form: NgForm) {
     if (
-      !this.modeloInput ||
-      this.modeloInput == '' ||
-      this.modeloInput == ' ' ||
-      !this.marcaInput ||
-      this.marcaInput == ''
+      !this.yearInput ||
+      this.yearInput == '' ||
+      this.yearInput == ' ' ||
+      this.yearInput < 0
     ) {
       return this.presentToast('top', 'input');
     }
-    const newModelo = {
-      marca: this.marcaInput,
-      modelo: this.modeloInput,
+    const newYear = {
+      year: this.yearInput,
     };
-    this.crudService.create('newModelo', newModelo).subscribe((res) => {
+    console.log(newYear);
+
+    this.crudService.create('newYear', newYear).subscribe((res) => {
       console.log(res);
       this.loadingSpinner();
       setTimeout(() => {
         form.reset();
         this.presentToast('top', 'success');
-        this.loadModelosCount();
-        this.loadModelos();
+        this.loadYearsCount();
+        this.loadYears();
         this.hideCreate = true;
         this.hideBtn = false;
       }, 2000);
     });
   }
-  getAllModelos() {
+  getAll() {
     if (this.searchTerm == '') {
       this.resultsCount = 10;
-
       return;
     }
-    this.crudService.getAllModelos('modelos').subscribe((res) => {
-      this.resultsCount = res.modelo.length;
+    this.crudService.getGasType('combustivel').subscribe((res) => {
+      this.resultsCount = res.gasType.length;
       console.log(this.totalPages);
       this.disableBtn();
     });
   }
-  updateInputModelo(item: any) {
+  updateInputYear(item: any) {
+    this.yearUpdateInput = item.year;
+    this.idYearUpdateInput = item.idYear;
     this.hideUpdate = false;
     this.hideCreate = true;
     this.hideBtn = false;
-    this.marcaUpdateInput = '';
-    setTimeout(() => {
-      this.marcaUpdateInput = item.idMarca.toString();
-    }, 1);
-
-    this.modeloUpdateInput = item.modelo;
-    this.idModeloUpdateInput = item.idModelo;
   }
-  updateModelo() {
-    if (this.modeloUpdateInput && this.marcaUpdateInput) {
-      const updatedModelo = {
-        idMarca: this.marcaUpdateInput,
-        idModelo: this.idModeloUpdateInput,
-        modelo: this.modeloUpdateInput,
+  updateYear() {
+    if (this.yearUpdateInput) {
+      const updatedYear = {
+        idYear: this.idYearUpdateInput,
+        year: this.yearUpdateInput,
       };
-      console.log(updatedModelo);
+      console.log(updatedYear);
 
       this.crudService
-        .update('updateModelo', this.idModeloUpdateInput, updatedModelo)
+        .update('updateYear', this.idYearUpdateInput, updatedYear)
         .subscribe((res) => {
           console.log(res);
           this.page = 0;
@@ -259,9 +244,8 @@ export class ModelosComponent implements OnInit {
 
       setTimeout(() => {
         this.presentToast('top', 'edit');
-        this.loadModelos();
+        this.loadYears();
         this.hideUpdate = true;
-        this.marcaUpdateInput = '';
       }, 2000);
     } else {
       this.presentToast('top', 'input');
@@ -271,7 +255,7 @@ export class ModelosComponent implements OnInit {
     this.hideUpdate = true;
     const actionSheet = await this.actionSheetCtrl.create({
       mode: 'ios',
-      header: 'O Modelo e todas as suas informações vão ser removidas',
+      header: 'O Ano e todas as suas informações vão ser removidas',
       subHeader: 'Pretende continuar?',
       buttons: [
         {
@@ -300,7 +284,7 @@ export class ModelosComponent implements OnInit {
     return;
   }
   delete(id: number) {
-    this.crudService.delete('deleteModelo', id).subscribe((res) => {
+    this.crudService.delete('deleteYear', id).subscribe((res) => {
       if (res == '401') {
         this.loadingSpinner();
         setTimeout(() => {
@@ -309,9 +293,10 @@ export class ModelosComponent implements OnInit {
       } else {
         this.loadingSpinner();
         setTimeout(() => {
-          this.loadModelos();
+          this.loadYears();
           this.presentToast('top', 'delete');
           this.searchTerm = '';
+          this.hideBtn = false;
         }, 2000);
       }
     });
