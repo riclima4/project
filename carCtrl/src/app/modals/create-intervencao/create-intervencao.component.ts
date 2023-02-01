@@ -98,7 +98,7 @@ export class CreateIntervencaoComponent implements OnInit {
         description: this.descInput,
         kilometragem: this.kilometragemInput,
         price: this.priceInput,
-        type: this.tipoInput,
+        type: parseInt(this.tipoInput),
       };
       console.log(newIntervencao);
       this.crudService
