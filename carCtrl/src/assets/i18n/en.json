@@ -92,6 +92,7 @@
   "toastIntDelete": "Intervention deleted successfully",
   "toastCarDelete": "Car deleted successfully",
   "toastUserDelete": "User deleted successfully",
+  "toastUserDeleteError": "User can't be deleted because the user is Logged in",
   "toastIntTypeDelete": "Intervention type deleted successfully",
   "toastIntTypeDeleteError": "This intervention type can't be deleted because it is being used by an intervention",
 

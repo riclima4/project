@@ -169,14 +169,14 @@ export class MarcasComponent implements OnInit {
       .getMarcaTable('marcasTable', this.page, this.resultsCount)
       .subscribe((res) => {
         this.marcasArr = res.marca;
-        console.log(this.marcasArr);
+        // console.log(this.marcasArr);
       });
   }
   async loadMarcasCount() {
     this.crudService.getMarca('marcas').subscribe((res) => {
       this.allMarcas = res.marca.length;
       this.totalPages = Math.ceil(this.allMarcas / this.resultsCount);
-      console.log(this.totalPages);
+      // console.log(this.totalPages);
       this.disableBtn();
     });
   }
@@ -188,7 +188,7 @@ export class MarcasComponent implements OnInit {
       marca: this.marcaInput,
     };
     this.crudService.create('newMarca', newMarca).subscribe((res) => {
-      console.log(res);
+      // console.log(res);
       this.loadingSpinner();
       setTimeout(() => {
         form.reset();
@@ -206,7 +206,7 @@ export class MarcasComponent implements OnInit {
     }
     this.crudService.getMarca('marcas').subscribe((res) => {
       this.resultsCount = res.marca.length;
-      console.log(this.totalPages);
+      // console.log(this.totalPages);
       this.disableBtn();
     });
   }
@@ -223,12 +223,12 @@ export class MarcasComponent implements OnInit {
         idMarca: this.idMarcaUpdateInput,
         marca: this.marcaUpdateInput,
       };
-      console.log(updatedMarca);
+      // console.log(updatedMarca);
 
       this.crudService
         .update('updateMarca', this.idMarcaUpdateInput, updatedMarca)
         .subscribe((res) => {
-          console.log(res);
+          // console.log(res);
           this.page = 0;
           this.disableBtn();
         });

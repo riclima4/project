@@ -134,7 +134,7 @@ export class InterventionsComponent implements OnInit {
       .getInterventionType('interventionType')
       .subscribe((res) => {
         this.resultsCount = res.interventionType.length;
-        console.log(this.totalPages);
+        // console.log(this.totalPages);
         this.disableBtn();
       });
   }
@@ -151,7 +151,7 @@ export class InterventionsComponent implements OnInit {
       .subscribe((res) => {
         this.allInt = res.interventionType.length;
         this.totalPages = Math.ceil(this.allInt / this.resultsCount);
-        console.log(this.totalPages);
+        // console.log(this.totalPages);
         this.disableBtn();
       });
   }
@@ -168,7 +168,7 @@ export class InterventionsComponent implements OnInit {
         idInterventionType: this.idIntTypeInput,
         interventionType: this.typeIntUpdateInput,
       };
-      console.log(updatedIntType);
+      // console.log(updatedIntType);
 
       this.crudService
         .update('updateIntType', this.idIntTypeInput, updatedIntType)
@@ -203,7 +203,7 @@ export class InterventionsComponent implements OnInit {
       interventionType: this.typeIntInput,
     };
     this.crudService.create('newIntType', newType).subscribe((res) => {
-      console.log(res);
+      // console.log(res);
 
       this.loadingSpinner();
       setTimeout(() => {
