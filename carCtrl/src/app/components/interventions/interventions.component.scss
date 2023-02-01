@@ -10,10 +10,10 @@
 }
 .header-row {
   border-bottom: 2px solid black;
-  background-color: var(--ion-color-danger);
+  background-color: var(--ion-color-success);
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  color: white;
+  color: var(--ion-color-light);
 }
 
 .data-row {

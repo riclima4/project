@@ -1,7 +1,18 @@
 import { YearModel } from "../models/anos.js";
+import { CarsModel } from "../models/cars.js";
 
 export const getAllyears = async (req, res) => {
   const years = await YearModel.findAll();
+  return res.send({ years });
+};
+export const getAllyearsTable = async (req, res) => {
+  const pageSize = req.query.results;
+  const page = req.query.page;
+  const years = await YearModel.findAll({
+    offset: parseInt(page) * pageSize,
+    limit: parseInt(pageSize),
+    subQuery: false,
+  });
   return res.send({ years });
 };
 
@@ -32,9 +43,14 @@ export const deleteYear = async (req, res) => {
   const idYear = req.params.idYear;
   const year = await YearModel.findByPk(idYear);
   if (year !== null) {
-    year.destroy();
-    return res.send("Ano com id:" + idYear + " foi eliminado");
+    const carros = await CarsModel.findAll({ where: { ano: idYear } });
+    if (carros.length == 0) {
+      year.destroy();
+      return res.send("200");
+    } else {
+      return res.send("401");
+    }
   } else {
-    return res.send("Nao existe Ano com id:" + idYear);
+    return res.send("401");
   }
 };

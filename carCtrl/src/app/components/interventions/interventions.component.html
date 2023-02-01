@@ -1,7 +1,7 @@
 <div class="breadcrumbs">
   <ion-breadcrumbs>
-    <ion-breadcrumb>Carros</ion-breadcrumb>
-    <ion-breadcrumb>Modelos</ion-breadcrumb>
+    <ion-breadcrumb>Dashboard</ion-breadcrumb>
+    <ion-breadcrumb>{{ "interventions" | translate }}</ion-breadcrumb>
   </ion-breadcrumbs>
 </div>
 <ion-button
@@ -11,12 +11,12 @@
   color="success"
   class="ion-margin-top"
 >
-  Adicionar Modelo
+  {{ "AddInterventionType" | translate }}
   <ion-icon name="add" slot="end"></ion-icon>
 </ion-button>
-<div class="addModelo" *ngIf="!hideCreate">
+<div class="addIntervencao" *ngIf="!hideCreate">
   <div class="marcaTitle">
-    <h1>Adicionar Modelo</h1>
+    <h1>{{ "AddInterventionType" | translate }}</h1>
     <ion-button
       fill="clear"
       (click)="hideCreate = true; hideBtn = false"
@@ -25,32 +25,17 @@
       <ion-icon name="close" slot="icon-only"></ion-icon>
     </ion-button>
   </div>
-  <form #myForm="ngForm" class="registerForm" (ngSubmit)="newModelo(myForm)">
+  <form #myForm="ngForm" class="registerForm" (ngSubmit)="newIntType(myForm)">
     <ion-list class="formCss">
       <ion-item>
-        <ion-label position="fixed">Marca</ion-label>
-        <ion-select
-          mode="ios"
-          required
-          placeholder="Insere uma marca"
-          [(ngModel)]="marcaInput"
-        >
-          <ion-select-option
-            *ngFor="let item of marcasArr"
-            value="{{ item.idMarca }}"
-          >
-            {{ item.marca }}
-          </ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label position="fixed">Modelo</ion-label>
+        <ion-label position="fixed">{{ "type" | translate }}</ion-label>
         <ion-input
+          [(ngModel)]="typeIntInput"
+          Type
           required
-          name="modelo"
+          name="tipo"
           type="text"
-          placeholder="Insere o Modelo"
-          [(ngModel)]="modeloInput"
+          placeholder="{{ 'insertType' | translate }}"
         ></ion-input>
       </ion-item>
     </ion-list>
@@ -59,41 +44,26 @@
     </ion-button>
   </form>
 </div>
-<div class="updateModelo" *ngIf="!hideUpdate">
+
+<div class="updateIntervencao" *ngIf="!hideUpdate">
   <div class="marcaTitle">
-    <h1>Editar Modelo</h1>
+    <h1>{{ "editInterventionType" | translate }}</h1>
     <ion-button fill="clear" (click)="hideUpdate = true" color="dark">
       <ion-icon name="close" slot="icon-only"></ion-icon>
     </ion-button>
   </div>
-
-  <form class="registerForm" (ngSubmit)="updateModelo()">
+  <form class="registerForm" (ngSubmit)="updateIntType()">
     <ion-list class="formCss">
-      <ion-item class="ion-margin-bottom">
-        <ion-label position="fixed">Marca</ion-label>
-        <ion-select mode="ios" required [(ngModel)]="marcaUpdateInput">
-          <ion-select-option
-            *ngFor="let item of marcasArr"
-            value="{{ item.idMarca }}"
-          >
-            {{ item.marca }}
-          </ion-select-option>
-        </ion-select>
-      </ion-item>
-
-      <ion-input
-        type="number"
-        hidden
-        [(ngModel)]="idModeloUpdateInput"
-      ></ion-input>
+      <ion-input [(ngModel)]="idIntTypeInput" hidden></ion-input>
       <ion-item>
-        <ion-label position="fixed">Modelo</ion-label>
+        <ion-label position="fixed">{{ "type" | translate }}</ion-label>
         <ion-input
+          [(ngModel)]="typeIntUpdateInput"
+          Type
           required
-          name="modelo"
+          name="tipo"
           type="text"
-          placeholder="Insere o Modelo"
-          [(ngModel)]="modeloUpdateInput"
+          placeholder="{{ 'insertType' | translate }}"
         ></ion-input>
       </ion-item>
     </ion-list>
@@ -102,49 +72,62 @@
     </ion-button>
   </form>
 </div>
-<div class="modelosSection">
-  <h1>Modelos</h1>
+<!-- tabela -->
+<div class="intTypeSection">
+  <h1>{{ "interventionTypes" | translate }}</h1>
   <ion-searchbar
     mode="ios"
     show-clear-button="always"
-    placeholder="Procurar"
     [(ngModel)]="searchTerm"
-    (ionChange)="getAllModelos()"
+    animated
+    placeholder="Procurar"
+    (ionChange)="getAll()"
   ></ion-searchbar>
-  <!-- tabela-->
+  <!-- tabela tipos de int -->
   <div class="dataGrid">
     <ion-row class="header-row ion-padding-top ion-padding-bottom">
-      <ion-col size="4"> Marca </ion-col>
-      <ion-col size="4" tappable (click)="sortBy('modelo')">
-        Modelo
+      <ion-col ssize="2" size-md="2" class="ion-hide-sm-down"> ID </ion-col>
+      <ion-col
+        size="8"
+        size-xs="8"
+        size-sm="6"
+        size-md="6"
+        tappable
+        (click)="sortBy('interventionType')"
+      >
+        {{ "type" | translate }}
         <ion-icon name="arrow-down" *ngIf="sortDirection == 1"></ion-icon>
         <ion-icon name="arrow-up" *ngIf="sortDirection == 2"></ion-icon>
       </ion-col>
-      <ion-col size="4"> Ação </ion-col>
+      <ion-col size="2" size-xs="4" size-sm="4" size-md="4">
+        {{ "action" | translate }}
+      </ion-col>
     </ion-row>
-    <!-- data -->
+    <!-- IntTypeRow -->
     <ion-row
       class="data-row"
-      *ngFor="let row of modelosArr | filter : searchTerm"
+      *ngFor="let row of intTypeArr | filter : searchTerm"
     >
-      <ion-col size="4">
-        {{ row.marcaType.marca }}
+      <ion-col size="2" size-md="2" class="ion-hide-sm-down">
+        {{ row.idInterventionType }}
       </ion-col>
-      <ion-col size="4">
-        {{ row.modelo }}
+      <ion-col size="8" size-xs="8" size-sm="6" size-md="6">
+        {{ row.interventionType }}
       </ion-col>
-      <ion-col size="4" class="ion-text-center">
-        <ion-button
-          size="small"
-          color="primary"
-          (click)="updateInputModelo(row)"
-        >
+      <ion-col
+        size="2"
+        size-xs="4"
+        size-sm="4"
+        size-md="4"
+        class="ion-text-center"
+      >
+        <ion-button (click)="updateIntInput(row)" size="small" color="primary">
           <ion-icon name="create"></ion-icon>
         </ion-button>
         <ion-button
+          (click)="deleteActionSheet(row.idInterventionType)"
           size="small"
           color="danger"
-          (click)="deleteActionSheet(row.idModelo)"
         >
           <ion-icon name="trash"></ion-icon>
         </ion-button>
@@ -152,7 +135,7 @@
     </ion-row>
     <ion-row class="ion-margin-top">
       <ion-col size="12" class="ion-text-center">
-        {{ page + 1 }} of {{ totalPages }}
+        {{ page + 1 }} {{ "of" | translate }} {{ totalPages }}
       </ion-col>
     </ion-row>
     <ion-row>
@@ -162,7 +145,7 @@
         </ion-button>
       </ion-col>
       <ion-col size="2">
-        <ion-button fill="clear" [disabled]="disabledBack" (click)="prevPage()">
+        <ion-button [disabled]="disabledBack" fill="clear" (click)="prevPage()">
           <ion-icon name="chevron-back" slot="icon-only"></ion-icon>
         </ion-button>
       </ion-col>
@@ -170,19 +153,26 @@
         <ion-select
           interface="popover"
           [(ngModel)]="resultsCount"
-          (ionChange)="loadModelosCount(); loadModelos(); this.disableBtn()"
+          (ionChange)="loadIntCount(); loadInt(); this.disableBtn()"
         >
-          <ion-select-option [value]="5">5 por página</ion-select-option>
-          <ion-select-option [value]="10"> 10 por página </ion-select-option>
-          <ion-select-option [value]="25"> 25 por página </ion-select-option>
-          <ion-select-option [value]="50"> 50 por página </ion-select-option>
-          <ion-select-option [value]="100"> 100 por página </ion-select-option>
+          <ion-select-option [value]="5"
+            >5 {{ "perPage" | translate }}</ion-select-option
+          >
+          <ion-select-option [value]="10">
+            10 {{ "perPage" | translate }}
+          </ion-select-option>
+          <ion-select-option [value]="25">
+            25 {{ "perPage" | translate }}
+          </ion-select-option>
+          <ion-select-option [value]="50">
+            50 {{ "perPage" | translate }}
+          </ion-select-option>
         </ion-select>
       </ion-col>
       <ion-col size="2">
         <ion-button
-          fill="clear"
           [disabled]="disabledForward"
+          fill="clear"
           (click)="nextPage()"
         >
           <ion-icon name="chevron-forward" slot="icon-only"></ion-icon>
@@ -190,8 +180,8 @@
       </ion-col>
       <ion-col size="2">
         <ion-button
-          fill="clear"
           [disabled]="disabledForward"
+          fill="clear"
           (click)="goLast()"
         >
           <ion-icon name="play-forward" slot="icon-only"></ion-icon>

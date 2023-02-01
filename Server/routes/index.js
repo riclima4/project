@@ -28,6 +28,7 @@ import { authRequired } from "../utils/jwt.js";
 import {
   deleteGasType,
   getAllGasType,
+  getAllGasTypeTable,
   newGasType,
   updateGasType,
 } from "../controllers/gasType.js";
@@ -41,6 +42,7 @@ import {
 import {
   deleteYear,
   getAllyears,
+  getAllyearsTable,
   newYear,
   updateYear,
 } from "../controllers/year.js";
@@ -91,6 +93,7 @@ routes.put("/updateIntervencao/:idIntervencao", updateIntervencao);
 
 //Tipo Combustivel
 routes.get("/combustivel", getAllGasType);
+routes.get("/combustivelTable", getAllGasTypeTable);
 routes.post("/newCombustivel", newGasType);
 routes.put("/updateGasType/:idGasType", updateGasType);
 routes.delete("/deleteGasType/:idGasType", deleteGasType);
@@ -103,6 +106,7 @@ routes.put("/updateIntType/:idInterventionType", updateInterventionType);
 routes.delete("/deleteIntType/:idInterventionType", deleteInterventionType);
 //lista anos
 routes.get("/years", getAllyears);
+routes.get("/yearsTable", getAllyearsTable);
 routes.post("/newYear", newYear);
 routes.put("/updateYear/:idYear", updateYear);
 routes.delete("/deleteYear/:idYear", deleteYear);

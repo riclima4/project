@@ -7,13 +7,21 @@ import { MarcasComponent } from './marcas/marcas.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ModelosComponent } from './modelos/modelos.component';
-import { CarOthersComponent } from './car-others/car-others.component';
+import { GasTypeComponent } from './cars/gas-type/gas-type.component';
+import { YearsComponent } from './cars/years/years.component';
+import { InterventionsComponent } from './interventions/interventions.component';
+import { UsersComponent } from './users/users.component';
+import { StatsComponent } from './stats/stats.component';
 
 const components = [
   NavbarComponent,
   MarcasComponent,
   ModelosComponent,
-  CarOthersComponent,
+  GasTypeComponent,
+  YearsComponent,
+  InterventionsComponent,
+  UsersComponent,
+  StatsComponent,
 ];
 
 @NgModule({
