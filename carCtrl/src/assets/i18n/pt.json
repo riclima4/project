@@ -92,6 +92,7 @@
   "toastIntDelete": "Intervenção eliminada com sucesso",
   "toastCarDelete": "Carro eliminado com sucesso",
   "toastUserDelete": "Utilizador eliminado com sucesso",
+  "toastUserDeleteError": "Utilizador não pode ser eliminado porque está Logado",
   "toastIntTypeDelete": "Tipo de intervenção eliminado com sucesso",
   "toastIntTypeDeleteError": "Tipo de Intervenção não pode ser eliminada pois é usada em alguma intervenção",
 

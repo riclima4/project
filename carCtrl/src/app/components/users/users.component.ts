@@ -7,6 +7,8 @@ import {
 import { CrudService } from 'src/app/services/api/crud.service';
 import { TranslateService } from '@ngx-translate/core';
 import { NgForm } from '@angular/forms';
+import { Preferences } from '@capacitor/preferences';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-users',
@@ -37,6 +39,8 @@ export class UsersComponent implements OnInit {
   emailUpdateInput: any;
   typeUpdateInput: any;
   idUserUpdateInput: any;
+  user: any;
+  userEmailToken: any;
   constructor(
     private translateService: TranslateService,
     private toastController: ToastController,
@@ -46,8 +50,20 @@ export class UsersComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.getToken();
     this.loadUsersCount();
     this.loadUsers();
+  }
+  async getToken() {
+    const token = await Preferences.get({ key: 'token' });
+
+    // console.log(token.value !== null);
+    if (token.value !== null) {
+      const user = jwt_decode(token.value);
+      this.user = user;
+      this.userEmailToken = this.user.email;
+      // console.log(this.userEmailToken);
+    }
   }
   async loadUsers() {
     this.crudService
@@ -60,7 +76,7 @@ export class UsersComponent implements OnInit {
     this.crudService.getUserCount('userCount').subscribe((res) => {
       this.allUsers = res.users.length;
       this.totalPages = Math.ceil(this.allUsers / this.resultsCount);
-      console.log(this.totalPages);
+      // console.log(this.totalPages);
       this.disableBtn();
     });
   }
@@ -84,12 +100,12 @@ export class UsersComponent implements OnInit {
         email: this.emailUpdateInput,
         type: this.typeUpdateInput,
       };
-      console.log(this.idUserUpdateInput);
+      // console.log(this.idUserUpdateInput);
 
       this.crudService
         .update('updateUser', this.idUserUpdateInput, updatedUser)
         .subscribe((res) => {
-          console.log(res);
+          // console.log(res);
         });
       this.loadingSpinner();
 
@@ -127,7 +143,7 @@ export class UsersComponent implements OnInit {
       type: this.typeInput,
     };
     this.crudService.create('newUser', newUser).subscribe((res) => {
-      console.log(res);
+      // console.log(res);
       if (res == true) {
         return this.presentToast('top', 'user');
       } else {
@@ -143,14 +159,18 @@ export class UsersComponent implements OnInit {
       }
     });
   }
-  async deleteUser(id: number) {
-    this.crudService.delete('removeUser', id).subscribe((res) => {});
-    this.loadingSpinner();
-    setTimeout(() => {
-      this.loadUsers();
-      this.presentToast('top', 'delete');
-      this.searchTerm = '';
-    }, 2000);
+  async deleteUser(user: any) {
+    if (user.email == this.userEmailToken) {
+      return this.presentToast('top', 'deleteLogged');
+    } else {
+      this.crudService.delete('removeUser', user.idUser).subscribe((res) => {});
+      this.loadingSpinner();
+      setTimeout(() => {
+        this.loadUsers();
+        this.presentToast('top', 'delete');
+        this.searchTerm = '';
+      }, 2000);
+    }
   }
   sortBy(key: any) {
     if (key == 'email') {
@@ -287,6 +307,15 @@ export class UsersComponent implements OnInit {
       });
 
       await toast.present();
+    } else if (nome == 'deleteLogged') {
+      const toast = await this.toastController.create({
+        message: this.translateService.instant('toastUserDeleteError'),
+        duration: 2000,
+        position: position,
+        color: 'danger',
+      });
+
+      await toast.present();
     } else if (nome == 'update') {
       const toast = await this.toastController.create({
         message: this.translateService.instant('toastUserUpdate'),
@@ -298,7 +327,7 @@ export class UsersComponent implements OnInit {
       await toast.present();
     }
   }
-  async deleteActionSheet(id: number) {
+  async deleteActionSheet(user: any) {
     const actionSheet = await this.actionSheetCtrl.create({
       mode: 'ios',
       header: this.translateService.instant('headerDeleteUser'),
@@ -325,7 +354,7 @@ export class UsersComponent implements OnInit {
 
     const result = await actionSheet.onDidDismiss();
     if (result.data.action == 'delete') {
-      this.deleteUser(id);
+      this.deleteUser(user);
     }
     return;
   }
@@ -347,7 +376,7 @@ export class UsersComponent implements OnInit {
     }
     this.crudService.getUserCount('userCount').subscribe((res) => {
       this.resultsCount = res.users.length;
-      console.log(this.totalPages);
+      // console.log(this.totalPages);
       this.disableBtn();
     });
   }

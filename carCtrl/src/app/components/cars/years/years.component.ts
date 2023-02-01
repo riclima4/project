@@ -169,14 +169,14 @@ export class YearsComponent implements OnInit {
       .getYearTable('yearsTable', this.page, this.resultsCount)
       .subscribe((res) => {
         this.yearArr = res.years;
-        console.log(this.yearArr);
+        // console.log(this.yearArr);
       });
   }
   async loadYearsCount() {
     this.crudService.getYear('years').subscribe((res) => {
       this.allYears = res.years.length;
       this.totalPages = Math.ceil(this.allYears / this.resultsCount);
-      console.log(this.totalPages);
+      // console.log(this.totalPages);
       this.disableBtn();
     });
   }
@@ -195,7 +195,7 @@ export class YearsComponent implements OnInit {
     console.log(newYear);
 
     this.crudService.create('newYear', newYear).subscribe((res) => {
-      console.log(res);
+      // console.log(res);
       this.loadingSpinner();
       setTimeout(() => {
         form.reset();
@@ -214,7 +214,7 @@ export class YearsComponent implements OnInit {
     }
     this.crudService.getGasType('combustivel').subscribe((res) => {
       this.resultsCount = res.gasType.length;
-      console.log(this.totalPages);
+      // console.log(this.totalPages);
       this.disableBtn();
     });
   }
@@ -231,12 +231,12 @@ export class YearsComponent implements OnInit {
         idYear: this.idYearUpdateInput,
         year: this.yearUpdateInput,
       };
-      console.log(updatedYear);
+      // console.log(updatedYear);
 
       this.crudService
         .update('updateYear', this.idYearUpdateInput, updatedYear)
         .subscribe((res) => {
-          console.log(res);
+          // console.log(res);
           this.page = 0;
           this.disableBtn();
         });

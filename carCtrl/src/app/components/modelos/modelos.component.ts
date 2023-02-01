@@ -178,7 +178,7 @@ export class ModelosComponent implements OnInit {
       .getModeloTable('modelosTable', this.page, this.resultsCount)
       .subscribe((res) => {
         this.modelosArr = res.modelo;
-        console.log(this.modelosArr);
+        // console.log(this.modelosArr);
       });
   }
   async loadModelosCount() {
@@ -203,7 +203,7 @@ export class ModelosComponent implements OnInit {
       modelo: this.modeloInput,
     };
     this.crudService.create('newModelo', newModelo).subscribe((res) => {
-      console.log(res);
+      // console.log(res);
       this.loadingSpinner();
       setTimeout(() => {
         form.reset();
@@ -223,7 +223,7 @@ export class ModelosComponent implements OnInit {
     }
     this.crudService.getAllModelos('modelos').subscribe((res) => {
       this.resultsCount = res.modelo.length;
-      console.log(this.totalPages);
+      // console.log(this.totalPages);
       this.disableBtn();
     });
   }
@@ -246,12 +246,12 @@ export class ModelosComponent implements OnInit {
         idModelo: this.idModeloUpdateInput,
         modelo: this.modeloUpdateInput,
       };
-      console.log(updatedModelo);
+      // console.log(updatedModelo);
 
       this.crudService
         .update('updateModelo', this.idModeloUpdateInput, updatedModelo)
         .subscribe((res) => {
-          console.log(res);
+          // console.log(res);
           this.page = 0;
           this.disableBtn();
         });

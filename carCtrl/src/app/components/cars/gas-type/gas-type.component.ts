@@ -169,14 +169,14 @@ export class GasTypeComponent implements OnInit {
       .getGasTypeTable('combustivelTable', this.page, this.resultsCount)
       .subscribe((res) => {
         this.gasTypeArr = res.gasType;
-        console.log(this.gasTypeArr);
+        // console.log(this.gasTypeArr);
       });
   }
   async loadGasTypeCount() {
     this.crudService.getGasType('combustivel').subscribe((res) => {
       this.allGasType = res.gasType.length;
       this.totalPages = Math.ceil(this.allGasType / this.resultsCount);
-      console.log(this.totalPages);
+      // console.log(this.totalPages);
       this.disableBtn();
     });
   }
@@ -191,10 +191,10 @@ export class GasTypeComponent implements OnInit {
     const newGasType = {
       gasType: this.gasTypeInput,
     };
-    console.log(newGasType);
+    // console.log(newGasType);
 
     this.crudService.create('newCombustivel', newGasType).subscribe((res) => {
-      console.log(res);
+      // console.log(res);
       this.loadingSpinner();
       setTimeout(() => {
         form.reset();
@@ -213,7 +213,7 @@ export class GasTypeComponent implements OnInit {
     }
     this.crudService.getGasType('combustivel').subscribe((res) => {
       this.resultsCount = res.gasType.length;
-      console.log(this.totalPages);
+      // console.log(this.totalPages);
       this.disableBtn();
     });
   }
@@ -230,12 +230,12 @@ export class GasTypeComponent implements OnInit {
         idGasType: this.idGasTypeUpdateInput,
         gasType: this.gasTypeUpdateInput,
       };
-      console.log(updatedGasType);
+      // console.log(updatedGasType);
 
       this.crudService
         .update('updateGasType', this.idGasTypeUpdateInput, updatedGasType)
         .subscribe((res) => {
-          console.log(res);
+          // console.log(res);
           this.page = 0;
           this.disableBtn();
         });

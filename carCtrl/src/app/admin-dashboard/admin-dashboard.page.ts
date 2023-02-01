@@ -1,16 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Preferences } from '@capacitor/preferences';
-import {
-  ActionSheetController,
-  AlertController,
-  LoadingController,
-  ToastController,
-} from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import jwt_decode from 'jwt-decode';
-import { CrudService } from '../services/api/crud.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -41,7 +34,7 @@ export class AdminDashboardPage implements OnInit {
   }
   changeContent(value: any) {
     this.contentSegment = value;
-    console.log(this.contentSegment);
+    // console.log(this.contentSegment);
   }
   async checkDarkmode() {
     const darkmode = await Preferences.get({ key: 'color-theme' });
@@ -103,7 +96,7 @@ export class AdminDashboardPage implements OnInit {
     }
   }
   async toggleTheme(event: any) {
-    console.log(event);
+    // console.log(event);
     const dark = await Preferences.get({ key: 'color-theme' });
     if (dark.value == 'dark') {
       document.body.setAttribute('color-theme', 'light');
