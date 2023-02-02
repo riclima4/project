@@ -31,6 +31,7 @@ export const getAllIntervencaoByCar = async (req, res) => {
   const idCarro = req.params.idCarro;
   const intervencao = await IntervencaoModel.findAll({
     where: { idCarro: idCarro },
+    include: [{ association: "carro" }, { association: "intType" }],
     order: [["idCarro", "ASC"]],
   });
   return res.send({ intervencao });

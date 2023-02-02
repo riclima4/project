@@ -75,9 +75,12 @@ IntervencaoModel.belongsTo(CarsModel, {
   foreignKey: "idCarro",
   as: "carro",
 });
-IntervencaoModel.hasOne(InterventionTypeModel, {
-  foreignKey: "idInterventionType",
+// IntervencaoModel.hasOne(InterventionTypeModel, {
+//   foreignKey: "idInterventionType",
+//   as: "intType",
+// });
+IntervencaoModel.belongsTo(InterventionTypeModel, {
+  foreignKey: "type",
   as: "intType",
 });
-
 export { IntervencaoModel };

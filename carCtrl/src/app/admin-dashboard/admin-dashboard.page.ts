@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Preferences } from '@capacitor/preferences';
-import { ToastController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { ChartDataset, LabelItem } from 'chart.js';
 import {
@@ -24,22 +24,21 @@ export class AdminDashboardPage implements OnInit {
   contentSegment = 1; //volta para 1 when finished
   type = 'marcas';
   intCount: any;
-  marcaCount: any;
   intTypeArr: any;
-  marcaArr: any;
+  chartLoaded = false;
+
   constructor(
     private translateService: TranslateService,
     private toastController: ToastController,
     private router: Router,
-    private crudService: CrudService
+    private crudService: CrudService,
+    private loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {
     this.getToken();
     this.checkDarkmode();
-
     this.loadCountIntbyType();
-    this.loadCountIntbyMarca();
   }
   ionViewWillEnter() {
     if (this.user.type != 100) {
@@ -49,8 +48,8 @@ export class AdminDashboardPage implements OnInit {
   changeContent(value: any) {
     this.contentSegment = value;
     if (value == 1) {
+      this.chartLoaded = false;
       this.loadCountIntbyType();
-      this.loadCountIntbyMarca();
     }
     // console.log(this.contentSegment);
   }
@@ -129,6 +128,10 @@ export class AdminDashboardPage implements OnInit {
 
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
+    animation: {
+      duration: 0,
+    },
+    maintainAspectRatio: false,
     // We use these empty structures as placeholders for dynamic theming.
   };
   public barChartType: ChartType = 'bar';
@@ -138,6 +141,7 @@ export class AdminDashboardPage implements OnInit {
   };
 
   async loadCountIntbyType() {
+    this.chartLoaded = false;
     this.barChartData.labels = [];
     this.barChartData.datasets[0].data = [];
     this.crudService
@@ -153,38 +157,19 @@ export class AdminDashboardPage implements OnInit {
               this.barChartData.datasets[0].data.push(this.intCount);
             });
         }
+        this.loadingGraphs();
+        setTimeout(() => {
+          this.chartLoaded = true;
+        }, 2000);
       });
-    // console.log(this.barChartData.labels);
-    // console.log(this.barChartData.datasets[0].data);
   }
-  public barChartDataMarca: ChartData<'bar'> = {
-    labels: [],
-    datasets: [{ data: [], label: 'Intervenções' }],
-  };
-  public pieChartType: ChartType = 'pie';
-  async loadCountIntbyMarca() {
-    this.barChartDataMarca.labels = [];
-    this.barChartDataMarca.datasets[0].data = [];
-    this.crudService.getMarca('marcas').subscribe((res) => {
-      this.marcaArr = res.marca;
-      console.log(this.marcaArr);
-      for (let item of this.marcaArr) {
-        this.barChartDataMarca.labels.push(item.marca);
-        // aqui
-        this.loadIntbyCars(item);
-      }
+  async loadingGraphs() {
+    const loading = await this.loadingCtrl.create({
+      message: 'A carregar gráficos',
+      spinner: 'crescent',
+      mode: 'ios',
+      duration: 2000,
     });
-    console.log(this.barChartDataMarca.labels);
-    console.log(this.barChartDataMarca.datasets[0].data);
-  }
-  loadIntbyCars(item: any) {
-    this.crudService
-      .getIntervencao('intervencao', item.idMarca)
-      .subscribe((res) => {
-        this.marcaCount = res.intervencao.length;
-        // console.log(this.marcaCount);
-
-        this.barChartDataMarca.datasets[0].data.push(this.marcaCount);
-      });
+    await loading.present();
   }
 }

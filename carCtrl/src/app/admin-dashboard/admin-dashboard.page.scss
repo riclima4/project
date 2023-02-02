@@ -86,10 +86,14 @@ ion-accordion::part(header) {
   margin-bottom: 20px;
   background-color: var(--ion-color-light);
 }
+
 .flexGraph {
   display: flex;
+  align-items: center;
+  // justify-content: space-between;
 }
 .IntTypeGraph {
+  height: 400px;
   width: 100%;
 }
 @media only screen and (min-width: 992px) {
