@@ -92,6 +92,10 @@ ion-accordion::part(header) {
   align-items: center;
   // justify-content: space-between;
 }
+.IntTypeGraph {
+  height: 400px;
+  width: 100%;
+}
 @media only screen and (min-width: 992px) {
   .logoNavbar1 {
     display: none;

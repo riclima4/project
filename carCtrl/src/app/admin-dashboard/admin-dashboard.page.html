@@ -130,7 +130,11 @@
         </ion-button>
       </ion-menu-toggle>
       <ion-buttons slot="end">
-        <ion-text>{{username}}</ion-text>
+        <ion-button fill="clear" href="#/tabs/tab3">
+          <ion-icon name="person"></ion-icon>
+          <ion-text> {{username}}</ion-text>
+        </ion-button>
+
         <ion-button (click)="logout()" fill="clear">
           <ion-icon name="log-out"></ion-icon>
         </ion-button>
@@ -143,8 +147,8 @@
       <!-- STATS PAGE -->
       <div *ngSwitchCase="1" class="ion-padding">
         <app-stats></app-stats>
-        <ion-row>
-          <ion-col size="12" size-lg="6" class="ion-padding IntTypeGraph">
+        <ion-row class="ion-margin-bottom">
+          <ion-col size="12" class="ion-padding IntTypeGraph">
             <div class="flexGraph">
               <h1>Intervenções por Tipo</h1>
 

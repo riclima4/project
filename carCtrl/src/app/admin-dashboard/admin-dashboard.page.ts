@@ -131,6 +131,7 @@ export class AdminDashboardPage implements OnInit {
     animation: {
       duration: 0,
     },
+    maintainAspectRatio: false,
     // We use these empty structures as placeholders for dynamic theming.
   };
   public barChartType: ChartType = 'bar';
@@ -156,14 +157,15 @@ export class AdminDashboardPage implements OnInit {
               this.barChartData.datasets[0].data.push(this.intCount);
             });
         }
-        this.loadingSpinner();
+        this.loadingGraphs();
         setTimeout(() => {
           this.chartLoaded = true;
         }, 2000);
       });
   }
-  async loadingSpinner() {
+  async loadingGraphs() {
     const loading = await this.loadingCtrl.create({
+      message: 'A carregar gráficos',
       spinner: 'crescent',
       mode: 'ios',
       duration: 2000,
