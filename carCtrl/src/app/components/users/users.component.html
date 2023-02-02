@@ -166,8 +166,7 @@
     mode="ios"
     show-clear-button="always"
     [(ngModel)]="searchTerm"
-    animated
-    placeholder="Procurar"
+    placeholder="{{ 'search' | translate }}"
     (ionChange)="getAll()"
   ></ion-searchbar>
   <div class="dataGrid">

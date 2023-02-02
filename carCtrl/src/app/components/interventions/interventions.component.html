@@ -79,8 +79,7 @@
     mode="ios"
     show-clear-button="always"
     [(ngModel)]="searchTerm"
-    animated
-    placeholder="Procurar"
+    placeholder="{{ 'search' | translate }}"
     (ionChange)="getAll()"
   ></ion-searchbar>
   <!-- tabela tipos de int -->

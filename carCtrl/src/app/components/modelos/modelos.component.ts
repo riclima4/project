@@ -174,7 +174,6 @@ export class ModelosComponent implements OnInit {
     });
   }
   async loadModelos() {
-    this.page = 0;
     this.crudService
       .getModeloTable('modelosTable', this.page, this.resultsCount)
       .subscribe((res) => {
@@ -209,6 +208,7 @@ export class ModelosComponent implements OnInit {
       setTimeout(() => {
         form.reset();
         this.presentToast('top', 'success');
+        this.page = 0;
         this.loadModelosCount();
         this.loadModelos();
         this.hideCreate = true;
