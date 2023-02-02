@@ -5,12 +5,12 @@
   color="success"
   class="ion-margin-top"
 >
-  Adicionar Tipo de Combustível
+  {{ "addGasType" | translate }}
   <ion-icon name="add" slot="end"></ion-icon>
 </ion-button>
 <div class="addGasType" *ngIf="!hideCreate">
   <div class="marcaTitle">
-    <h1>Adicionar Tipo de Combustível</h1>
+    <h1>{{ "addGasType" | translate }}</h1>
     <ion-button
       fill="clear"
       (click)="hideCreate = true; hideBtn = false"
@@ -22,12 +22,12 @@
   <form #myForm="ngForm" class="registerForm" (ngSubmit)="newGasType(myForm)">
     <ion-list class="formCss">
       <ion-item>
-        <ion-label position="fixed">Tipo</ion-label>
+        <ion-label position="fixed">{{ "type" | translate }}</ion-label>
         <ion-input
           required
           name="marca"
           type="text"
-          placeholder="Insere o tipo de combustível"
+          placeholder="{{ 'insertGasType' | translate }}"
           [(ngModel)]="gasTypeInput"
         ></ion-input>
       </ion-item>
@@ -40,7 +40,7 @@
 
 <div class="updateGasType" *ngIf="!hideUpdate">
   <div class="marcaTitle">
-    <h1>Editar Tipo de Combustível</h1>
+    <h1>{{ "updateGasType" | translate }}</h1>
     <ion-button fill="clear" (click)="hideUpdate = true" color="dark">
       <ion-icon name="close" slot="icon-only"></ion-icon>
     </ion-button>
@@ -54,12 +54,12 @@
         [(ngModel)]="idGasTypeUpdateInput"
       ></ion-input>
       <ion-item>
-        <ion-label position="fixed">Tipo</ion-label>
+        <ion-label position="fixed">{{ "type" | translate }}</ion-label>
         <ion-input
           required
           name="marca"
           type="text"
-          placeholder="Insere o tipo de combustível"
+          placeholder="{{ 'insertGasType' | translate }}"
           [(ngModel)]="gasTypeUpdateInput"
         ></ion-input>
       </ion-item>
@@ -70,11 +70,11 @@
   </form>
 </div>
 <div class="gasTypeSection">
-  <h1>Tipos de Combustível</h1>
+  <h1>{{ "gasType" | translate }}</h1>
   <ion-searchbar
     mode="ios"
     show-clear-button="always"
-    placeholder="Procurar"
+    placeholder="{{ 'search' | translate }}"
     [(ngModel)]="searchTerm"
     (ionChange)="getAll()"
   ></ion-searchbar>
@@ -90,11 +90,13 @@
         tappable
         (click)="sortBy('gasType')"
       >
-        Tipo
+        {{ "type" | translate }}
         <ion-icon name="arrow-down" *ngIf="sortDirection == 1"></ion-icon>
         <ion-icon name="arrow-up" *ngIf="sortDirection == 2"></ion-icon>
       </ion-col>
-      <ion-col size="2" size-xs="4" size-sm="4" size-md="4"> Ação </ion-col>
+      <ion-col size="2" size-xs="4" size-sm="4" size-md="4">
+        {{ "action" | translate }}
+      </ion-col>
     </ion-row>
     <!-- data -->
     <ion-row
@@ -152,11 +154,21 @@
           [(ngModel)]="resultsCount"
           (ionChange)="loadGasTypeCount(); loadGasType(); this.disableBtn()"
         >
-          <ion-select-option [value]="5">5 por página</ion-select-option>
-          <ion-select-option [value]="10"> 10 por página </ion-select-option>
-          <ion-select-option [value]="25"> 25 por página </ion-select-option>
-          <ion-select-option [value]="50"> 50 por página </ion-select-option>
-          <ion-select-option [value]="100"> 100 por página </ion-select-option>
+          <ion-select-option [value]="5">
+            5 {{ "perPage" | translate }}
+          </ion-select-option>
+          <ion-select-option [value]="10">
+            10 {{ "perPage" | translate }}
+          </ion-select-option>
+          <ion-select-option [value]="25">
+            25 {{ "perPage" | translate }}
+          </ion-select-option>
+          <ion-select-option [value]="50">
+            50 {{ "perPage" | translate }}
+          </ion-select-option>
+          <ion-select-option [value]="100">
+            100 {{ "perPage" | translate }}
+          </ion-select-option>
         </ion-select>
       </ion-col>
       <ion-col size="2">

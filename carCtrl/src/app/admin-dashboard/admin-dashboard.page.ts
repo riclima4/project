@@ -21,7 +21,7 @@ export class AdminDashboardPage implements OnInit {
   user: any;
   username: any;
   toggleDarkMode: any;
-  contentSegment = 1; //volta para 1 when finished
+  contentSegment = 1; //back para 1 when finished
   type = 'marcas';
   intCount: any;
   intTypeArr: any;
@@ -141,7 +141,6 @@ export class AdminDashboardPage implements OnInit {
       { data: [], label: this.translateService.instant('interventions') },
     ],
   };
-
   async loadCountIntbyType() {
     this.chartLoaded = false;
     this.barChartData.labels = [];
@@ -162,15 +161,15 @@ export class AdminDashboardPage implements OnInit {
         this.loadingGraphs();
         setTimeout(() => {
           this.chartLoaded = true;
-        }, 2000);
+        }, 1000);
       });
   }
   async loadingGraphs() {
     const loading = await this.loadingCtrl.create({
-      message: 'A carregar gráficos',
+      message: this.translateService.instant('loadGraph'),
       spinner: 'crescent',
       mode: 'ios',
-      duration: 2000,
+      duration: 1000,
     });
     await loading.present();
   }
