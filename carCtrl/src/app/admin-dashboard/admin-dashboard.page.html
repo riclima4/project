@@ -145,22 +145,19 @@
         <app-stats></app-stats>
         <ion-row>
           <ion-col size="12" size-lg="6" class="ion-padding IntTypeGraph">
-            <h1>Intervenções por Tipo</h1>
+            <div class="flexGraph">
+              <h1>Intervenções por Tipo</h1>
+
+              <ion-button fill="clear" (click)="loadCountIntbyType()">
+                <ion-icon slot="icon-only" name="refresh-outline"></ion-icon>
+              </ion-button>
+            </div>
+
             <canvas
-              class="grafico ion-padding"
               baseChart
+              *ngIf="chartLoaded==true"
+              class="grafico ion-padding"
               [data]="barChartData"
-              [options]="barChartOptions"
-              [type]="barChartType"
-            >
-            </canvas>
-          </ion-col>
-          <ion-col size="12" size-lg="6" class="ion-padding IntTypeGraph">
-            <h1>Intervenções por Marca</h1>
-            <canvas
-              class="grafico ion-padding"
-              baseChart
-              [data]="barChartDataMarca"
               [options]="barChartOptions"
               [type]="barChartType"
             >
