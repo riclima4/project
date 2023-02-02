@@ -137,7 +137,9 @@ export class AdminDashboardPage implements OnInit {
   public barChartType: ChartType = 'bar';
   public barChartData: ChartData<'bar'> = {
     labels: [],
-    datasets: [{ data: [], label: 'Intervenções' }],
+    datasets: [
+      { data: [], label: this.translateService.instant('interventions') },
+    ],
   };
 
   async loadCountIntbyType() {
