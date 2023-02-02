@@ -169,7 +169,7 @@ export class InterventionsComponent implements OnInit {
         idInterventionType: this.idIntTypeInput,
         interventionType: this.typeIntUpdateInput,
       };
-      console.log(updatedIntType);
+      // console.log(updatedIntType);
 
       this.crudService
         .update('updateIntType', this.idIntTypeInput, updatedIntType)

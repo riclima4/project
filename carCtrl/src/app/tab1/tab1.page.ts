@@ -74,7 +74,42 @@ export class Tab1Page {
       document.body.setAttribute('color-theme', 'light');
     }
   };
-  //Intervenções
+  async deleteIntervencaoActionSheet(id: number) {
+    const actionSheet = await this.actionSheetCtrl.create({
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Delete',
+          role: 'destructive',
+          data: {
+            action: 'delete',
+          },
+          handler: () => {
+            this.deleteIntervencao(id);
+          },
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          data: {
+            action: 'cancel',
+          },
+        },
+      ],
+    });
+
+    await actionSheet.present();
+  }
+  async presentToastDelete(position: 'top' | 'middle' | 'bottom') {
+    const toast = await this.toastController.create({
+      message: this.TranslateService.instant('toastIntDelete'),
+      duration: 2000,
+      position: position,
+      color: 'success',
+    });
+
+    await toast.present();
+  }
   async openModalCreateIntervencao() {
     const modalIntervencao = await this.modalCtrl.create({
       component: CreateIntervencaoComponent,
@@ -89,7 +124,7 @@ export class Tab1Page {
     await modalIntervencao.present();
   }
   async openModalUpdateIntervencao(item: any) {
-    console.log(item);
+    // console.log(item);
     const modalUpdateIntervencao = await this.modalCtrl.create({
       component: UpdateIntervencaoComponent,
       componentProps: {
@@ -102,6 +137,19 @@ export class Tab1Page {
     });
     await modalUpdateIntervencao.present();
   }
+  async openModalInfoIntervencao(item: any) {
+    // console.log(item);
+    const modalInfoIntervencao = await this.modalCtrl.create({
+      component: InfoIntComponent,
+      componentProps: {
+        item: item,
+      },
+    });
+    modalInfoIntervencao.onDidDismiss().then(() => {
+      this.loadIntervencoes();
+    });
+    await modalInfoIntervencao.present();
+  }
   async deleteIntervencao(id: number) {
     this.crudService.delete('deleteIntervencao', id).subscribe((res) => {});
     this.loadingSpinner();
@@ -110,14 +158,13 @@ export class Tab1Page {
       this.presentToastDelete('top');
     }, 2000);
   }
-
   async loadIntervencoes() {
     // console.log(this.userID);
     this.crudService
       .getIntervencao('intervencoes', this.userID)
       .subscribe((res) => {
         this.intervencoes = res.intervencao;
-        console.log(this.intervencoes);
+        // console.log(this.intervencoes);
         if (this.intervencoes.length > 0) {
           this.haveInterventions = true;
           // console.log(this.haveCars);
@@ -147,62 +194,5 @@ export class Tab1Page {
       duration: 2000,
     });
     await loading.present();
-  }
-  async deleteIntervencaoActionSheet(id: number) {
-    const actionSheet = await this.actionSheetCtrl.create({
-      mode: 'ios',
-      buttons: [
-        {
-          text: 'Delete',
-          role: 'destructive',
-          data: {
-            action: 'delete',
-          },
-        },
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          data: {
-            action: 'cancel',
-          },
-        },
-      ],
-    });
-
-    await actionSheet.present();
-
-    const result = await actionSheet.onDidDismiss();
-    if (result.data.action == 'delete') {
-      this.deleteIntervencao(id);
-    }
-  }
-  async presentToastDelete(position: 'top' | 'middle' | 'bottom') {
-    const toast = await this.toastController.create({
-      message: this.TranslateService.instant('toastIntDelete'),
-      duration: 2000,
-      position: position,
-      color: 'success',
-    });
-
-    await toast.present();
-  }
-  onIonInfinite(ev: any) {
-    setTimeout(() => {
-      (ev as InfiniteScrollCustomEvent).target.complete();
-    }, 500);
-  }
-  ///////////////////////////////////////////////////////////////////////////////////////////////
-  async openModalInfoIntervencao(item: any) {
-    console.log(item);
-    const modalInfoIntervencao = await this.modalCtrl.create({
-      component: InfoIntComponent,
-      componentProps: {
-        item: item,
-      },
-    });
-    modalInfoIntervencao.onDidDismiss().then(() => {
-      this.loadIntervencoes();
-    });
-    await modalInfoIntervencao.present();
   }
 }

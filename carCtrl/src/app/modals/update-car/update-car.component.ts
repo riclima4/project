@@ -86,27 +86,27 @@ export class UpdateCarComponent implements OnInit {
   async loadGasType() {
     this.crudService.getGasType('combustivel').subscribe((res) => {
       this.gasType = res.gasType;
-      console.log(this.gasType);
+      // console.log(this.gasType);
     });
   }
   async loadYears() {
     this.crudService.getYear('years').subscribe((res) => {
       this.years = res.years;
-      console.log(this.years);
+      // console.log(this.years);
     });
   }
   async loadMarcas() {
     this.crudService.getMarca('marcas').subscribe((res) => {
       this.marcas = res.marca;
-      console.log(this.marcas);
+      // console.log(this.marcas);
     });
   }
   async loadModelo($event: any) {
     this.idMarca = $event.target.value;
-    console.log(this.idMarca);
+    // console.log(this.idMarca);
     this.crudService.getModelo('modelo', this.idMarca).subscribe((res) => {
       this.modelos = res.modelo;
-      console.log(this.modelos);
+      // console.log(this.modelos);
       this.modeloInput = this.item.modelo.toString();
     });
   }
@@ -133,7 +133,7 @@ export class UpdateCarComponent implements OnInit {
         modelo: this.modeloInput,
         gasType: this.fuelInput,
       };
-      console.log(idCar);
+      // console.log(idCar);
       this.crudService
         .update('updateCar', idCar, updatedCar)
         .subscribe((res) => {
