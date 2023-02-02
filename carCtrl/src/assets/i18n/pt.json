@@ -99,5 +99,6 @@
   "headerDeleteUser": "O Utilizador e todas as suas informações vão ser removidas",
   "subHeaderDeleteUser": "Pretende continuar?",
   "headerDeleteInt": "A Intervenção e todas as suas informações vão ser removidas",
-  "subHeaderDeleteInt": "Pretende continuar?"
+  "subHeaderDeleteInt": "Pretende continuar?",
+  "interventionByType": "Intervenções por Tipo"
 }

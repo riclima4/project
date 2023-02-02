@@ -150,13 +150,11 @@
         <ion-row class="ion-margin-bottom">
           <ion-col size="12" class="ion-padding IntTypeGraph">
             <div class="flexGraph">
-              <h1>Intervenções por Tipo</h1>
-
+              <h1>{{'interventionByType'|translate}}</h1>
               <ion-button fill="clear" (click)="loadCountIntbyType()">
                 <ion-icon slot="icon-only" name="refresh-outline"></ion-icon>
               </ion-button>
             </div>
-
             <canvas
               baseChart
               *ngIf="chartLoaded==true"

@@ -34,15 +34,8 @@ export const updateInterventionType = async (req, res) => {
     idInterventionType
   );
   if (interventionType !== null) {
-    const interventionsArr = await IntervencaoModel.findAll({
-      where: { type: parseInt(idInterventionType) },
-    });
-    if (interventionsArr.length == 0) {
-      interventionType.update(interventionTypeUpdated);
-      return res.send("Tipo de Intervencao editado");
-    } else {
-      return res.send("401");
-    }
+    interventionType.update(interventionTypeUpdated);
+    return res.send("Tipo de Intervencao editado");
   } else {
     return res.send("401");
   }
