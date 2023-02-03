@@ -369,15 +369,21 @@ export class UsersComponent implements OnInit {
     }, 2000);
   }
   getAll() {
+    this.page = 0;
     if (this.searchTerm == '') {
       this.resultsCount = 10;
-
       return;
     }
     this.crudService.getUserCount('userCount').subscribe((res) => {
-      this.resultsCount = res.users.length;
-      // console.log(this.totalPages);
-      this.disableBtn();
+      if (res.users.length <= 0) {
+        this.resultsCount = 10;
+        this.disableBtn();
+        return;
+      } else {
+        this.resultsCount = res.users.length;
+        // console.log(this.totalPages);
+        this.disableBtn();
+      }
     });
   }
 }

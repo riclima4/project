@@ -201,14 +201,22 @@ export class MarcasComponent implements OnInit {
     });
   }
   getAllMarcas() {
+    this.page = 0;
     if (this.searchTerm == '') {
       this.resultsCount = 10;
       return;
     }
+
     this.crudService.getMarca('marcas').subscribe((res) => {
-      this.resultsCount = res.marca.length;
-      // console.log(this.totalPages);
-      this.disableBtn();
+      if (res.marca.length <= 0) {
+        this.resultsCount = 10;
+        this.disableBtn();
+        return;
+      } else {
+        this.resultsCount = res.marca.length;
+        // console.log(this.totalPages);
+        this.disableBtn();
+      }
     });
   }
   updateInputMarca(item: any) {

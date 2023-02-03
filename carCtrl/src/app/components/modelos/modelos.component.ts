@@ -217,15 +217,22 @@ export class ModelosComponent implements OnInit {
     });
   }
   getAllModelos() {
+    this.page = 0;
     if (this.searchTerm == '') {
       this.resultsCount = 10;
 
       return;
     }
     this.crudService.getAllModelos('modelos').subscribe((res) => {
-      this.resultsCount = res.modelo.length;
-      // console.log(this.totalPages);
-      this.disableBtn();
+      if (res.modelo.length <= 0) {
+        this.resultsCount = 10;
+        this.disableBtn();
+        return;
+      } else {
+        this.resultsCount = res.modelo.length;
+        // console.log(this.totalPages);
+        this.disableBtn();
+      }
     });
   }
   updateInputModelo(item: any) {
