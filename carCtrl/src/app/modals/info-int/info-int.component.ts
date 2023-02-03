@@ -10,6 +10,7 @@ export class InfoIntComponent implements OnInit {
   item: any;
 
   constructor(private modalCtrl: ModalController) {}
+
   ngOnInit() {}
   dismissModal() {
     this.modalCtrl.dismiss();

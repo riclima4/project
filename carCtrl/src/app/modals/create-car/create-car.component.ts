@@ -31,7 +31,6 @@ export class CreateCarComponent implements OnInit {
   constructor(
     private modalCtrl: ModalController,
     private crudService: CrudService,
-    private alertController: AlertController,
     private toastController: ToastController,
     private loadingCtrl: LoadingController,
     private TranslateService: TranslateService
@@ -46,25 +45,26 @@ export class CreateCarComponent implements OnInit {
   dismissModal() {
     this.modalCtrl.dismiss();
   }
-  async presentAlert() {
-    const alert = await this.alertController.create({
-      header: 'Erro',
-      subHeader: 'Dados Inválidos',
-      mode: 'ios',
-      buttons: ['OK'],
-    });
+  async presentToast(position: 'top' | 'middle' | 'bottom', nome: string) {
+    if (nome == 'car') {
+      const toast = await this.toastController.create({
+        message: this.TranslateService.instant('toastCar'),
+        duration: 2000,
+        position: position,
+        color: 'success',
+      });
 
-    await alert.present();
-  }
-  async presentToast(position: 'top' | 'middle' | 'bottom') {
-    const toast = await this.toastController.create({
-      message: this.TranslateService.instant('toastCar'),
-      duration: 2000,
-      position: position,
-      color: 'success',
-    });
+      await toast.present();
+    } else if (nome == 'error') {
+      const toast = await this.toastController.create({
+        message: this.TranslateService.instant('toastData'),
+        duration: 2000,
+        position: position,
+        color: 'danger',
+      });
 
-    await toast.present();
+      await toast.present();
+    }
   }
   async loadingSpinner() {
     const loading = await this.loadingCtrl.create({
@@ -74,34 +74,32 @@ export class CreateCarComponent implements OnInit {
     });
     await loading.present();
   }
-
   async loadGasType() {
     this.crudService.getGasType('combustivel').subscribe((res) => {
       this.gasType = res.gasType;
-      console.log(this.gasType);
+      // console.log(this.gasType);
     });
   }
   async loadYears() {
     this.crudService.getYear('years').subscribe((res) => {
       this.years = res.years;
-      console.log(this.years);
+      // console.log(this.years);
     });
   }
   async loadMarcas() {
     this.crudService.getMarca('marcas').subscribe((res) => {
       this.marcas = res.marca;
-      console.log(this.marcas);
+      // console.log(this.marcas);
     });
   }
   async loadModelo($event: any) {
     this.idMarca = $event.target.value;
-    console.log(this.idMarca);
+    // console.log(this.idMarca);
     this.crudService.getModelo('modelo', this.idMarca).subscribe((res) => {
       this.modelos = res.modelo;
-      console.log(this.modelos);
+      // console.log(this.modelos);
     });
   }
-
   newCar() {
     if (
       this.nomeInput &&
@@ -122,18 +120,18 @@ export class CreateCarComponent implements OnInit {
         gasType: this.fuelInput,
         kilometragem: this.kilometragemInput,
       };
-      console.log(newCar);
+      // console.log(newCar);
       this.crudService.create('newCar', newCar).subscribe((res) => {
-        console.log(res);
+        // console.log(res);
       });
       this.loadingSpinner();
 
       setTimeout(() => {
         this.dismissModal();
-        this.presentToast('top');
+        this.presentToast('top', 'car');
       }, 2000);
     } else {
-      this.presentAlert();
+      this.presentToast('top', 'error');
     }
   }
 }

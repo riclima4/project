@@ -20,7 +20,6 @@ export class Tab3Page {
   totalPrice: any;
   carAndPrice: Array<any> = [];
   toggleDarkMode: any;
-
   carros: any;
   constructor(
     private translateService: TranslateService,
