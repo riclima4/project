@@ -1,7 +1,6 @@
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
 import {
-  AlertController,
   LoadingController,
   ModalController,
   ToastController,
@@ -32,7 +31,6 @@ export class UpdateCarComponent implements OnInit {
   constructor(
     private modalCtrl: ModalController,
     private crudService: CrudService,
-    private alertController: AlertController,
     private toastController: ToastController,
     private loadingCtrl: LoadingController,
     private TranslateService: TranslateService
@@ -55,25 +53,27 @@ export class UpdateCarComponent implements OnInit {
   dismissModal() {
     this.modalCtrl.dismiss();
   }
-  async presentAlert() {
-    const alert = await this.alertController.create({
-      header: 'Erro',
-      subHeader: 'Dados Inválidos',
-      mode: 'ios',
-      buttons: ['OK'],
-    });
 
-    await alert.present();
-  }
-  async presentToast(position: 'top' | 'middle' | 'bottom') {
-    const toast = await this.toastController.create({
-      message: this.TranslateService.instant('toastCarUpdate'),
-      duration: 2000,
-      position: position,
-      color: 'success',
-    });
+  async presentToast(position: 'top' | 'middle' | 'bottom', nome: string) {
+    if (nome == 'success') {
+      const toast = await this.toastController.create({
+        message: this.TranslateService.instant('toastCarUpdate'),
+        duration: 2000,
+        position: position,
+        color: 'success',
+      });
 
-    await toast.present();
+      await toast.present();
+    } else if (nome == 'error') {
+      const toast = await this.toastController.create({
+        message: this.TranslateService.instant('toastData'),
+        duration: 2000,
+        position: position,
+        color: 'danger',
+      });
+
+      await toast.present();
+    }
   }
   async loadingSpinner() {
     const loading = await this.loadingCtrl.create({
@@ -143,10 +143,10 @@ export class UpdateCarComponent implements OnInit {
 
       setTimeout(() => {
         this.dismissModal();
-        this.presentToast('top');
+        this.presentToast('top', 'success');
       }, 2000);
     } else {
-      this.presentAlert();
+      this.presentToast('top', 'error');
     }
   }
 }

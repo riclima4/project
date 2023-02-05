@@ -57,7 +57,9 @@ export class CrudService {
   getAllCars(controller: string): Observable<Car> {
     return this.http.get<Car>(`${this.url}/api/${controller}/`);
   }
-
+  getUserByEmail(controller: string, email: string): Observable<Users> {
+    return this.http.get<Users>(`${this.url}/api/${controller}/${email}`);
+  }
   getUsers(
     controller: string,
     page: number,

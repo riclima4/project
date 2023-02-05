@@ -21,6 +21,7 @@ export class Tab3Page {
   carAndPrice: Array<any> = [];
   toggleDarkMode: any;
   carros: any;
+  itemsProcessed = 0;
   constructor(
     private translateService: TranslateService,
     private toastController: ToastController,
@@ -37,7 +38,7 @@ export class Tab3Page {
     this.email = this.user.email;
     this.type = this.user.type;
     this.loadCarros();
-    this.loadIntervencoesTotalPrice();
+    // this.loadIntervencoesTotalPrice();
   }
   getToken = async () => {
     const token = await Preferences.get({ key: 'token' });
@@ -120,11 +121,13 @@ export class Tab3Page {
     }
   }
   async loadCarros() {
+    this.itemsProcessed = 0;
     this.carAndPrice = [];
     this.crudService.getCars('car', this.user.idUser).subscribe((res) => {
       this.carros = res.cars;
       // console.log(this.carros);
       this.carros.forEach((item: any) => {
+        this.itemsProcessed++;
         this.crudService
           .getCars('carByIdPrice', item.idCarro)
           .subscribe((res) => {
@@ -133,22 +136,17 @@ export class Tab3Page {
               price: res,
             };
             this.carAndPrice.push(objPriceAndCar);
-            // console.log(this.carAndPrice);
+            console.log(this.carAndPrice);
+            if (this.itemsProcessed === this.carros.length) {
+              this.totalPrice = 0;
+              this.carAndPrice.forEach((item) => {
+                this.totalPrice = this.totalPrice + item.price;
+              });
+              // console.log(this.totalPrice);
+            }
             return;
           });
       });
     });
-  }
-  async loadIntervencoesTotalPrice() {
-    this.totalPrice = 0;
-    this.crudService
-      .getIntervencao('intervencoes', this.user.idUser)
-      .subscribe((res) => {
-        this.intervencoes = res.intervencao;
-        // console.log(this.intervencoes);
-        this.intervencoes.forEach((element: any) => {
-          this.totalPrice = this.totalPrice + element.price;
-        });
-      });
   }
 }

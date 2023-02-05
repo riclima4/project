@@ -10,6 +10,7 @@ import { Tab2PageRoutingModule } from './tab2-routing.module';
 import { CreateCarComponent } from '../modals/create-car/create-car.component';
 import { UpdateCarComponent } from '../modals/update-car/update-car.component';
 import { ComponentsModule } from '../components/components.module';
+import { TradeCarComponent } from '../modals/trade-car/trade-car.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,13 @@ import { ComponentsModule } from '../components/components.module';
     CreateCarComponent,
     UpdateCarComponent,
     InfoCarComponent,
+    TradeCarComponent,
   ],
-  entryComponents: [CreateCarComponent, UpdateCarComponent],
+  entryComponents: [
+    CreateCarComponent,
+    UpdateCarComponent,
+    InfoCarComponent,
+    TradeCarComponent,
+  ],
 })
 export class Tab2PageModule {}
