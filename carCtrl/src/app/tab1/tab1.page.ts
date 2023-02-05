@@ -21,12 +21,13 @@ import { CrudService } from '../services/api/crud.service';
   styleUrls: ['tab1.page.scss'],
 })
 export class Tab1Page {
-  intervencoes: any;
+  intervencoes = [];
   user: any;
   userID: any;
   haveCars: any;
   carros: any;
   haveInterventions: any;
+  intervencoesByCar = [];
 
   constructor(
     private modalCtrl: ModalController,
@@ -44,7 +45,7 @@ export class Tab1Page {
   }
   ionViewDidEnter() {
     this.loadIntervencoes();
-    this.loadCarros();
+    // this.loadCarros();
   }
 
   getToken = async () => {
@@ -158,29 +159,53 @@ export class Tab1Page {
       this.presentToastDelete('top');
     }, 2000);
   }
+  // async loadIntervencoes() {
+  //   // console.log(this.userID);
+  //   this.crudService
+  //     .getIntervencao('intervencoes', this.userID)
+  //     .subscribe((res) => {
+  //       this.intervencoes = res.intervencao;
+  //       // console.log(this.intervencoes);
+  //       if (this.intervencoes.length > 0) {
+  //         this.haveInterventions = true;
+  //         // console.log(this.haveCars);
+  //         return;
+  //       }
+  //       this.haveInterventions = false;
+  //       // console.log(this.haveCars);
+  //     });
+  // }
   async loadIntervencoes() {
-    // console.log(this.userID);
-    this.crudService
-      .getIntervencao('intervencoes', this.userID)
-      .subscribe((res) => {
-        this.intervencoes = res.intervencao;
-        // console.log(this.intervencoes);
-        if (this.intervencoes.length > 0) {
-          this.haveInterventions = true;
-          // console.log(this.haveCars);
-          return;
-        }
-        this.haveInterventions = false;
-        // console.log(this.haveCars);
-      });
-  }
-  async loadCarros() {
+    this.intervencoes = [];
+    this.intervencoesByCar = [];
     this.crudService.getCars('car', this.userID).subscribe((res) => {
       this.carros = res.cars;
 
       if (this.carros.length > 0) {
         this.haveCars = true;
         // console.log(this.haveCars);
+
+        this.carros.forEach((carro: any) => {
+          this.crudService
+            .getIntervencao('intervencao', carro.idCarro)
+            .subscribe((res) => {
+              // this.intervencoesByCar.push();
+              res.intervencao.forEach((car: any) => {
+                console.log(car);
+                this.intervencoes.push(car);
+                console.log(this.intervencoes);
+              });
+
+              if (this.intervencoes.length > 0) {
+                this.haveInterventions = true;
+                // console.log(this.haveCars);
+                return;
+              }
+              this.haveInterventions = false;
+              // console.log(this.haveCars);
+            });
+        });
+
         return;
       }
       this.haveCars = false;

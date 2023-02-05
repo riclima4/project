@@ -13,6 +13,7 @@ import { UpdateCarComponent } from '../modals/update-car/update-car.component';
 import { Preferences } from '@capacitor/preferences';
 import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
+import { TradeCarComponent } from '../modals/trade-car/trade-car.component';
 
 @Component({
   selector: 'app-tab2',
@@ -180,9 +181,21 @@ export class Tab2Page {
         item: item,
       },
     });
-    modaInfoCar.onDidDismiss().then(() => {
+
+    await modaInfoCar.present();
+  }
+  async openModaTradeCar(item: any) {
+    // console.log(item);
+    const modaTradeCar = await this.modalCtrl.create({
+      component: TradeCarComponent,
+      componentProps: {
+        item: item,
+      },
+    });
+    modaTradeCar.onDidDismiss().then(() => {
+      // this.loadingSpinner();
       this.loadCarros();
     });
-    await modaInfoCar.present();
+    await modaTradeCar.present();
   }
 }

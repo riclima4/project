@@ -36,13 +36,13 @@ const IntervencaoModel = dbInstance.define("intervencao", {
       notEmpty: true,
     },
   },
-  idUser: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
-  },
+  // idUser: {
+  //   type: Sequelize.INTEGER,
+  //   allowNull: false,
+  //   validate: {
+  //     notEmpty: true,
+  //   },
+  // },
   data: {
     type: Sequelize.DATEONLY,
     defaultValue: Sequelize.NOW,

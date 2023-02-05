@@ -36,6 +36,13 @@
         <ion-button (click)="openModalUpdateCarro(item)">
           <ion-icon slot="icon-only" name="create"></ion-icon>
         </ion-button>
+        <ion-button (click)="openModaTradeCar(item)" color="warning">
+          <ion-icon
+            class="icons"
+            slot="icon-only"
+            name="swap-horizontal-outline"
+          ></ion-icon>
+        </ion-button>
         <ion-button
           (click)="deleteCarroActionSheet(item.idCarro)"
           color="danger"
