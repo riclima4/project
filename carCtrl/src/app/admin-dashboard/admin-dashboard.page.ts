@@ -11,6 +11,7 @@ import {
 } from 'chart.js/dist/types/index';
 import jwt_decode from 'jwt-decode';
 import { CrudService } from '../services/api/crud.service';
+import { AuthenticationService } from '../services/auth/authentication.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -32,7 +33,8 @@ export class AdminDashboardPage implements OnInit {
     private toastController: ToastController,
     private router: Router,
     private crudService: CrudService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private authService: AuthenticationService
   ) {}
 
   ngOnInit() {
@@ -78,15 +80,10 @@ export class AdminDashboardPage implements OnInit {
       // console.log(this.userID);
     }
   }
-  async logout() {
-    const token = await Preferences.get({ key: 'token' });
-
-    // console.log(token.value !== null);
-    if (token) {
-      Preferences.remove({ key: 'token' });
-      window.location.reload();
-    }
-  }
+  logout = async () => {
+    this.authService.logout();
+    window.location.reload();
+  };
   async changeLanguage(language: string) {
     await Preferences.set({ key: 'user-lang', value: language });
 

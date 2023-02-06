@@ -43,6 +43,16 @@ export class Tab2Page {
   ionViewDidEnter() {
     this.loadCarros();
   }
+  async loadingSpinner() {
+    const loading = await this.loadingCtrl.create({
+      spinner: 'crescent',
+      mode: 'ios',
+    });
+    await loading.present();
+    setTimeout(() => {
+      loading.dismiss();
+    }, 2000);
+  }
   checkToken = async () => {
     const hasToken = await Preferences.get({ key: 'token' });
     if (hasToken.value === null) {
@@ -68,15 +78,6 @@ export class Tab2Page {
       this.user = user;
       this.userID = this.user.idUser;
       // console.log(this.userID);
-    }
-  };
-  logout = async () => {
-    const token = await Preferences.get({ key: 'token' });
-
-    // console.log(token.value !== null);
-    if (token) {
-      Preferences.remove({ key: 'token' });
-      window.location.reload();
     }
   };
   async loadCarros() {
@@ -117,21 +118,36 @@ export class Tab2Page {
     });
     await modalUpdateCarro.present();
   }
-  async loadingSpinner() {
-    const loading = await this.loadingCtrl.create({
-      spinner: 'crescent',
-      mode: 'ios',
+  async openModaInfoCar(item: any) {
+    // console.log(item);
+    const modaInfoCar = await this.modalCtrl.create({
+      component: InfoCarComponent,
+      componentProps: {
+        item: item,
+      },
     });
-    await loading.present();
-    setTimeout(() => {
-      loading.dismiss();
-    }, 2000);
+
+    await modaInfoCar.present();
+  }
+  async openModaTradeCar(item: any) {
+    // console.log(item);
+    const modaTradeCar = await this.modalCtrl.create({
+      component: TradeCarComponent,
+      componentProps: {
+        item: item,
+      },
+    });
+    modaTradeCar.onDidDismiss().then(() => {
+      // this.loadingSpinner();
+      this.loadCarros();
+    });
+    await modaTradeCar.present();
   }
   async deleteCarroActionSheet(id: number) {
     const actionSheet = await this.actionSheetCtrl.create({
       mode: 'ios',
-      header: 'O carro e as suas intervenções vão ser removidas',
-      subHeader: 'Pretende continuar?',
+      header: this.TranslateService.instant('headerDeleteCar'),
+      subHeader: this.TranslateService.instant('subHeaderDeleteCar'),
       buttons: [
         {
           text: 'Delete',
@@ -172,30 +188,5 @@ export class Tab2Page {
       this.loadCarros();
       this.presentToastDelete('top');
     }, 2000);
-  }
-  async openModaInfoCar(item: any) {
-    // console.log(item);
-    const modaInfoCar = await this.modalCtrl.create({
-      component: InfoCarComponent,
-      componentProps: {
-        item: item,
-      },
-    });
-
-    await modaInfoCar.present();
-  }
-  async openModaTradeCar(item: any) {
-    // console.log(item);
-    const modaTradeCar = await this.modalCtrl.create({
-      component: TradeCarComponent,
-      componentProps: {
-        item: item,
-      },
-    });
-    modaTradeCar.onDidDismiss().then(() => {
-      // this.loadingSpinner();
-      this.loadCarros();
-    });
-    await modaTradeCar.present();
   }
 }

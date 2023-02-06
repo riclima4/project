@@ -8,6 +8,9 @@
     </ion-button>
   </ion-buttons>
   <ion-buttons slot="end" *ngIf="userType == 100">
+    <ion-button fill="solid" color="primary" (click)="openModalHelp()">
+      <ion-icon name="help-circle"></ion-icon>
+    </ion-button>
     <ion-button fill="solid" color="primary" (click)="adminDashboard()">
       <ion-icon name="settings"></ion-icon>
     </ion-button>

@@ -19,8 +19,6 @@ export class UpdateIntervencaoComponent implements OnInit {
   descInput: any;
   carInput: any;
   kilometragemInput: any;
-  carros: any;
-  carroById: any;
   priceInput: any;
   carroInput: any;
   tipoInput: any;
@@ -33,19 +31,11 @@ export class UpdateIntervencaoComponent implements OnInit {
     private loadingCtrl: LoadingController,
     private TranslateService: TranslateService
   ) {}
-  compareWith(item1: any, item2: any) {
-    return item1 && item2 ? item1.idCarro === item2.idCarro : item1 === item2;
-  }
-  async loadingSpinner() {
-    const loading = await this.loadingCtrl.create({
-      spinner: 'crescent',
-      mode: 'ios',
-      duration: 2000,
-    });
-    await loading.present();
+
+  dismissModal() {
+    this.modalCtrl.dismiss();
   }
   ngOnInit() {
-    this.loadCarroById();
     this.loadInterventionType();
   }
   ionViewDidEnter() {
@@ -56,6 +46,14 @@ export class UpdateIntervencaoComponent implements OnInit {
     this.priceInput = this.item.price;
     this.tipoInput = this.item.type.toString();
   }
+  async loadingSpinner() {
+    const loading = await this.loadingCtrl.create({
+      spinner: 'crescent',
+      mode: 'ios',
+      duration: 2000,
+    });
+    await loading.present();
+  }
   async loadInterventionType() {
     this.crudService
       .getInterventionType('interventionType')
@@ -64,42 +62,25 @@ export class UpdateIntervencaoComponent implements OnInit {
         // console.log(this.interventionType);
       });
   }
-  async loadCarros() {
-    this.crudService.getCars('car', this.item.idCarro).subscribe((res) => {
-      this.carros = res.cars;
-      // console.log(this.carros);
-    });
-  }
+  async presentToast(position: 'top' | 'middle' | 'bottom', nome: string) {
+    if (nome == 'success') {
+      const toast = await this.toastController.create({
+        message: this.TranslateService.instant('toastIntUpdate'),
+        duration: 2000,
+        position: position,
+        color: 'success',
+      });
 
-  async loadCarroById() {
-    this.crudService.getCars('carById', this.item.idCarro).subscribe((res) => {
-      this.carroById = res.cars;
-      // console.log(this.carroById);
-    });
-  }
-
-  dismissModal() {
-    this.modalCtrl.dismiss();
-  }
-  async presentAlert() {
-    const alert = await this.alertController.create({
-      header: 'Erro',
-      subHeader: 'Dados Inválidos',
-      mode: 'ios',
-      buttons: ['OK'],
-    });
-
-    await alert.present();
-  }
-  async presentToast(position: 'top' | 'middle' | 'bottom') {
-    const toast = await this.toastController.create({
-      message: this.TranslateService.instant('toastIntUpdate'),
-      duration: 2000,
-      position: position,
-      color: 'success',
-    });
-
-    await toast.present();
+      await toast.present();
+    } else if (nome == 'error') {
+      const toast = await this.toastController.create({
+        message: this.TranslateService.instant('toastData'),
+        duration: 2000,
+        position: position,
+        color: 'danger',
+      });
+      await toast.present();
+    }
   }
   newUpdate() {
     if (
@@ -128,10 +109,10 @@ export class UpdateIntervencaoComponent implements OnInit {
       this.loadingSpinner();
       setTimeout(() => {
         this.dismissModal();
-        this.presentToast('top');
+        this.presentToast('top', 'success');
       }, 2000);
     } else {
-      this.presentAlert();
+      this.presentToast('top', 'error');
     }
   }
 }

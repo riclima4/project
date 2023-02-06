@@ -39,6 +39,14 @@ export class CreateIntervencaoComponent implements OnInit {
   dismissModal() {
     this.modalCtrl.dismiss();
   }
+  async loadingSpinner() {
+    const loading = await this.loadingCtrl.create({
+      spinner: 'crescent',
+      mode: 'ios',
+      duration: 2000,
+    });
+    await loading.present();
+  }
   async presentToast(position: 'top' | 'middle' | 'bottom', nome: string) {
     if (nome == 'int') {
       const toast = await this.toastController.create({
@@ -65,14 +73,6 @@ export class CreateIntervencaoComponent implements OnInit {
       this.carros = res.cars;
       // console.log(this.carros);
     });
-  }
-  async loadingSpinner() {
-    const loading = await this.loadingCtrl.create({
-      spinner: 'crescent',
-      mode: 'ios',
-      duration: 2000,
-    });
-    await loading.present();
   }
   async loadInterventionType() {
     this.crudService
