@@ -179,13 +179,13 @@
       <div *ngSwitchCase="4" class="ion-padding">
         <ion-segment [(ngModel)]="type" mode="md" class="segmentos">
           <ion-segment-button value="marcas">
-            <ion-label>Marcas</ion-label>
+            <ion-label>{{ "brands" | translate }}</ion-label>
           </ion-segment-button>
           <ion-segment-button value="modelos">
-            <ion-label>Modelos</ion-label>
+            <ion-label>{{ "models" | translate }}</ion-label>
           </ion-segment-button>
           <ion-segment-button value="outros">
-            <ion-label>Outros</ion-label>
+            <ion-label>{{ "others" | translate }}</ion-label>
           </ion-segment-button>
         </ion-segment>
         <div [ngSwitch]="type">
@@ -194,8 +194,8 @@
           <div *ngSwitchCase="'outros'">
             <div class="breadcrumbs">
               <ion-breadcrumbs>
-                <ion-breadcrumb>Carros</ion-breadcrumb>
-                <ion-breadcrumb>Outros</ion-breadcrumb>
+                <ion-breadcrumb>{{ "cars" | translate }}</ion-breadcrumb>
+                <ion-breadcrumb>{{ "others" | translate }}</ion-breadcrumb>
               </ion-breadcrumbs>
             </div>
             <div class="tabelasCarroOutros">
@@ -205,7 +205,6 @@
           </div>
         </div>
       </div>
-      <!-- END CARS PAGE -->
     </ion-content>
   </div>
 </ion-split-pane>

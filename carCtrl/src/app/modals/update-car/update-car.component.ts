@@ -1,7 +1,6 @@
 import { TranslateService } from '@ngx-translate/core';
 import { Component, OnInit } from '@angular/core';
 import {
-  AlertController,
   LoadingController,
   ModalController,
   ToastController,
@@ -32,7 +31,6 @@ export class UpdateCarComponent implements OnInit {
   constructor(
     private modalCtrl: ModalController,
     private crudService: CrudService,
-    private alertController: AlertController,
     private toastController: ToastController,
     private loadingCtrl: LoadingController,
     private TranslateService: TranslateService
@@ -55,25 +53,27 @@ export class UpdateCarComponent implements OnInit {
   dismissModal() {
     this.modalCtrl.dismiss();
   }
-  async presentAlert() {
-    const alert = await this.alertController.create({
-      header: 'Erro',
-      subHeader: 'Dados Inválidos',
-      mode: 'ios',
-      buttons: ['OK'],
-    });
 
-    await alert.present();
-  }
-  async presentToast(position: 'top' | 'middle' | 'bottom') {
-    const toast = await this.toastController.create({
-      message: this.TranslateService.instant('toastCarUpdate'),
-      duration: 2000,
-      position: position,
-      color: 'success',
-    });
+  async presentToast(position: 'top' | 'middle' | 'bottom', nome: string) {
+    if (nome == 'success') {
+      const toast = await this.toastController.create({
+        message: this.TranslateService.instant('toastCarUpdate'),
+        duration: 2000,
+        position: position,
+        color: 'success',
+      });
 
-    await toast.present();
+      await toast.present();
+    } else if (nome == 'error') {
+      const toast = await this.toastController.create({
+        message: this.TranslateService.instant('toastData'),
+        duration: 2000,
+        position: position,
+        color: 'danger',
+      });
+
+      await toast.present();
+    }
   }
   async loadingSpinner() {
     const loading = await this.loadingCtrl.create({
@@ -86,27 +86,27 @@ export class UpdateCarComponent implements OnInit {
   async loadGasType() {
     this.crudService.getGasType('combustivel').subscribe((res) => {
       this.gasType = res.gasType;
-      console.log(this.gasType);
+      // console.log(this.gasType);
     });
   }
   async loadYears() {
     this.crudService.getYear('years').subscribe((res) => {
       this.years = res.years;
-      console.log(this.years);
+      // console.log(this.years);
     });
   }
   async loadMarcas() {
     this.crudService.getMarca('marcas').subscribe((res) => {
       this.marcas = res.marca;
-      console.log(this.marcas);
+      // console.log(this.marcas);
     });
   }
   async loadModelo($event: any) {
     this.idMarca = $event.target.value;
-    console.log(this.idMarca);
+    // console.log(this.idMarca);
     this.crudService.getModelo('modelo', this.idMarca).subscribe((res) => {
       this.modelos = res.modelo;
-      console.log(this.modelos);
+      // console.log(this.modelos);
       this.modeloInput = this.item.modelo.toString();
     });
   }
@@ -133,7 +133,7 @@ export class UpdateCarComponent implements OnInit {
         modelo: this.modeloInput,
         gasType: this.fuelInput,
       };
-      console.log(idCar);
+      // console.log(idCar);
       this.crudService
         .update('updateCar', idCar, updatedCar)
         .subscribe((res) => {
@@ -143,10 +143,10 @@ export class UpdateCarComponent implements OnInit {
 
       setTimeout(() => {
         this.dismissModal();
-        this.presentToast('top');
+        this.presentToast('top', 'success');
       }, 2000);
     } else {
-      this.presentAlert();
+      this.presentToast('top', 'error');
     }
   }
 }

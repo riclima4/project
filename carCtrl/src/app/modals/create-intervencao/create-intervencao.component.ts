@@ -22,12 +22,11 @@ export class CreateIntervencaoComponent implements OnInit {
   idUser: any;
   priceInput: any;
   tipoInput: any;
-
   interventionType: any;
+
   constructor(
     private modalCtrl: ModalController,
     private crudService: CrudService,
-    private alertController: AlertController,
     private toastController: ToastController,
     private loadingCtrl: LoadingController,
     private TranslateService: TranslateService
@@ -40,30 +39,31 @@ export class CreateIntervencaoComponent implements OnInit {
   dismissModal() {
     this.modalCtrl.dismiss();
   }
-  async presentAlert() {
-    const alert = await this.alertController.create({
-      header: 'Erro',
-      subHeader: 'Dados Inválidos',
-      mode: 'ios',
-      buttons: ['OK'],
-    });
+  async presentToast(position: 'top' | 'middle' | 'bottom', nome: string) {
+    if (nome == 'int') {
+      const toast = await this.toastController.create({
+        message: this.TranslateService.instant('toastInt'),
+        duration: 2000,
+        position: position,
+        color: 'success',
+      });
 
-    await alert.present();
-  }
-  async presentToast(position: 'top' | 'middle' | 'bottom') {
-    const toast = await this.toastController.create({
-      message: this.TranslateService.instant('toastInt'),
-      duration: 2000,
-      position: position,
-      color: 'success',
-    });
+      await toast.present();
+    } else if (nome == 'error') {
+      const toast = await this.toastController.create({
+        message: this.TranslateService.instant('toastData'),
+        duration: 2000,
+        position: position,
+        color: 'danger',
+      });
 
-    await toast.present();
+      await toast.present();
+    }
   }
   async loadCarros() {
     this.crudService.getCars('car', this.idUser).subscribe((res) => {
       this.carros = res.cars;
-      console.log(this.carros);
+      // console.log(this.carros);
     });
   }
   async loadingSpinner() {
@@ -79,7 +79,7 @@ export class CreateIntervencaoComponent implements OnInit {
       .getInterventionType('interventionType')
       .subscribe((res) => {
         this.interventionType = res.interventionType;
-        console.log(this.interventionType);
+        // console.log(this.interventionType);
       });
   }
   newIntervencao() {
@@ -100,20 +100,20 @@ export class CreateIntervencaoComponent implements OnInit {
         price: this.priceInput,
         type: parseInt(this.tipoInput),
       };
-      console.log(newIntervencao);
+      // console.log(newIntervencao);
       this.crudService
         .create('newIntervencao', newIntervencao)
         .subscribe((res) => {
-          console.log(res);
+          // console.log(res);
         });
       this.loadingSpinner();
 
       setTimeout(() => {
         this.dismissModal();
-        this.presentToast('top');
+        this.presentToast('top', 'int');
       }, 2000);
     } else {
-      this.presentAlert();
+      this.presentToast('top', 'error');
     }
   }
 }

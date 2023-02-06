@@ -1,7 +1,7 @@
 <div class="breadcrumbs">
   <ion-breadcrumbs>
-    <ion-breadcrumb>Carros</ion-breadcrumb>
-    <ion-breadcrumb>Modelos</ion-breadcrumb>
+    <ion-breadcrumb>{{ "cars" | translate }}</ion-breadcrumb>
+    <ion-breadcrumb>{{ "models" | translate }}</ion-breadcrumb>
   </ion-breadcrumbs>
 </div>
 <ion-button
@@ -11,12 +11,12 @@
   color="success"
   class="ion-margin-top"
 >
-  Adicionar Modelo
+  {{ "addModel" | translate }}
   <ion-icon name="add" slot="end"></ion-icon>
 </ion-button>
 <div class="addModelo" *ngIf="!hideCreate">
   <div class="marcaTitle">
-    <h1>Adicionar Modelo</h1>
+    <h1>{{ "addModel" | translate }}</h1>
     <ion-button
       fill="clear"
       (click)="hideCreate = true; hideBtn = false"
@@ -28,11 +28,11 @@
   <form #myForm="ngForm" class="registerForm" (ngSubmit)="newModelo(myForm)">
     <ion-list class="formCss">
       <ion-item>
-        <ion-label position="fixed">Marca</ion-label>
+        <ion-label position="fixed">{{ "brand" | translate }}</ion-label>
         <ion-select
           mode="ios"
           required
-          placeholder="Insere uma marca"
+          placeholder="{{ 'insertBrand' | translate }}"
           [(ngModel)]="marcaInput"
         >
           <ion-select-option
@@ -44,12 +44,12 @@
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-label position="fixed">Modelo</ion-label>
+        <ion-label position="fixed">{{ "model" | translate }}</ion-label>
         <ion-input
           required
           name="modelo"
           type="text"
-          placeholder="Insere o Modelo"
+          placeholder="{{ 'insertModel' | translate }}"
           [(ngModel)]="modeloInput"
         ></ion-input>
       </ion-item>
@@ -61,7 +61,7 @@
 </div>
 <div class="updateModelo" *ngIf="!hideUpdate">
   <div class="marcaTitle">
-    <h1>Editar Modelo</h1>
+    <h1>{{ "updateModel" | translate }}</h1>
     <ion-button fill="clear" (click)="hideUpdate = true" color="dark">
       <ion-icon name="close" slot="icon-only"></ion-icon>
     </ion-button>
@@ -70,7 +70,7 @@
   <form class="registerForm" (ngSubmit)="updateModelo()">
     <ion-list class="formCss">
       <ion-item class="ion-margin-bottom">
-        <ion-label position="fixed">Marca</ion-label>
+        <ion-label position="fixed">{{ "brand" | translate }}</ion-label>
         <ion-select mode="ios" required [(ngModel)]="marcaUpdateInput">
           <ion-select-option
             *ngFor="let item of marcasArr"
@@ -87,12 +87,12 @@
         [(ngModel)]="idModeloUpdateInput"
       ></ion-input>
       <ion-item>
-        <ion-label position="fixed">Modelo</ion-label>
+        <ion-label position="fixed">{{ "model" | translate }}</ion-label>
         <ion-input
           required
           name="modelo"
           type="text"
-          placeholder="Insere o Modelo"
+          placeholder="{{ 'insertModel' | translate }}"
           [(ngModel)]="modeloUpdateInput"
         ></ion-input>
       </ion-item>
@@ -103,24 +103,24 @@
   </form>
 </div>
 <div class="modelosSection">
-  <h1>Modelos</h1>
+  <h1>{{ "models" | translate }}</h1>
   <ion-searchbar
     mode="ios"
     show-clear-button="always"
-    placeholder="Procurar"
+    placeholder="{{ 'search' | translate }}"
     [(ngModel)]="searchTerm"
     (ionChange)="getAllModelos()"
   ></ion-searchbar>
   <!-- tabela-->
   <div class="dataGrid">
     <ion-row class="header-row ion-padding-top ion-padding-bottom">
-      <ion-col size="4"> Marca </ion-col>
+      <ion-col size="4"> {{ "brand" | translate }} </ion-col>
       <ion-col size="4" tappable (click)="sortBy('modelo')">
-        Modelo
+        {{ "model" | translate }}
         <ion-icon name="arrow-down" *ngIf="sortDirection == 1"></ion-icon>
         <ion-icon name="arrow-up" *ngIf="sortDirection == 2"></ion-icon>
       </ion-col>
-      <ion-col size="4"> Ação </ion-col>
+      <ion-col size="4"> {{ "action" | translate }} </ion-col>
     </ion-row>
     <!-- data -->
     <ion-row
@@ -172,11 +172,21 @@
           [(ngModel)]="resultsCount"
           (ionChange)="loadModelosCount(); loadModelos(); this.disableBtn()"
         >
-          <ion-select-option [value]="5">5 por página</ion-select-option>
-          <ion-select-option [value]="10"> 10 por página </ion-select-option>
-          <ion-select-option [value]="25"> 25 por página </ion-select-option>
-          <ion-select-option [value]="50"> 50 por página </ion-select-option>
-          <ion-select-option [value]="100"> 100 por página </ion-select-option>
+          <ion-select-option [value]="5">
+            5 {{ "perPage" | translate }}
+          </ion-select-option>
+          <ion-select-option [value]="10">
+            10 {{ "perPage" | translate }}
+          </ion-select-option>
+          <ion-select-option [value]="25">
+            25 {{ "perPage" | translate }}
+          </ion-select-option>
+          <ion-select-option [value]="50">
+            50 {{ "perPage" | translate }}
+          </ion-select-option>
+          <ion-select-option [value]="100">
+            100 {{ "perPage" | translate }}
+          </ion-select-option>
         </ion-select>
       </ion-col>
       <ion-col size="2">

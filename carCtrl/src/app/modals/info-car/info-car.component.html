@@ -8,12 +8,41 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding modalContent">
+<ion-content class="ion-padding modalContent modalImg">
+  <ion-icon name="car-sport-outline"></ion-icon>
   <h1 class="ion-text-center">{{ item.nome }}</h1>
-  <p class="">{{ "brand" | translate }} : {{ item.marca }}</p>
-  <p class="">{{ "model" | translate }} : {{ item.modelo }}</p>
-  <p class="">{{ "engine" | translate }} : {{ item.motor }}</p>
-  <p class="">{{ "year" | translate }} : {{ item.yearType.year }}</p>
-  <p class="">{{ "fuel" | translate }} : {{ item.gasType.gasType }}</p>
-  <p class="">{{ "Killometers" | translate }} : {{ item.kilometragem }}</p>
+  <div class="infoContent">
+    <ion-list>
+      <ion-item>
+        <ion-label>
+          <b>{{ "brand" | translate }}:</b>
+          {{ item.marcaType.marca }}
+          {{ item.modeloType.modelo }}
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <b>{{ "engine" | translate }}:</b> {{ item.motor }}
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <b>{{ "year" | translate }}:</b>
+          {{ item.yearType.year }}
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <b>{{ "fuel" | translate }}:</b>
+          {{ item.gasType.gasType }}
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <b>{{ "Killometers" | translate }}:</b>
+          {{ item.kilometragem }} Km
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>

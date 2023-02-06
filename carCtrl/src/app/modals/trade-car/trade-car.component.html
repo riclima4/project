@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ "carTradeText" | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding modalContent modalImg">
+  <ion-icon class="iconCar" name="car-sport-outline"></ion-icon>
+
+  <div class="infoContent">
+    <ion-list>
+      <ion-text class="ion-text-start">
+        <h3>Transferir: {{ item.nome }}</h3>
+      </ion-text>
+      <ion-item class="ion-margin-bottom">
+        <ion-label>
+          <b>{{ "brand" | translate }}:</b>
+          {{ item.marcaType.marca }}
+          {{ item.modeloType.modelo }}
+        </ion-label>
+      </ion-item>
+      <ion-text class="ion-text-start"><h3>Para:</h3> </ion-text>
+      <form (ngSubmit)="trade()">
+        <ion-item class="ion-margin-bottom">
+          <ion-label position="floating">{{ "email" | translate }}</ion-label>
+
+          <ion-input
+            [(ngModel)]="emailInput"
+            name="email"
+            type="email"
+            required
+            email
+            placeholder="{{ 'insertText' | translate }}"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-button
+          class="ion-margin-top"
+          type="submit"
+          expand="block"
+          color="success"
+        >
+          <ion-icon name="swap-horizontal-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+      </form>
+    </ion-list>
+  </div>
+</ion-content>

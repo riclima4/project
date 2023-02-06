@@ -57,7 +57,7 @@ export class GasTypeComponent implements OnInit {
   async presentToast(position: 'top' | 'middle' | 'bottom', nome: string) {
     if (nome == 'success') {
       const toast = await this.toastController.create({
-        message: 'Tipo de combustível adicionado com sucesso',
+        message: this.translateService.instant('toastGastypeSuccess'),
         duration: 2000,
         position: position,
         color: 'success',
@@ -65,7 +65,7 @@ export class GasTypeComponent implements OnInit {
       await toast.present();
     } else if (nome == 'input') {
       const toast = await this.toastController.create({
-        message: 'Dados inválidos tenta outra vez',
+        message: this.translateService.instant('toastData'),
         duration: 2000,
         position: position,
         color: 'danger',
@@ -73,7 +73,7 @@ export class GasTypeComponent implements OnInit {
       await toast.present();
     } else if (nome == 'edit') {
       const toast = await this.toastController.create({
-        message: 'Tipo de combustível editado com sucesso',
+        message: this.translateService.instant('toastGastypeUpdate'),
         duration: 2000,
         position: position,
         color: 'success',
@@ -82,7 +82,7 @@ export class GasTypeComponent implements OnInit {
       await toast.present();
     } else if (nome == 'delete') {
       const toast = await this.toastController.create({
-        message: 'Tipo de combustível eliminado com sucesso',
+        message: this.translateService.instant('toastGastypeDelete'),
         duration: 2000,
         position: position,
         color: 'success',
@@ -91,8 +91,7 @@ export class GasTypeComponent implements OnInit {
       await toast.present();
     } else if (nome == 'deleteError') {
       const toast = await this.toastController.create({
-        message:
-          'Tipo de combustível não pode ser eliminada pois contem carros adicionados com este tipo. ',
+        message: this.translateService.instant('toastGastypeDeleteError'),
         duration: 2000,
         position: position,
         color: 'danger',
@@ -165,7 +164,6 @@ export class GasTypeComponent implements OnInit {
     return;
   }
   async loadGasType() {
-    this.page = 0;
     this.crudService
       .getGasTypeTable('combustivelTable', this.page, this.resultsCount)
       .subscribe((res) => {
@@ -200,6 +198,7 @@ export class GasTypeComponent implements OnInit {
       setTimeout(() => {
         form.reset();
         this.presentToast('top', 'success');
+        this.page = 0;
         this.loadGasTypeCount();
         this.loadGasType();
         this.hideCreate = true;
@@ -208,14 +207,21 @@ export class GasTypeComponent implements OnInit {
     });
   }
   getAll() {
+    this.page = 0;
     if (this.searchTerm == '') {
       this.resultsCount = 10;
       return;
     }
     this.crudService.getGasType('combustivel').subscribe((res) => {
-      this.resultsCount = res.gasType.length;
-      // console.log(this.totalPages);
-      this.disableBtn();
+      if (res.gasType.length <= 0) {
+        this.resultsCount = 10;
+        this.disableBtn();
+        return;
+      } else {
+        this.resultsCount = res.gasType.length;
+        // console.log(this.totalPages);
+        this.disableBtn();
+      }
     });
   }
   updateInputMarca(item: any) {
@@ -255,9 +261,8 @@ export class GasTypeComponent implements OnInit {
     this.hideUpdate = true;
     const actionSheet = await this.actionSheetCtrl.create({
       mode: 'ios',
-      header:
-        'O Tipo de combustível e todas as suas informações vão ser removidas',
-      subHeader: 'Pretende continuar?',
+      header: this.translateService.instant('headerDeleteGasType'),
+      subHeader: this.translateService.instant('subHeaderDeleteGasType'),
       buttons: [
         {
           text: 'Delete',
@@ -294,6 +299,7 @@ export class GasTypeComponent implements OnInit {
       } else {
         this.loadingSpinner();
         setTimeout(() => {
+          this.page = 0;
           this.loadGasType();
           this.presentToast('top', 'delete');
           this.searchTerm = '';

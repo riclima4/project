@@ -88,14 +88,14 @@ export const deleteCar = async (req, res) => {
   const intervencao = await IntervencaoModel.findAll({
     where: { idCarro: idCarro },
   });
-  if (intervencao !== null) {
-    intervencao.forEach((item) => {
-      item.destroy({ where: { idCarro: idCarro } });
-    });
-  }
   if (carro !== null) {
-    carro.destroy({ where: { idCarro: idCarro } });
-    res.send("Carro Removido com sucesso");
+    if (intervencao !== null) {
+      intervencao.forEach((item) => {
+        item.destroy({ where: { idCarro: idCarro } });
+      });
+      carro.destroy({ where: { idCarro: idCarro } });
+      res.send("Carro Removido com sucesso");
+    }
   } else {
     res.send("Não existe uma Carro com id:" + idCarro);
   }

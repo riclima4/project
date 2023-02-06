@@ -7,8 +7,9 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./info-car.component.scss'],
 })
 export class InfoCarComponent implements OnInit {
-  constructor(private modalCtrl: ModalController) {}
   item: any;
+
+  constructor(private modalCtrl: ModalController) {}
 
   ngOnInit() {}
   dismissModal() {

@@ -57,7 +57,7 @@ export class YearsComponent implements OnInit {
   async presentToast(position: 'top' | 'middle' | 'bottom', nome: string) {
     if (nome == 'success') {
       const toast = await this.toastController.create({
-        message: 'Ano adicionado com sucesso',
+        message: this.translateService.instant('toastYearSuccess'),
         duration: 2000,
         position: position,
         color: 'success',
@@ -65,7 +65,7 @@ export class YearsComponent implements OnInit {
       await toast.present();
     } else if (nome == 'input') {
       const toast = await this.toastController.create({
-        message: 'Dados inválidos tenta outra vez',
+        message: this.translateService.instant('toastData'),
         duration: 2000,
         position: position,
         color: 'danger',
@@ -73,7 +73,7 @@ export class YearsComponent implements OnInit {
       await toast.present();
     } else if (nome == 'edit') {
       const toast = await this.toastController.create({
-        message: 'Ano editado com sucesso',
+        message: this.translateService.instant('toastYearUpdate'),
         duration: 2000,
         position: position,
         color: 'success',
@@ -82,7 +82,7 @@ export class YearsComponent implements OnInit {
       await toast.present();
     } else if (nome == 'delete') {
       const toast = await this.toastController.create({
-        message: 'Ano eliminado com sucesso',
+        message: this.translateService.instant('toastYearDelete'),
         duration: 2000,
         position: position,
         color: 'success',
@@ -91,8 +91,7 @@ export class YearsComponent implements OnInit {
       await toast.present();
     } else if (nome == 'deleteError') {
       const toast = await this.toastController.create({
-        message:
-          'O Ano não pode ser eliminado pois contem carros adicionados com este ano. ',
+        message: this.translateService.instant('toastYearDeleteError'),
         duration: 2000,
         position: position,
         color: 'danger',
@@ -165,7 +164,6 @@ export class YearsComponent implements OnInit {
     return;
   }
   async loadYears() {
-    this.page = 0;
     this.crudService
       .getYearTable('yearsTable', this.page, this.resultsCount)
       .subscribe((res) => {
@@ -201,6 +199,7 @@ export class YearsComponent implements OnInit {
       setTimeout(() => {
         form.reset();
         this.presentToast('top', 'success');
+        this.page = 0;
         this.loadYearsCount();
         this.loadYears();
         this.hideCreate = true;
@@ -209,14 +208,21 @@ export class YearsComponent implements OnInit {
     });
   }
   getAll() {
+    this.page = 0;
     if (this.searchTerm == '') {
       this.resultsCount = 10;
       return;
     }
-    this.crudService.getGasType('combustivel').subscribe((res) => {
-      this.resultsCount = res.gasType.length;
-      // console.log(this.totalPages);
-      this.disableBtn();
+    this.crudService.getYear('years').subscribe((res) => {
+      if (res.years.length <= 0) {
+        this.resultsCount = 10;
+        this.disableBtn();
+        return;
+      } else {
+        this.resultsCount = res.years.length;
+        // console.log(this.totalPages);
+        this.disableBtn();
+      }
     });
   }
   updateInputYear(item: any) {
@@ -256,8 +262,8 @@ export class YearsComponent implements OnInit {
     this.hideUpdate = true;
     const actionSheet = await this.actionSheetCtrl.create({
       mode: 'ios',
-      header: 'O Ano e todas as suas informações vão ser removidas',
-      subHeader: 'Pretende continuar?',
+      header: this.translateService.instant('headerDeleteYear'),
+      subHeader: this.translateService.instant('subHeaderDeleteYear'),
       buttons: [
         {
           text: 'Delete',
@@ -294,6 +300,7 @@ export class YearsComponent implements OnInit {
       } else {
         this.loadingSpinner();
         setTimeout(() => {
+          this.page = 0;
           this.loadYears();
           this.presentToast('top', 'delete');
           this.searchTerm = '';

@@ -61,20 +61,20 @@ export class UpdateIntervencaoComponent implements OnInit {
       .getInterventionType('interventionType')
       .subscribe((res) => {
         this.interventionType = res.interventionType;
-        console.log(this.interventionType);
+        // console.log(this.interventionType);
       });
   }
   async loadCarros() {
     this.crudService.getCars('car', this.item.idCarro).subscribe((res) => {
       this.carros = res.cars;
-      console.log(this.carros);
+      // console.log(this.carros);
     });
   }
 
   async loadCarroById() {
     this.crudService.getCars('carById', this.item.idCarro).subscribe((res) => {
       this.carroById = res.cars;
-      console.log(this.carroById);
+      // console.log(this.carroById);
     });
   }
 
@@ -119,11 +119,11 @@ export class UpdateIntervencaoComponent implements OnInit {
         price: this.priceInput,
         type: this.tipoInput,
       };
-      console.log(idIntervencao);
+      // console.log(idIntervencao);
       this.crudService
         .update('updateIntervencao', idIntervencao, updatedIntervencao)
         .subscribe((res) => {
-          console.log(res);
+          // console.log(res);
         });
       this.loadingSpinner();
       setTimeout(() => {

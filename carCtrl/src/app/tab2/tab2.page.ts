@@ -13,6 +13,7 @@ import { UpdateCarComponent } from '../modals/update-car/update-car.component';
 import { Preferences } from '@capacitor/preferences';
 import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
+import { TradeCarComponent } from '../modals/trade-car/trade-car.component';
 
 @Component({
   selector: 'app-tab2',
@@ -138,6 +139,9 @@ export class Tab2Page {
           data: {
             action: 'delete',
           },
+          handler: () => {
+            this.deleteCarro(id);
+          },
         },
         {
           text: 'Cancel',
@@ -150,17 +154,13 @@ export class Tab2Page {
     });
 
     await actionSheet.present();
-
-    const result = await actionSheet.onDidDismiss();
-    if (result.data.action == 'delete') {
-      this.deleteCarro(id);
-    }
   }
   async presentToastDelete(position: 'top' | 'middle' | 'bottom') {
     const toast = await this.toastController.create({
       message: this.TranslateService.instant('toastCarDelete'),
       duration: 2000,
       position: position,
+      color: 'success',
     });
 
     await toast.present();
@@ -173,18 +173,29 @@ export class Tab2Page {
       this.presentToastDelete('top');
     }, 2000);
   }
-  ////////////////////////////////////////////////////////////
   async openModaInfoCar(item: any) {
-    console.log(item);
+    // console.log(item);
     const modaInfoCar = await this.modalCtrl.create({
       component: InfoCarComponent,
       componentProps: {
         item: item,
       },
     });
-    modaInfoCar.onDidDismiss().then(() => {
+
+    await modaInfoCar.present();
+  }
+  async openModaTradeCar(item: any) {
+    // console.log(item);
+    const modaTradeCar = await this.modalCtrl.create({
+      component: TradeCarComponent,
+      componentProps: {
+        item: item,
+      },
+    });
+    modaTradeCar.onDidDismiss().then(() => {
+      // this.loadingSpinner();
       this.loadCarros();
     });
-    await modaInfoCar.present();
+    await modaTradeCar.present();
   }
 }

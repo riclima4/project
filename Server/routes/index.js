@@ -2,6 +2,7 @@ import Router from "express";
 import {
   deleteUser,
   getAllUsers,
+  getUserByEmail,
   getUserCount,
   getUserid,
   login,
@@ -70,6 +71,7 @@ routes.post("/auth", authRequired);
 
 //Utilizadores
 routes.get("/users", getAllUsers);
+routes.get("/userEmail/:email", getUserByEmail);
 routes.get("/userCount", getUserCount);
 routes.get("/user/:idUser", getUserid);
 routes.post("/newUser", newUser);

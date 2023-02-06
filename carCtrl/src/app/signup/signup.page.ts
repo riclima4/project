@@ -118,7 +118,7 @@ export class SignupPage implements OnInit {
       password: this.passwordInput,
     };
     this.crudService.create('newUser', newUser).subscribe((res) => {
-      console.log(res);
+      // console.log(res);
       if (res == true) {
         return this.presentToast('top', 'user');
       } else {

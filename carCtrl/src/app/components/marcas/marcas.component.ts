@@ -43,7 +43,6 @@ export class MarcasComponent implements OnInit {
     this.loadMarcasCount();
     this.loadMarcas();
   }
-  // ionViewWillEnter() {}
   async loadingSpinner() {
     const loading = await this.loadingCtrl.create({
       spinner: 'crescent',
@@ -57,7 +56,7 @@ export class MarcasComponent implements OnInit {
   async presentToast(position: 'top' | 'middle' | 'bottom', nome: string) {
     if (nome == 'success') {
       const toast = await this.toastController.create({
-        message: 'Marca adicionada com sucesso',
+        message: this.translateService.instant('toastMarcaSuccess'),
         duration: 2000,
         position: position,
         color: 'success',
@@ -65,7 +64,7 @@ export class MarcasComponent implements OnInit {
       await toast.present();
     } else if (nome == 'input') {
       const toast = await this.toastController.create({
-        message: 'Dados inválidos tenta outra vez',
+        message: this.translateService.instant('toastData'),
         duration: 2000,
         position: position,
         color: 'danger',
@@ -73,7 +72,7 @@ export class MarcasComponent implements OnInit {
       await toast.present();
     } else if (nome == 'edit') {
       const toast = await this.toastController.create({
-        message: 'Marca editada com sucesso',
+        message: this.translateService.instant('toastMarcaUpdate'),
         duration: 2000,
         position: position,
         color: 'success',
@@ -82,7 +81,7 @@ export class MarcasComponent implements OnInit {
       await toast.present();
     } else if (nome == 'delete') {
       const toast = await this.toastController.create({
-        message: 'Marca eliminada com sucesso',
+        message: this.translateService.instant('toastMarcaDelete'),
         duration: 2000,
         position: position,
         color: 'success',
@@ -91,8 +90,7 @@ export class MarcasComponent implements OnInit {
       await toast.present();
     } else if (nome == 'deleteError') {
       const toast = await this.toastController.create({
-        message:
-          'A Marca não pode ser eliminada pois contem modelos ou é usada em algum Carro ',
+        message: this.translateService.instant('toastMarcaDeleteError'),
         duration: 2000,
         position: position,
         color: 'danger',
@@ -165,7 +163,6 @@ export class MarcasComponent implements OnInit {
     return;
   }
   async loadMarcas() {
-    this.page = 0;
     this.crudService
       .getMarcaTable('marcasTable', this.page, this.resultsCount)
       .subscribe((res) => {
@@ -194,22 +191,32 @@ export class MarcasComponent implements OnInit {
       setTimeout(() => {
         form.reset();
         this.presentToast('top', 'success');
+        this.page = 0;
         this.loadMarcasCount();
         this.loadMarcas();
+
         this.hideCreate = true;
         this.hideBtn = false;
       }, 2000);
     });
   }
   getAllMarcas() {
+    this.page = 0;
     if (this.searchTerm == '') {
       this.resultsCount = 10;
       return;
     }
+
     this.crudService.getMarca('marcas').subscribe((res) => {
-      this.resultsCount = res.marca.length;
-      // console.log(this.totalPages);
-      this.disableBtn();
+      if (res.marca.length <= 0) {
+        this.resultsCount = 10;
+        this.disableBtn();
+        return;
+      } else {
+        this.resultsCount = res.marca.length;
+        // console.log(this.totalPages);
+        this.disableBtn();
+      }
     });
   }
   updateInputMarca(item: any) {
@@ -249,8 +256,8 @@ export class MarcasComponent implements OnInit {
     this.hideUpdate = true;
     const actionSheet = await this.actionSheetCtrl.create({
       mode: 'ios',
-      header: 'A marca e todas as suas informações vão ser removidas',
-      subHeader: 'Pretende continuar?',
+      header: this.translateService.instant('headerDeleteMarca'),
+      subHeader: this.translateService.instant('subHeaderDeleteMarca'),
       buttons: [
         {
           text: 'Delete',
@@ -287,6 +294,7 @@ export class MarcasComponent implements OnInit {
       } else {
         this.loadingSpinner();
         setTimeout(() => {
+          this.page = 0;
           this.loadMarcas();
           this.presentToast('top', 'delete');
           this.searchTerm = '';

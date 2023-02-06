@@ -15,6 +15,17 @@ export const getAllUsers = async (req, res) => {
   // console.log(pageSize);
   res.send({ users });
 };
+export const getUserByEmail = async (req, res) => {
+  const email = req.params.email;
+  const users = await UserModel.findOne({
+    where: { email: email },
+  });
+  if (!users) {
+    return res.send("401");
+  } else {
+    return res.send({ users });
+  }
+};
 export const getUserCount = async (req, res) => {
   const users = await UserModel.findAll();
   // console.log(pageSize);

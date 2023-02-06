@@ -30,7 +30,7 @@
         <ion-item lines="full">
           <ion-label>
             <ion-text>{{'Car'|translate}}: {{item.carro.nome}} </ion-text>
-            <h1>{{'name'|translate}}: {{item.nome}}</h1>
+            <h1 class="ion-text-wrap">{{'name'|translate}}: {{item.nome}}</h1>
             <p>{{'type'| translate}}: {{item.intType.interventionType}}</p>
             <p>{{'date'|translate}}: {{item.data}}</p>
           </ion-label>
@@ -40,22 +40,20 @@
         </ion-item>
 
         <ion-item-options>
-          <ion-item-option (click)="openModalUpdateIntervencao(item)">
-            <ion-icon slot="icon-only" name="create"></ion-icon>
-          </ion-item-option>
-
-          <ion-item-option
-            (click)="deleteIntervencaoActionSheet(item.idIntervencao)"
-            color="danger"
-          >
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
-          </ion-item-option>
-
           <ion-item-option
             (click)="openModalInfoIntervencao(item)"
             color="success"
           >
             <ion-icon class="icons" slot="icon-only" name="eye"></ion-icon>
+          </ion-item-option>
+          <ion-item-option (click)="openModalUpdateIntervencao(item)">
+            <ion-icon slot="icon-only" name="create"></ion-icon>
+          </ion-item-option>
+          <ion-item-option
+            (click)="deleteIntervencaoActionSheet(item.idIntervencao)"
+            color="danger"
+          >
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
           </ion-item-option>
         </ion-item-options>
       </ion-item-sliding>

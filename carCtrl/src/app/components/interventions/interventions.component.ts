@@ -133,9 +133,15 @@ export class InterventionsComponent implements OnInit {
     this.crudService
       .getInterventionType('interventionType')
       .subscribe((res) => {
-        this.resultsCount = res.interventionType.length;
-        // console.log(this.totalPages);
-        this.disableBtn();
+        if (res.interventionType.length <= 0) {
+          this.resultsCount = 10;
+          this.disableBtn();
+          return;
+        } else {
+          this.resultsCount = res.interventionType.length;
+          // console.log(this.totalPages);
+          this.disableBtn();
+        }
       });
   }
   loadInt() {
@@ -169,7 +175,7 @@ export class InterventionsComponent implements OnInit {
         idInterventionType: this.idIntTypeInput,
         interventionType: this.typeIntUpdateInput,
       };
-      console.log(updatedIntType);
+      // console.log(updatedIntType);
 
       this.crudService
         .update('updateIntType', this.idIntTypeInput, updatedIntType)
@@ -212,6 +218,7 @@ export class InterventionsComponent implements OnInit {
         this.presentToast('top', 'success');
         this.loadIntCount();
         this.loadInt();
+        this.hideCreate = true;
       }, 2000);
     });
   }
