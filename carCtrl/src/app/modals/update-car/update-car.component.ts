@@ -49,11 +49,9 @@ export class UpdateCarComponent implements OnInit {
     this.kilometragemInput = this.item.kilometragem;
     this.motorInput = this.item.motor;
   }
-
   dismissModal() {
     this.modalCtrl.dismiss();
   }
-
   async presentToast(position: 'top' | 'middle' | 'bottom', nome: string) {
     if (nome == 'success') {
       const toast = await this.toastController.create({
@@ -110,7 +108,6 @@ export class UpdateCarComponent implements OnInit {
       this.modeloInput = this.item.modelo.toString();
     });
   }
-
   newUpdate() {
     if (
       this.nomeInput &&

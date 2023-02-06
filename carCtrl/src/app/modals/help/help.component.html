@@ -10,26 +10,36 @@
 </ion-header>
 <ion-content class="ion-padding ion-text-center">
   <ion-text>
-    <h3>{{ "help sub" | translate }}</h3>
     <h5>{{ "helpAuto" | translate }}</h5>
   </ion-text>
-  <iframe
-    class="video"
-    src="https://www.youtube-nocookie.com/embed/videoseries?list=PLq2YjDQLtrfL0wTAaA2r_xuvjLibppY9O"
-    title="YouTube video player"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    allowfullscreen
-  ></iframe>
-  <ion-text>
-    <h5>{{ "diagnostic" | translate }}</h5>
-    <p>
-      {{ "helpText" | translate }}
-    </p>
-  </ion-text>
   <ion-button
-    class="ion-margin"
+    class="ion-margin-bottom"
+    expand="block"
     href="https://www.auto-doc.pt/info/category/diagnostico"
     target="_blank"
-    >{{ "forum" | translate }}</ion-button
   >
+    <ion-icon name="arrow-redo-outline"></ion-icon>
+    {{ "forum" | translate }}
+  </ion-button>
+
+  <ion-text class="ion-margin-bottom">
+    <h5>{{ "manualsTuto" | translate }}</h5>
+  </ion-text>
+  <video
+    (click)="openPlayList()"
+    class="video ion-margin-bottom"
+    autoplay="autoplay"
+    muted="muted"
+    playsinline=""
+    src="../../../assets/videos/tablet.mp4"
+    type="video/mp4"
+  ></video>
+  <ion-button
+    expand="block"
+    href="https://club.auto-doc.pt/manuals"
+    target="”_blank”"
+  >
+    <ion-icon name="arrow-redo-outline"></ion-icon>
+    Consultar
+  </ion-button>
 </ion-content>
