@@ -18,7 +18,7 @@ export class Tab3Page {
   type: any;
   intervencoes: any;
   totalPrice: any;
-  carAndPrice: Array<any> = [];
+  carAndPrice = [];
   toggleDarkMode: any;
   carros: any;
   itemsProcessed = 0;
@@ -38,11 +38,9 @@ export class Tab3Page {
     this.email = this.user.email;
     this.type = this.user.type;
     this.loadCarros();
-    // this.loadIntervencoesTotalPrice();
   }
   getToken = async () => {
     const token = await Preferences.get({ key: 'token' });
-
     // console.log(token.value !== null);
     if (token.value !== null) {
       const user = jwt_decode(token.value);
@@ -51,16 +49,17 @@ export class Tab3Page {
     }
   };
   async adminDashboard() {
-    const token = await Preferences.get({ key: 'token' });
-    if (token.value !== null) {
-      const user = jwt_decode(token.value);
-      const userType = this.user.type;
-      // console.log(this.userID);
-      if (userType !== 100) {
-        return;
-      }
-      this.router.navigateByUrl('/adminDashboard', { replaceUrl: true });
-    }
+    // const token = await Preferences.get({ key: 'token' });
+    // if (token.value !== null) {
+    //   const user = jwt_decode(token.value);
+    //   const userType = this.user.type;
+    //   // console.log(this.userID);
+    //   if (userType !== 100) {
+    //     return;
+    //   }
+    //   this.router.navigateByUrl('/adminDashboard', { replaceUrl: true });
+    // }
+    this.router.navigateByUrl('/adminDashboard', { replaceUrl: true });
   }
   async toggleTheme(event: any) {
     // console.log(event);
@@ -76,7 +75,6 @@ export class Tab3Page {
   }
   checkDarkmode = async () => {
     const darkmode = await Preferences.get({ key: 'color-theme' });
-
     if (darkmode.value == 'dark') {
       document.body.setAttribute('color-theme', 'dark');
       this.toggleDarkMode = true;
@@ -97,7 +95,6 @@ export class Tab3Page {
   };
   async changeLanguage(language: string) {
     await Preferences.set({ key: 'user-lang', value: language });
-
     this.translateService.use(language);
     this.showToast(language);
   }
@@ -136,7 +133,7 @@ export class Tab3Page {
               price: res,
             };
             this.carAndPrice.push(objPriceAndCar);
-            console.log(this.carAndPrice);
+            // console.log(this.carAndPrice);
             if (this.itemsProcessed === this.carros.length) {
               this.totalPrice = 0;
               this.carAndPrice.forEach((item) => {

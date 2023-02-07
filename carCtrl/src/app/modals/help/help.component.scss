@@ -1,5 +1,9 @@
 .video {
   border-radius: 5px;
-  max-width: 1920px;
-  max-height: 1080px;
+  // max-width: 250px;
+  box-shadow: 0 0px 5px var(--ion-color-medium);
+  width: 100%;
+}
+.video:hover {
+  cursor: pointer;
 }

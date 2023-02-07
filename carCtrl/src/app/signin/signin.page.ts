@@ -11,6 +11,8 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./signin.page.scss'],
 })
 export class SigninPage implements OnInit {
+  emailInput: any;
+  passwordInput: any;
   constructor(
     private router: Router,
     private authService: AuthenticationService,
@@ -18,8 +20,6 @@ export class SigninPage implements OnInit {
     private translateService: TranslateService,
     private loadingCtrl: LoadingController
   ) {}
-  emailInput: any;
-  passwordInput: any;
   ngOnInit() {
     this.checkDarkmode();
   }
@@ -63,12 +63,6 @@ export class SigninPage implements OnInit {
         email: this.emailInput,
         password: this.passwordInput,
       };
-      // this.crudService.create('login', login).subscribe((res) => {
-      //   console.log(res);
-      //   Preferences.set({ key: 'token', value: res.toString() });
-      //   this.router.navigateByUrl('/tab1', { replaceUrl: true });
-      // });
-
       this.authService.login(login).subscribe(
         async (res) => {
           // console.log(res);

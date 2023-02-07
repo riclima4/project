@@ -45,7 +45,6 @@ export class Tab1Page {
   }
   ionViewDidEnter() {
     this.loadIntervencoes();
-    // this.loadCarros();
   }
 
   getToken = async () => {
@@ -78,6 +77,8 @@ export class Tab1Page {
   async deleteIntervencaoActionSheet(id: number) {
     const actionSheet = await this.actionSheetCtrl.create({
       mode: 'ios',
+      header: this.TranslateService.instant('headerDeleteInt'),
+      subHeader: this.TranslateService.instant('subHeaderDeleteInt'),
       buttons: [
         {
           text: 'Delete',
@@ -159,22 +160,6 @@ export class Tab1Page {
       this.presentToastDelete('top');
     }, 2000);
   }
-  // async loadIntervencoes() {
-  //   // console.log(this.userID);
-  //   this.crudService
-  //     .getIntervencao('intervencoes', this.userID)
-  //     .subscribe((res) => {
-  //       this.intervencoes = res.intervencao;
-  //       // console.log(this.intervencoes);
-  //       if (this.intervencoes.length > 0) {
-  //         this.haveInterventions = true;
-  //         // console.log(this.haveCars);
-  //         return;
-  //       }
-  //       this.haveInterventions = false;
-  //       // console.log(this.haveCars);
-  //     });
-  // }
   async loadIntervencoes() {
     this.intervencoes = [];
     this.intervencoesByCar = [];
@@ -191,9 +176,9 @@ export class Tab1Page {
             .subscribe((res) => {
               // this.intervencoesByCar.push();
               res.intervencao.forEach((car: any) => {
-                console.log(car);
+                // console.log(car);
                 this.intervencoes.push(car);
-                console.log(this.intervencoes);
+                // console.log(this.intervencoes);
               });
 
               if (this.intervencoes.length > 0) {

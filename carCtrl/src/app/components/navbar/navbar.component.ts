@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { HelpComponent } from 'src/app/modals/help/help.component';
 import jwt_decode from 'jwt-decode';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/auth/authentication.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,16 +12,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  constructor(private modalCtrl: ModalController, private router: Router) {}
   user: any;
   userType: any;
+  constructor(
+    private modalCtrl: ModalController,
+    private router: Router,
+    private authService: AuthenticationService
+  ) {}
+
   ngOnInit() {
     this.getToken();
   }
 
   getToken = async () => {
     const token = await Preferences.get({ key: 'token' });
-
     // console.log(token.value !== null);
     if (token.value !== null) {
       const user = jwt_decode(token.value);
@@ -30,13 +35,8 @@ export class NavbarComponent implements OnInit {
     }
   };
   logout = async () => {
-    const token = await Preferences.get({ key: 'token' });
-
-    // console.log(token.value !== null);
-    if (token) {
-      Preferences.remove({ key: 'token' });
-      window.location.reload();
-    }
+    this.authService.logout();
+    window.location.reload();
   };
   async openModalHelp() {
     const ModalHelp = await this.modalCtrl.create({
@@ -46,15 +46,6 @@ export class NavbarComponent implements OnInit {
     await ModalHelp.present();
   }
   async adminDashboard() {
-    const token = await Preferences.get({ key: 'token' });
-    if (token.value !== null) {
-      const user = jwt_decode(token.value);
-      const userType = this.user.type;
-      // console.log(this.userID);
-      if (userType !== 100) {
-        return;
-      }
-      this.router.navigateByUrl('/adminDashboard', { replaceUrl: true });
-    }
+    this.router.navigateByUrl('/adminDashboard', { replaceUrl: true });
   }
 }
