@@ -136,5 +136,8 @@
   "toastYearUpdate": "Year updated successfully",
   "toastYearDelete": "Year deleted successfully",
   "toastYearDeleteError": "Year can't be deleted because it is being used by some cars",
-  "others": "Others"
+  "others": "Others",
+  "carTradeText": "Trade your car",
+  "transfer": "Transfer",
+  "to": "To"
 }
