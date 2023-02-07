@@ -59,7 +59,7 @@ export class TradeCarComponent implements OnInit {
   }
   trade() {
     if (!this.emailInput || this.emailInput == '') {
-      return console.log('ja foste armindo');
+      return this.presentToast('top', 'error');
     }
     this.loadUser(this.emailInput);
   }
