@@ -174,7 +174,6 @@ export class Tab1Page {
           this.crudService
             .getIntervencao('intervencao', carro.idCarro)
             .subscribe((res) => {
-              // this.intervencoesByCar.push();
               res.intervencao.forEach((car: any) => {
                 // console.log(car);
                 this.intervencoes.push(car);
