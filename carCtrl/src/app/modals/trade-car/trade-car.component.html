@@ -14,7 +14,7 @@
   <div class="infoContent">
     <ion-list>
       <ion-text class="ion-text-start">
-        <h3>Transferir: {{ item.nome }}</h3>
+        <h3>{{ "transfer" | translate }}: {{ item.nome }}</h3>
       </ion-text>
       <ion-item class="ion-margin-bottom">
         <ion-label>
@@ -23,7 +23,9 @@
           {{ item.modeloType.modelo }}
         </ion-label>
       </ion-item>
-      <ion-text class="ion-text-start"><h3>Para:</h3> </ion-text>
+      <ion-text class="ion-text-start"
+        ><h3>{{ "to" | translate }}:</h3>
+      </ion-text>
       <form (ngSubmit)="trade()">
         <ion-item class="ion-margin-bottom">
           <ion-label position="floating">{{ "email" | translate }}</ion-label>

@@ -136,5 +136,8 @@
   "toastYearUpdate": "Ano editado com sucesso",
   "toastYearDelete": "Ano eliminado com sucesso",
   "toastYearDeleteError": "O Ano não pode ser eliminado pois é usado em algum Carro",
-  "others": "Outros"
+  "others": "Outros",
+  "carTradeText": "Troque o seu carro",
+  "transfer": "Transferir",
+  "to": "Para"
 }
