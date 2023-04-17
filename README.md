@@ -12,7 +12,6 @@
 # 👨🏽‍🧑🏽 Autores
 <h3> Ricardo Lima </h3>
 <h3> Gonçalo Peixoto </h3>
-<h3> Caroline Barbosa </h3>
 </br>
 
 # 🔥Introdução
