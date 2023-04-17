@@ -30,7 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api", routes);
 
 try {
-  dbInstance.sync({ force: true, alter: true });
+  dbInstance.sync({ force: false, alter: true });
 } catch (error) {
   console.log(error);
 }
